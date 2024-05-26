@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "es2021",
+        "module": "esnext",
+        "strict": true,
+        "isolatedModules": true,
+        "moduleResolution": "Bundler",
+        "esModuleInterop": true,
+        "rootDir": "./src",
+        "outDir": "./dist",
+        "declaration": true,
+        "jsx": "react",
+    },
+    "include": [ "src/**/*.ts", "src/**/*.tsx" ],
+}
