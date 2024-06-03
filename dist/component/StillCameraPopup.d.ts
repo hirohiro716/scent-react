@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction } from "react";
 /**
  * 静止画撮影ポップアップのコンポーネント。
  *
- * @param props mimeTypeプロパティのデフォルトは"image/png"。
+ * @param props mimeTypeプロパティ。"image/png"がデフォルト。
  * @returns
  */
 declare const StillCameraPopup: React.ForwardRefExoticComponent<React.HTMLAttributes<HTMLDivElement> & {

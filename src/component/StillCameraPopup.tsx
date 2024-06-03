@@ -15,7 +15,7 @@ type StillCameraPopupProps = HTMLAttributes<HTMLDivElement> & {
 /**
  * 静止画撮影ポップアップのコンポーネント。
  * 
- * @param props mimeTypeプロパティのデフォルトは"image/png"。
+ * @param props mimeTypeプロパティ。"image/png"がデフォルト。
  * @returns 
  */
 const StillCameraPopup = forwardRef<HTMLDivElement, StillCameraPopupProps>(({showing, dispatch, mimeType = "image/png", maximumLongSide, callbackAfterCapturing, style, ...props}, ref): ReactElement => {
