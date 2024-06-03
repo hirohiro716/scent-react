@@ -1,1 +1,9 @@
+# Libraries
 /node_modules
+
+# Test files
+test.*
+
+# Setting files
+*.code-workspace
+
