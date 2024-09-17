@@ -6,7 +6,7 @@ import React, { Dispatch, SetStateAction } from "react";
  * @returns
  */
 declare const Button: React.ForwardRefExoticComponent<React.ButtonHTMLAttributes<HTMLButtonElement> & {
-    wait?: boolean | undefined;
+    wait?: boolean;
     dispatch: Dispatch<SetStateAction<boolean>>;
 } & React.RefAttributes<HTMLButtonElement>>;
 export default Button;

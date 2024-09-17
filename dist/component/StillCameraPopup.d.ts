@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { CSSProperties, Dispatch, SetStateAction } from "react";
 /**
  * 静止画撮影ポップアップのコンポーネント。
  *
@@ -8,9 +8,9 @@ import React, { Dispatch, SetStateAction } from "react";
 declare const StillCameraPopup: React.ForwardRefExoticComponent<React.HTMLAttributes<HTMLDivElement> & {
     showing: boolean;
     dispatch: Dispatch<SetStateAction<boolean>>;
-    mimeType?: string | undefined;
-    maximumLongSide?: number | undefined;
+    mimeType?: string;
+    maximumLongSide?: number;
     callbackAfterCapturing: (canvas: HTMLCanvasElement) => Promise<void>;
-    style?: React.CSSProperties | undefined;
+    style?: CSSProperties;
 } & React.RefAttributes<HTMLDivElement>>;
 export default StillCameraPopup;

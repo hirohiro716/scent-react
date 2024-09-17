@@ -10,8 +10,8 @@ declare const Popup: React.ForwardRefExoticComponent<HTMLAttributes<HTMLDivEleme
     showing: boolean | undefined;
     dispatch: Dispatch<SetStateAction<boolean>>;
     width: string;
-    hideCancelButton?: boolean | undefined;
-    overlayBackground?: string | undefined;
-    cancelFunction?: (() => Promise<void>) | undefined;
+    hideCancelButton?: boolean;
+    overlayBackground?: string;
+    cancelFunction?: () => Promise<void>;
 } & React.RefAttributes<HTMLDivElement>>;
 export default Popup;

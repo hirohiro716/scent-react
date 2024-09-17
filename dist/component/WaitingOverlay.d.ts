@@ -8,7 +8,7 @@ import React, { Dispatch, SetStateAction } from "react";
 declare const WaitingOverlay: React.ForwardRefExoticComponent<React.HTMLAttributes<HTMLDivElement> & {
     showing: boolean;
     dispatch: Dispatch<SetStateAction<boolean>>;
-    width?: string | undefined;
-    overlayBackground?: string | undefined;
+    width?: string;
+    overlayBackground?: string;
 } & React.RefAttributes<HTMLDivElement>>;
 export default WaitingOverlay;

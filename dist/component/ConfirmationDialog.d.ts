@@ -9,9 +9,9 @@ declare const ConfirmationDialog: React.ForwardRefExoticComponent<React.HTMLAttr
     showing: boolean | undefined;
     dispatch: Dispatch<SetStateAction<boolean>>;
     message: string | undefined;
-    okFunction?: (() => Promise<void>) | undefined;
-    cancelFunction?: (() => Promise<void>) | undefined;
+    okFunction?: () => Promise<void>;
+    cancelFunction?: () => Promise<void>;
     width: string;
-    overlayBackground?: string | undefined;
+    overlayBackground?: string;
 } & React.RefAttributes<HTMLDivElement>>;
 export default ConfirmationDialog;

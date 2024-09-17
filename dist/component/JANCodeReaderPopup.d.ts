@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { CSSProperties, Dispatch, SetStateAction } from "react";
 /**
  * バーコード読み取りポップアップのコンポーネント。
  *
@@ -9,7 +9,7 @@ declare const JANCodeReaderPopup: React.ForwardRefExoticComponent<React.HTMLAttr
     showing: boolean;
     dispatch: Dispatch<SetStateAction<boolean>>;
     callbackAfterReading: (result: string) => Promise<void>;
-    validator?: ((rawString: string) => boolean) | undefined;
-    style?: React.CSSProperties | undefined;
+    validator?: (rawString: string) => boolean;
+    style?: CSSProperties;
 } & React.RefAttributes<HTMLDivElement>>;
 export default JANCodeReaderPopup;

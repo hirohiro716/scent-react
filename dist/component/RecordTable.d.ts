@@ -8,10 +8,11 @@ import { Column } from "scent-typescript";
  */
 declare const RecordTable: React.ForwardRefExoticComponent<React.HTMLAttributes<HTMLTableElement> & {
     columns: Column[];
-    identifierMaker?: ((record: Record<string, any>) => string | null) | undefined;
+    identifierMaker?: (record: Record<string, any>) => string | null;
     records: Record<string, any>[];
-    elementMaker?: ((record: Record<string, any>, column: Column) => ReactElement | undefined) | undefined;
-    leftFunctionButtons?: Record<string, (record: Record<string, any>) => Promise<void> | void> | undefined;
-    rightFunctionButtons?: Record<string, (record: Record<string, any>) => Promise<void> | void> | undefined;
+    elementMaker?: (record: Record<string, any>, column: Column) => ReactElement | undefined;
+    leftFunctionButtons?: Record<string, (record: Record<string, any>) => Promise<void> | void>;
+    rightFunctionButtons?: Record<string, (record: Record<string, any>) => Promise<void> | void>;
+    emptyMessage?: string;
 } & React.RefAttributes<HTMLTableElement>>;
 export default RecordTable;

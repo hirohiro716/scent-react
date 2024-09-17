@@ -6,7 +6,7 @@ import { StringObject } from "scent-typescript";
  * @param props
  * @returns
  */
-const RecordTable = forwardRef(({ columns, identifierMaker, records, elementMaker, leftFunctionButtons, rightFunctionButtons, ...props }, ref) => {
+const RecordTable = forwardRef(({ columns, identifierMaker, records, elementMaker, leftFunctionButtons, rightFunctionButtons, emptyMessage, ...props }, ref) => {
     const defaultIdentifierMaker = (record) => {
         if (columns.length === 0) {
             return null;
@@ -91,6 +91,6 @@ const RecordTable = forwardRef(({ columns, identifierMaker, records, elementMake
             records.length === 0 &&
                 React.createElement("tr", null,
                     React.createElement("td", { colSpan: [...Object.keys({ ...leftFunctionButtons }), ...columns, ...Object.keys({ ...rightFunctionButtons })].length },
-                        React.createElement("span", { style: { fontSize: "80%", opacity: "0.25" } }, "\u30EC\u30B3\u30FC\u30C9\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3002"))))));
+                        React.createElement("span", { style: { fontSize: "80%", opacity: "0.25" } }, typeof emptyMessage !== "undefined" ? emptyMessage : "レコードが見つかりません。"))))));
 });
 export default RecordTable;

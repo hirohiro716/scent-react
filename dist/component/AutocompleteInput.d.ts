@@ -7,8 +7,8 @@ import React from "react";
  */
 declare const AutocompleteInput: React.ForwardRefExoticComponent<React.InputHTMLAttributes<HTMLInputElement> & {
     items: any[];
-    displayTextMaker?: ((item: any) => string) | undefined;
-    keywordMaker?: ((item: any) => string) | undefined;
-    callbackAfterAutocomplete?: ((item: any) => void) | undefined;
+    displayTextMaker?: (item: any) => string;
+    keywordMaker?: (item: any) => string;
+    callbackAfterAutocomplete?: (item: any) => void;
 } & React.RefAttributes<HTMLInputElement>>;
 export default AutocompleteInput;
