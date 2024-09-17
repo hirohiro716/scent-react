@@ -8,6 +8,7 @@ type RecordTableProps = HTMLAttributes<HTMLTableElement> & {
     elementMaker?: (record: Record<string, any>, column: Column) => ReactElement | undefined,
     leftFunctionButtons?: Record<string, (record: Record<string, any>) => Promise<void> | void>,
     rightFunctionButtons?: Record<string, (record: Record<string, any>) => Promise<void> | void>,
+    emptyMessage?: string,
 }
 
 /**
@@ -16,7 +17,7 @@ type RecordTableProps = HTMLAttributes<HTMLTableElement> & {
  * @param props 
  * @returns 
  */
-const RecordTable = forwardRef<HTMLTableElement, RecordTableProps>(({columns, identifierMaker, records, elementMaker, leftFunctionButtons, rightFunctionButtons, ...props}, ref): ReactElement => {
+const RecordTable = forwardRef<HTMLTableElement, RecordTableProps>(({columns, identifierMaker, records, elementMaker, leftFunctionButtons, rightFunctionButtons, emptyMessage, ...props}, ref): ReactElement => {
     const defaultIdentifierMaker = (record: Record<string, any>): string | null => {
         if (columns.length === 0) {
             return null;
@@ -123,7 +124,7 @@ const RecordTable = forwardRef<HTMLTableElement, RecordTableProps>(({columns, id
                 {records.length === 0 &&
                     <tr>
                         <td colSpan={[...Object.keys({...leftFunctionButtons}), ...columns, ...Object.keys({...rightFunctionButtons})].length}>
-                            <span style={{fontSize: "80%", opacity: "0.25"}}>レコードが見つかりません。</span>
+                            <span style={{fontSize: "80%", opacity: "0.25"}}>{typeof emptyMessage !== "undefined" ? emptyMessage : "レコードが見つかりません。"}</span>
                         </td>
                     </tr>
                 }
