@@ -52,14 +52,6 @@ const AutocompleteInput = forwardRef(({ items, displayTextMaker, keywordMaker, c
     useEffect(() => {
         updateDiv();
     }, [divShowing]);
-    const setDivVisible = (visible) => {
-        if (filteredItemDisplayTexts.length > 0) {
-            setDivShowing(visible);
-        }
-        else {
-            setDivShowing(false);
-        }
-    };
     useEffect(() => {
         if (typeof window === "undefined" || window.visualViewport === null || divRef.current === null || inputRef.current === null) {
             return;
@@ -69,19 +61,19 @@ const AutocompleteInput = forwardRef(({ items, displayTextMaker, keywordMaker, c
         const inputRect = inputRef.current.getBoundingClientRect();
         if (inputRect.top < window.visualViewport.height / 2) {
             inputRef.current.parentElement?.insertBefore(inputRef.current, divRef.current);
-            divRef.current.style.marginTop = "0.3em";
             divRef.current.style.marginBottom = "-9em";
+            divRef.current.style.transform = "translate(0, 0.3em)";
         }
         else {
             inputRef.current.parentElement?.insertBefore(divRef.current, inputRef.current);
             divRef.current.style.marginTop = "-9em";
-            divRef.current.style.marginBottom = "0.3em";
+            divRef.current.style.transform = "translate(0, -0.3em)";
         }
         divRef.current.style.width = inputRect.width + "px";
     }, []);
     // Autocomplete
     const autocomplete = (itemDisplayText) => {
-        setDivVisible(false);
+        setDivShowing(false);
         if (inputRef.current && StringObject.from(itemDisplayText).equals(inputRef.current.value) === false) {
             inputRef.current.value = itemDisplayText;
             if (callbackAfterAutocomplete) {
@@ -171,7 +163,7 @@ const AutocompleteInput = forwardRef(({ items, displayTextMaker, keywordMaker, c
     };
     // Input click events
     const inputClickEventHandler = (e) => {
-        setDivVisible(!divShowing);
+        setDivShowing(!divShowing);
     };
     // Input key events
     const inputKeyDownEventHandler = (e) => {
@@ -187,7 +179,7 @@ const AutocompleteInput = forwardRef(({ items, displayTextMaker, keywordMaker, c
                 upperIndex -= 1;
                 const upperItem = filteredItemDisplayTexts[upperIndex];
                 selectItem(upperItem);
-                setDivVisible(true);
+                setDivShowing(true);
                 e.preventDefault();
                 break;
             case "ArrowDown":
@@ -198,7 +190,7 @@ const AutocompleteInput = forwardRef(({ items, displayTextMaker, keywordMaker, c
                 lowerIndex += 1;
                 const lowerItem = filteredItemDisplayTexts[lowerIndex];
                 selectItem(lowerItem);
-                setDivVisible(true);
+                setDivShowing(true);
                 e.preventDefault();
                 break;
             case "Enter":
@@ -207,7 +199,7 @@ const AutocompleteInput = forwardRef(({ items, displayTextMaker, keywordMaker, c
                 }
                 break;
             case "Escape":
-                setDivVisible(false);
+                setDivShowing(false);
                 break;
         }
     };
@@ -223,8 +215,8 @@ const AutocompleteInput = forwardRef(({ items, displayTextMaker, keywordMaker, c
         return keyPrefix.clone().append("-").append(index).toString();
     };
     return (React.createElement(React.Fragment, null,
-        React.createElement("input", { onChange: () => { setDivVisible(true); filterItems(); }, onClick: inputClickEventHandler, onKeyDown: inputKeyDownEventHandler, onBlur: () => { if (typeof mouseDownItemDisplayText === "undefined")
-                setDivVisible(false); }, ref: inputRef, ...props }),
+        React.createElement("input", { onChange: () => { setDivShowing(true); filterItems(); }, onClick: inputClickEventHandler, onKeyDown: inputKeyDownEventHandler, onBlur: () => { if (typeof mouseDownItemDisplayText === "undefined")
+                setDivShowing(false); }, ref: inputRef, ...props }),
         React.createElement("div", { tabIndex: -1, style: divStyle, ref: divRef },
             React.createElement("ol", null, nonDuplicatedItems.map((item, index) => {
                 const displayText = StringObject.from(displayTextMaker ? displayTextMaker(item) : item).toString();
