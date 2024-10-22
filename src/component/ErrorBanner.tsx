@@ -14,7 +14,7 @@ type ErrorBannerProps = HTMLAttributes<HTMLDivElement> & {
  * @param props 
  * @returns 
  */
-const ErrorBanner = forwardRef<HTMLDivElement, ErrorBannerProps>(({ message, dispatch, top, width, style, ...props }, ref): ReactElement => {
+const ErrorBanner = forwardRef<HTMLDivElement, ErrorBannerProps>(({message, dispatch, top, width, style, ...props}, ref): ReactElement => {
     const backgroundStyle: CSSProperties = {};
     backgroundStyle.position = "fixed";
     backgroundStyle.top = top;
@@ -57,7 +57,6 @@ const ErrorBanner = forwardRef<HTMLDivElement, ErrorBannerProps>(({ message, dis
                             {message}
                         </pre>
                     </div>
-
                 </div>
             )}
         </>
