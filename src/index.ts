@@ -17,4 +17,4 @@ import JANCodeReaderPopup from "./component/JANCodeReaderPopup.js";
 export {
     Scroller, StillCamera, JANCodeReader,
     WaitingCircle, WaitingOverlay, AutocompleteInput, Button, RecordTable, Popup, ConfirmationDialog, ErrorBanner, ImageViewer, StillCameraPopup, JANCodeReaderPopup, 
-};
+}

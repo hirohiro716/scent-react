@@ -5,7 +5,7 @@ import { StringObject } from "scent-typescript";
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     wait?: boolean,
     dispatch: Dispatch<SetStateAction<boolean>>,
-};
+}
 
 /**
  * Buttonのコンポーネント。
@@ -33,7 +33,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({wait, dispatch, styl
             setTimeout(() => {
                 window.requestAnimationFrame(update);
             }, 30);
-        };
+        }
         window.requestAnimationFrame(update);
     }
     useEffect(() => {

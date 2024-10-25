@@ -23,7 +23,7 @@ const RecordTable = forwardRef<HTMLTableElement, RecordTableProps>(({columns, id
             return null;
         }
         return record[columns[0].physicalName];
-    };
+    }
     const fieldElementMaker = (record: Record<string, any>, column: Column): ReactElement => {
         if (elementMaker) {
             const element = elementMaker(record, column);

@@ -45,7 +45,7 @@ export default class StillCamera {
                 height: { ideal: 1080 },
             },
             audio: false
-        };
+        }
         const mediaStream = await navigator.mediaDevices.getUserMedia(config);
         if (this.refObject.current === null) {
             throw new Error("No div elements available.");
@@ -64,7 +64,7 @@ export default class StillCamera {
                     element.remove();
                 }
             }
-        };
+        }
         video.preload = "auto";
         video.autoplay = true;
         video.muted = true;

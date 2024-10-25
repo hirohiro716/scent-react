@@ -64,7 +64,7 @@ export default class JANCodeReader {
                                                 node.remove();
                                             }
                                         }
-                                    };
+                                    }
                                     this.htmlVideoElement = video;
                                     break;
                                 case "canvas":
@@ -123,7 +123,7 @@ export default class JANCodeReader {
                     ]
                 },
                 locate: true
-            };
+            }
             Quagga.init(config, function(error: any) {
                 if (error) {
                     reject(error);

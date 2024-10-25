@@ -71,7 +71,7 @@ const ImageViewer = forwardRef<HTMLDivElement, ImageViewerProps>(({src, dispatch
             imageRef.current.style.display = "";
             waitingCircleRef.current.style.display = "none";
         }, 500);
-    };
+    }
     useEffect(() => {
         if (imageRef.current === null || waitingCircleRef.current === null) {
             return;

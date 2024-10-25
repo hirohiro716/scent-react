@@ -27,7 +27,7 @@ const WaitingCircle = forwardRef<HTMLImageElement, HTMLAttributes<HTMLImageEleme
             setTimeout(() => {
                 window.requestAnimationFrame(update);
             }, 30);
-        };
+        }
         window.requestAnimationFrame(update);
     }
     useEffect(() => {
