@@ -47,8 +47,8 @@ const StillCameraPopup = forwardRef<HTMLDivElement, StillCameraPopupProps>(({sho
     buttonsStyle.gap = "0.3em";
     const videoDivRef = useRef<HTMLDivElement>(null);
     const imgRef = useRef<HTMLImageElement>(null);
-    const [ camera ] = useState<StillCamera>(new StillCamera(videoDivRef));
-    const [ captured, setCaptured ] = useState<boolean>(false);
+    const [camera] = useState<StillCamera>(new StillCamera(videoDivRef));
+    const [captured, setCaptured] = useState<boolean>(false);
     useEffect(() => {
         if (captured === false) {
             camera.restart();
@@ -56,7 +56,7 @@ const StillCameraPopup = forwardRef<HTMLDivElement, StillCameraPopupProps>(({sho
 
     }, [captured]);
     const buttonsRef = useRef<HTMLDivElement>(null);
-    const [ canvas, setCanvas ] = useState<HTMLCanvasElement>();
+    const [canvas, setCanvas] = useState<HTMLCanvasElement>();
     const captureButtonEventHandler = async () => {
         setCanvas(await camera.capture());
         setCaptured(true);
@@ -64,7 +64,7 @@ const StillCameraPopup = forwardRef<HTMLDivElement, StillCameraPopupProps>(({sho
     const retryButtonEventHandler = () => {
         setCaptured(false);
     }
-    const [ alreadyPressed, setAlreadyPressed ] = useState<boolean>(false);
+    const [alreadyPressed, setAlreadyPressed] = useState<boolean>(false);
     const completeButtonEventHandler = async (e: MouseEvent) => {
         if (alreadyPressed || typeof canvas === "undefined") {
             return;

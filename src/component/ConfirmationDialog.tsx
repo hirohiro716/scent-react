@@ -27,7 +27,7 @@ const ConfirmationDialog = forwardRef<HTMLDivElement, ConfirmationDialogProps>((
     buttonsStyle.flexDirection = "row";
     buttonsStyle.justifyContent = "right";
     buttonsStyle.gap = "0.5em";
-    const [ alreadyPressed, setAlreadyPressed ] = useState<boolean>(false);
+    const [alreadyPressed, setAlreadyPressed] = useState<boolean>(false);
     const okEvent = async (e: MouseEvent) => {
         if (alreadyPressed) {
             return;

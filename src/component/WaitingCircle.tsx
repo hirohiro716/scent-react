@@ -10,7 +10,7 @@ const src: string = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZ
  * @returns 
  */
 const WaitingCircle = forwardRef<HTMLImageElement, HTMLAttributes<HTMLImageElement>>(({...props}, ref): ReactElement => {
-    const [ transform, setTransform ] = useState<string>();
+    const [transform, setTransform] = useState<string>();
     const animation = () => {
         const frame = 1 / 200;
         let progress = 0;

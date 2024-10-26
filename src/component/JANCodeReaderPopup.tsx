@@ -34,7 +34,7 @@ const JANCodeReaderPopup = forwardRef<HTMLDivElement, JANCodeReaderPopupProps>((
     useImperativeHandle(ref, () => {
         return divRef.current!;
     });
-    const [ reader ] = useState<JANCodeReader>(new JANCodeReader(divRef));
+    const [reader] = useState<JANCodeReader>(new JANCodeReader(divRef));
     useEffect(() => {
         if (showing) {
             if (validator) {

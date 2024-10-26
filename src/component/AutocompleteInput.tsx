@@ -20,8 +20,8 @@ const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>((
         return inputRef.current!;
     });
     // Items
-    const [ mapItemAndDisplayText ] = useState<Map<string, any>>(new Map());
-    const [ nonDuplicatedItems ] = useState<any[]>(() => {
+    const [mapItemAndDisplayText] = useState<Map<string, any>>(new Map());
+    const [nonDuplicatedItems] = useState<any[]>(() => {
         const newItems: any[] = [];
         items.forEach((item) => {
             const displayText = StringObject.from(displayTextMaker ? displayTextMaker(item) : item).toString();
@@ -33,7 +33,7 @@ const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>((
         return newItems;
     });
     // Div
-    const [ divShowing, setDivShowing ] = useState<boolean>(false);
+    const [divShowing, setDivShowing] = useState<boolean>(false);
     const divRef = useRef<HTMLDivElement>(null);
     const divStyle: CSSProperties = { position: "fixed", overflowY: "scroll", display: "none" };
     divStyle.border = "1px solid #ccc";
@@ -88,7 +88,7 @@ const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>((
         }
     }
     // Select item
-    const [ selectedItemDisplayText, setSelectedItemDisplayText ] = useState<string>("");
+    const [selectedItemDisplayText, setSelectedItemDisplayText] = useState<string>("");
     const itemStyle: CSSProperties = {};
     itemStyle.textIndent = "-0.5em";
     itemStyle.paddingLeft = "0.5em";
@@ -107,7 +107,7 @@ const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>((
         }
     }
     // Hover item
-    const [ hoverItem, setHoverItem ] = useState<string>();
+    const [hoverItem, setHoverItem] = useState<string>();
     const hoverItemStyle: CSSProperties = {...itemStyle};
     hoverItemStyle.backgroundColor = "#eee";
     const itemMouseEnterEventHandler = (e: MouseEvent) => {
@@ -121,7 +121,7 @@ const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>((
         setHoverItem(undefined);
     }
     // Item mouse events
-    const [ mouseDownItemDisplayText, setMouseDownItemDisplayText ] = useState<string>();
+    const [mouseDownItemDisplayText, setMouseDownItemDisplayText] = useState<string>();
     const itemMouseDownEventHandler = (e: MouseEvent) => {
         const value = e.currentTarget.getAttribute("data-text");
         if (value === null) {
@@ -139,7 +139,7 @@ const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>((
         inputRef.current.focus();
     }
     // Item filter
-    const [ filteredItemDisplayTexts, setFilteredItemDisplayTexts ] = useState<string[]>(() => {
+    const [filteredItemDisplayTexts, setFilteredItemDisplayTexts] = useState<string[]>(() => {
         return nonDuplicatedItems.map((item) => StringObject.from(displayTextMaker ? displayTextMaker(item) : item).toString());
     });
     const filterItems = () => {
