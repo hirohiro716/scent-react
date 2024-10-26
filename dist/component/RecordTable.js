@@ -8,10 +8,7 @@ import { StringObject } from "scent-typescript";
  */
 const RecordTable = forwardRef(({ columns, identifierMaker, records, elementMaker, leftFunctionButtons, rightFunctionButtons, emptyMessage, ...props }, ref) => {
     const defaultIdentifierMaker = (record) => {
-        if (columns.length === 0) {
-            return null;
-        }
-        return record[columns[0].physicalName];
+        return StringObject.from(records.indexOf(record)).toString();
     };
     const fieldElementMaker = (record, column) => {
         if (elementMaker) {

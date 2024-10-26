@@ -19,10 +19,7 @@ type RecordTableProps = HTMLAttributes<HTMLTableElement> & {
  */
 const RecordTable = forwardRef<HTMLTableElement, RecordTableProps>(({columns, identifierMaker, records, elementMaker, leftFunctionButtons, rightFunctionButtons, emptyMessage, ...props}, ref): ReactElement => {
     const defaultIdentifierMaker = (record: Record<string, any>): string | null => {
-        if (columns.length === 0) {
-            return null;
-        }
-        return record[columns[0].physicalName];
+        return StringObject.from(records.indexOf(record)).toString();
     }
     const fieldElementMaker = (record: Record<string, any>, column: Column): ReactElement => {
         if (elementMaker) {

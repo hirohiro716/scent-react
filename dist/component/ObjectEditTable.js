@@ -8,10 +8,7 @@ import { StringObject } from "scent-typescript";
  */
 const ObjectEditTable = forwardRef(({ properties, identifierMaker, objects, elementMaker, leftFunctionButtons, rightFunctionButtons, emptyMessage, ...props }, ref) => {
     const defaultIdentifierMaker = (object) => {
-        if (properties.length === 0) {
-            return null;
-        }
-        return object[properties[0].physicalName];
+        return StringObject.from(objects.indexOf(object)).toString();
     };
     const fieldElementMaker = (object, property) => {
         const [value, dispatch] = useState(StringObject.from(object[property.physicalName]).toString());

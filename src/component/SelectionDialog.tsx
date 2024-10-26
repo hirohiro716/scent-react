@@ -110,7 +110,7 @@ const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showi
     }, [showing]);
     const dialogID = new StringObject(props.id);
     if (dialogID.length() === 0) {
-        dialogID.append("idless_selection_dialog");
+        dialogID.append("idless-selection-dialog");
     }
     return (
         <Popup showing={showing} dispatch={dispatch} width={width} hideCancelButton={true} overlayBackground={overlayBackground} cancelFunction={cancelFunction} style={style} ref={ref} {...props}>

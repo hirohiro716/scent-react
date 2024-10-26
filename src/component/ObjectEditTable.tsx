@@ -19,10 +19,7 @@ type ObjectEditTableProps = HTMLAttributes<HTMLTableElement> & {
  */
 const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({properties, identifierMaker, objects, elementMaker, leftFunctionButtons, rightFunctionButtons, emptyMessage, ...props}, ref): ReactElement => {
     const defaultIdentifierMaker = (object: Record<string, any>): string | null => {
-        if (properties.length === 0) {
-            return null;
-        }
-        return object[properties[0].physicalName];
+        return StringObject.from(objects.indexOf(object)).toString();
     }
     const fieldElementMaker = (object: Record<string, any>, property: Property): ReactElement => {
         const [value, dispatch] = useState<string>(StringObject.from(object[property.physicalName]).toString());
