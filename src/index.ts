@@ -6,6 +6,7 @@ import WaitingCircle from "./component/WaitingCircle.js";
 import WaitingOverlay from "./component/WaitingOverlay.js";
 import AutocompleteInput from "./component/AutocompleteInput.js";
 import Button from "./component/Button.js";
+import ObjectEditTable from "./component/ObjectEditTable.js";
 import RecordTable from "./component/RecordTable.js";
 import Popup from "./component/Popup.js";
 import ConfirmationDialog from "./component/ConfirmationDialog.js";
@@ -17,5 +18,5 @@ import JANCodeReaderPopup from "./component/JANCodeReaderPopup.js";
 
 export {
     Scroller, StillCamera, JANCodeReader,
-    WaitingCircle, WaitingOverlay, AutocompleteInput, Button, RecordTable, Popup, ConfirmationDialog, SelectionDialog, ErrorBanner, ImageViewer, StillCameraPopup, JANCodeReaderPopup, 
+    WaitingCircle, WaitingOverlay, AutocompleteInput, Button, ObjectEditTable, RecordTable, Popup, ConfirmationDialog, SelectionDialog, ErrorBanner, ImageViewer, StillCameraPopup, JANCodeReaderPopup, 
 }
