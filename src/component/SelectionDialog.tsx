@@ -1,4 +1,4 @@
-import React, { CSSProperties, Dispatch, HTMLAttributes, MouseEvent, ReactElement, SetStateAction, forwardRef, useEffect, useRef, useState } from "react";
+import React, { CSSProperties, ChangeEventHandler, Dispatch, HTMLAttributes, MouseEvent, ReactElement, SetStateAction, forwardRef, useEffect, useRef, useState } from "react";
 import Popup from "./Popup.js";
 import { StringObject } from "scent-typescript";
 
@@ -22,14 +22,15 @@ type SelectionDialogProps = HTMLAttributes<HTMLDivElement> & {
  * @param props 
  * @returns 
  */
-const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showing, dispatch, message, selectableItems, displayTextMaker, isMultipleSelectionAllowed = false, defaultSelections=[], selectFunction, cancelFunction, width, overlayBackground, style, ...props}, ref): ReactElement => {
+const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showing, dispatch, message, selectableItems, displayTextMaker, isMultipleSelectionAllowed = true, defaultSelections=[], selectFunction, cancelFunction, width, overlayBackground, style, ...props}, ref): ReactElement => {
     const preStyle: CSSProperties = {};
     preStyle.width = "100%";
-    preStyle.paddingBottom = "2em";
+    preStyle.paddingBottom = "1em";
     preStyle.whiteSpace = "pre-wrap";
     const formStyle: CSSProperties = {};
     formStyle.maxHeight = "calc(100vh - 20em)";
-    formStyle.marginBottom = "2em";
+    formStyle.marginBottom = "1em";
+    formStyle.padding = "1em 0.5em";
     formStyle.display = "flex";
     formStyle.flexDirection = "row";
     formStyle.justifyContent = "left";
@@ -46,6 +47,21 @@ const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showi
     buttonsStyle.justifyContent = "right";
     buttonsStyle.gap = "0.5em";
     const formRef = useRef<HTMLFormElement>(null);
+    const checkChangeEventHandler: ChangeEventHandler<HTMLInputElement> = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (isMultipleSelectionAllowed) {
+            return;
+        }
+        const selectedItems: string[] = [];
+        const formData = new FormData(formRef.current ? formRef.current : undefined);
+        formData.forEach((value, key) => {
+            if (StringObject.from(value).toBoolean()) {
+                selectedItems.push(key);
+            }
+        });
+        if (selectedItems.length > 1) {
+            e.currentTarget.checked = false;
+        }
+    }
     const [alreadyPressed, setAlreadyPressed] = useState<boolean>(false);
     const okEvent = async (e: MouseEvent) => {
         if (alreadyPressed) {
@@ -104,7 +120,7 @@ const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showi
                     const displayText = displayTextMaker ? displayTextMaker(selectableItem) : undefined;
                     return (
                         <label key={dialogID.clone().append(selectableItem).toString()} style={labelStyle}>
-                            <input type="checkbox" name={selectableItem} value={"true"} defaultChecked={defaultSelections.includes(selectableItem)} />
+                            <input type="checkbox" name={selectableItem} value={"true"} defaultChecked={defaultSelections.includes(selectableItem)} onChange={checkChangeEventHandler} />
                             {displayText ? displayText : selectableItem}
                         </label>
                     );

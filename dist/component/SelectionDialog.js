@@ -7,14 +7,15 @@ import { StringObject } from "scent-typescript";
  * @param props
  * @returns
  */
-const SelectionDialog = forwardRef(({ showing, dispatch, message, selectableItems, displayTextMaker, isMultipleSelectionAllowed = false, defaultSelections = [], selectFunction, cancelFunction, width, overlayBackground, style, ...props }, ref) => {
+const SelectionDialog = forwardRef(({ showing, dispatch, message, selectableItems, displayTextMaker, isMultipleSelectionAllowed = true, defaultSelections = [], selectFunction, cancelFunction, width, overlayBackground, style, ...props }, ref) => {
     const preStyle = {};
     preStyle.width = "100%";
-    preStyle.paddingBottom = "2em";
+    preStyle.paddingBottom = "1em";
     preStyle.whiteSpace = "pre-wrap";
     const formStyle = {};
     formStyle.maxHeight = "calc(100vh - 20em)";
-    formStyle.marginBottom = "2em";
+    formStyle.marginBottom = "1em";
+    formStyle.padding = "1em 0.5em";
     formStyle.display = "flex";
     formStyle.flexDirection = "row";
     formStyle.justifyContent = "left";
@@ -31,6 +32,21 @@ const SelectionDialog = forwardRef(({ showing, dispatch, message, selectableItem
     buttonsStyle.justifyContent = "right";
     buttonsStyle.gap = "0.5em";
     const formRef = useRef(null);
+    const checkChangeEventHandler = (e) => {
+        if (isMultipleSelectionAllowed) {
+            return;
+        }
+        const selectedItems = [];
+        const formData = new FormData(formRef.current ? formRef.current : undefined);
+        formData.forEach((value, key) => {
+            if (StringObject.from(value).toBoolean()) {
+                selectedItems.push(key);
+            }
+        });
+        if (selectedItems.length > 1) {
+            e.currentTarget.checked = false;
+        }
+    };
     const [alreadyPressed, setAlreadyPressed] = useState(false);
     const okEvent = async (e) => {
         if (alreadyPressed) {
@@ -88,7 +104,7 @@ const SelectionDialog = forwardRef(({ showing, dispatch, message, selectableItem
         React.createElement("form", { style: formStyle, ref: formRef, onSubmit: (e) => e.preventDefault() }, selectableItems.map((selectableItem) => {
             const displayText = displayTextMaker ? displayTextMaker(selectableItem) : undefined;
             return (React.createElement("label", { key: dialogID.clone().append(selectableItem).toString(), style: labelStyle },
-                React.createElement("input", { type: "checkbox", name: selectableItem, value: "true", defaultChecked: defaultSelections.includes(selectableItem) }),
+                React.createElement("input", { type: "checkbox", name: selectableItem, value: "true", defaultChecked: defaultSelections.includes(selectableItem), onChange: checkChangeEventHandler }),
                 displayText ? displayText : selectableItem));
         })),
         React.createElement("div", { style: buttonsStyle },
