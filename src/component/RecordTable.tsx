@@ -35,7 +35,7 @@ const RecordTable = forwardRef<HTMLTableElement, RecordTableProps>(({columns, id
     }
     const tableID = new StringObject(props.id);
     if (tableID.length() === 0) {
-        tableID.append("idless_record_table");
+        tableID.append("idless-record-table");
     }
     const headerKey = tableID.clone().append("-header-");
     return (
