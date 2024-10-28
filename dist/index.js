@@ -1,6 +1,7 @@
 import Scroller from "./class/Scroller.js";
 import StillCamera from "./class/StillCamera.js";
 import JANCodeReader from "./class/JANCodeReader.js";
+import Geolocation from "./class/Geolocation.js";
 import WaitingCircle from "./component/WaitingCircle.js";
 import WaitingOverlay from "./component/WaitingOverlay.js";
 import AutocompleteInput from "./component/AutocompleteInput.js";
@@ -17,4 +18,4 @@ import NoticeBanner from "./component/NoticeBanner.js";
 import ImageViewer from "./component/ImageViewer.js";
 import StillCameraPopup from "./component/StillCameraPopup.js";
 import JANCodeReaderPopup from "./component/JANCodeReaderPopup.js";
-export { Scroller, StillCamera, JANCodeReader, WaitingCircle, WaitingOverlay, AutocompleteInput, NearbyDateInput, Button, ObjectEditTable, RecordTable, Popup, ConfirmationDialog, SelectionDialog, ObjectEditTableDialog, ErrorBanner, NoticeBanner, ImageViewer, StillCameraPopup, JANCodeReaderPopup, };
+export { Scroller, StillCamera, JANCodeReader, Geolocation, WaitingCircle, WaitingOverlay, AutocompleteInput, NearbyDateInput, Button, ObjectEditTable, RecordTable, Popup, ConfirmationDialog, SelectionDialog, ObjectEditTableDialog, ErrorBanner, NoticeBanner, ImageViewer, StillCameraPopup, JANCodeReaderPopup, };
