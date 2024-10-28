@@ -10,7 +10,7 @@ import ErrorBanner from "./ErrorBanner.js";
  */
 const NoticeBanner = forwardRef(({ message, dispatch, top, width, timeoutMilliseconds, style, ...props }, ref) => {
     let bannerStyle = {};
-    bannerStyle.backgroundColor = "#000";
+    bannerStyle.backgroundColor = "rgba(0, 0, 0, 0.9)";
     bannerStyle.color = "#fff";
     bannerStyle = { ...bannerStyle, ...style };
     useEffect(() => {

@@ -19,7 +19,7 @@ type NoticeBannerProps = HTMLAttributes<HTMLDivElement> & {
  */
 const NoticeBanner = forwardRef<HTMLDivElement, NoticeBannerProps>(({message, dispatch, top, width, timeoutMilliseconds, style, ...props}, ref): ReactElement => {
     let bannerStyle: CSSProperties = {};
-    bannerStyle.backgroundColor = "#000";
+    bannerStyle.backgroundColor = "rgba(0, 0, 0, 0.9)";
     bannerStyle.color = "#fff";
     bannerStyle = {...bannerStyle, ...style};
     useEffect(() => {
