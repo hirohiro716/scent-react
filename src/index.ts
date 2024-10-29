@@ -7,6 +7,7 @@ import WaitingCircle from "./component/WaitingCircle.js";
 import WaitingOverlay from "./component/WaitingOverlay.js";
 import AutocompleteInput from "./component/AutocompleteInput.js";
 import NearbyDateInput from "./component/NearbyDateInput.js";
+import NearbyMonthInput from "./component/NearbyMonthInput.js";
 import Button from "./component/Button.js";
 import ObjectEditTable from "./component/ObjectEditTable.js";
 import RecordTable from "./component/RecordTable.js";
@@ -22,5 +23,5 @@ import JANCodeReaderPopup from "./component/JANCodeReaderPopup.js";
 
 export {
     Scroller, StillCamera, JANCodeReader, Geolocation,
-    WaitingCircle, WaitingOverlay, AutocompleteInput, NearbyDateInput, Button, ObjectEditTable, RecordTable, Popup, ConfirmationDialog, SelectionDialog, ObjectEditTableDialog, ErrorBanner, NoticeBanner, ImageViewer, StillCameraPopup, JANCodeReaderPopup, 
+    WaitingCircle, WaitingOverlay, AutocompleteInput, NearbyDateInput, NearbyMonthInput, Button, ObjectEditTable, RecordTable, Popup, ConfirmationDialog, SelectionDialog, ObjectEditTableDialog, ErrorBanner, NoticeBanner, ImageViewer, StillCameraPopup, JANCodeReaderPopup, 
 }
