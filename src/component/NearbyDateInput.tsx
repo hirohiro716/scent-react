@@ -41,7 +41,7 @@ const NearbyDateInput = forwardRef<HTMLDivElement, NearbyDateInputProps>(({date,
     return (
         <div style={{...internalStyle, ...props.style}} ref={ref} {...props}>
             <div style={rowStyle}>
-                <input type="text" value={StringObject.join([currentDate.getMonth(), "/", currentDate.getDay()]).toString()} style={{...inputInternalStyle, ...inputStyle}} ref={inputRef} />
+                <input type="text" value={StringObject.join([currentDate.getMonth(), "/", currentDate.getDay()]).toString()} readOnly={true} style={{...inputInternalStyle, ...inputStyle}} ref={inputRef} />
                 <button onClick={goForwardDay} style={{...buttonInternalStyle, ...buttonStyle}}>↑</button>
                 <button onClick={goBackDay} style={{...buttonInternalStyle, ...buttonStyle}}>↓</button>
             </div>

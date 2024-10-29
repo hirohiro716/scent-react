@@ -32,7 +32,7 @@ const NearbyDateInput = forwardRef(({ date, dispatch, inputStyle, buttonStyle, .
     };
     return (React.createElement("div", { style: { ...internalStyle, ...props.style }, ref: ref, ...props },
         React.createElement("div", { style: rowStyle },
-            React.createElement("input", { type: "text", value: StringObject.join([currentDate.getMonth(), "/", currentDate.getDay()]).toString(), style: { ...inputInternalStyle, ...inputStyle }, ref: inputRef }),
+            React.createElement("input", { type: "text", value: StringObject.join([currentDate.getMonth(), "/", currentDate.getDay()]).toString(), readOnly: true, style: { ...inputInternalStyle, ...inputStyle }, ref: inputRef }),
             React.createElement("button", { onClick: goForwardDay, style: { ...buttonInternalStyle, ...buttonStyle } }, "\u2191"),
             React.createElement("button", { onClick: goBackDay, style: { ...buttonInternalStyle, ...buttonStyle } }, "\u2193"))));
 });
