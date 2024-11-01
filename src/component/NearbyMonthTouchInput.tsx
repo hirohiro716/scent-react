@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CSSProperties, Dispatch, forwardRef, HTMLAttributes, ReactElement, SetStateAction, useRef } from "react";
+import { CSSProperties, Dispatch, forwardRef, HTMLAttributes, ReactElement, SetStateAction } from "react";
 import { Datetime, StringObject } from "scent-typescript";
 
 type NearbyMonthTouchInputProps = HTMLAttributes<HTMLDivElement> & {
