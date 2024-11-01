@@ -8,6 +8,7 @@ import WaitingOverlay from "./component/WaitingOverlay.js";
 import AutocompleteInput from "./component/AutocompleteInput.js";
 import NearbyDateTouchInput from "./component/NearbyDateTouchInput.js";
 import NearbyMonthTouchInput from "./component/NearbyMonthTouchInput.js";
+import NearbyTimeTouchInput from "./component/NearbyTimeTouchInput.js";
 import Button from "./component/Button.js";
 import ObjectEditTable from "./component/ObjectEditTable.js";
 import RecordTable from "./component/RecordTable.js";
@@ -23,5 +24,5 @@ import JANCodeReaderPopup from "./component/JANCodeReaderPopup.js";
 
 export {
     Scroller, StillCamera, JANCodeReader, Geolocation,
-    WaitingCircle, WaitingOverlay, AutocompleteInput, NearbyDateTouchInput, NearbyMonthTouchInput, Button, ObjectEditTable, RecordTable, Popup, ConfirmationDialog, SelectionDialog, ObjectEditTableDialog, ErrorBanner, NoticeBanner, ImageViewer, StillCameraPopup, JANCodeReaderPopup, 
+    WaitingCircle, WaitingOverlay, AutocompleteInput, NearbyDateTouchInput, NearbyMonthTouchInput, NearbyTimeTouchInput, Button, ObjectEditTable, RecordTable, Popup, ConfirmationDialog, SelectionDialog, ObjectEditTableDialog, ErrorBanner, NoticeBanner, ImageViewer, StillCameraPopup, JANCodeReaderPopup, 
 }
