@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { CSSProperties, Dispatch, forwardRef, HTMLAttributes, ReactElement, SetStateAction, useRef } from "react";
 import { Datetime, StringObject } from "scent-typescript";
 
-type NearbyMonthInputProps = HTMLAttributes<HTMLDivElement> & {
+type NearbyMonthTouchInputProps = HTMLAttributes<HTMLDivElement> & {
     date: Datetime | undefined,
     dispatch: Dispatch<SetStateAction<Datetime | undefined>>,
     inputStyle?: CSSProperties,
@@ -15,7 +15,7 @@ type NearbyMonthInputProps = HTMLAttributes<HTMLDivElement> & {
  * @param props 
  * @returns 
  */
-const NearbyMonthInput = forwardRef<HTMLDivElement, NearbyMonthInputProps>(({date, dispatch, inputStyle, buttonStyle, ...props}, ref): ReactElement => {
+const NearbyMonthTouchInput = forwardRef<HTMLDivElement, NearbyMonthTouchInputProps>(({date, dispatch, inputStyle, buttonStyle, ...props}, ref): ReactElement => {
     const internalStyle: CSSProperties = {};
     internalStyle.display = "inline-block";
     const rowStyle: CSSProperties = {};
@@ -48,4 +48,4 @@ const NearbyMonthInput = forwardRef<HTMLDivElement, NearbyMonthInputProps>(({dat
         </div>
     );
 });
-export default NearbyMonthInput;
+export default NearbyMonthTouchInput;

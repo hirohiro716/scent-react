@@ -7,7 +7,7 @@ import { Datetime, StringObject } from "scent-typescript";
  * @param props
  * @returns
  */
-const NearbyMonthInput = forwardRef(({ date, dispatch, inputStyle, buttonStyle, ...props }, ref) => {
+const NearbyMonthTouchInput = forwardRef(({ date, dispatch, inputStyle, buttonStyle, ...props }, ref) => {
     const internalStyle = {};
     internalStyle.display = "inline-block";
     const rowStyle = {};
@@ -36,4 +36,4 @@ const NearbyMonthInput = forwardRef(({ date, dispatch, inputStyle, buttonStyle, 
             React.createElement("button", { onClick: goForwardMonth, style: { ...buttonInternalStyle, ...buttonStyle } }, "\u2191"),
             React.createElement("button", { onClick: goBackMonth, style: { ...buttonInternalStyle, ...buttonStyle } }, "\u2193"))));
 });
-export default NearbyMonthInput;
+export default NearbyMonthTouchInput;
