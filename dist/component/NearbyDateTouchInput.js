@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { forwardRef, useRef } from "react";
+import { forwardRef } from "react";
 import { Datetime, StringObject } from "scent-typescript";
 /**
  * 初期値の付近の日付を入力するコンポーネント。
@@ -20,7 +20,6 @@ const NearbyDateTouchInput = forwardRef(({ date, dispatch, inputStyle, buttonSty
     inputInternalStyle.textAlign = "center";
     const buttonInternalStyle = {};
     buttonInternalStyle.width = "2em";
-    const inputRef = useRef(null);
     const [currentDate] = useState(date ? date : new Datetime());
     const goForwardDay = () => {
         currentDate.addDay(1);
@@ -32,7 +31,7 @@ const NearbyDateTouchInput = forwardRef(({ date, dispatch, inputStyle, buttonSty
     };
     return (React.createElement("div", { style: { ...internalStyle, ...props.style }, ref: ref, ...props },
         React.createElement("div", { style: rowStyle },
-            React.createElement("input", { type: "text", value: StringObject.join([currentDate.getMonth(), "/", currentDate.getDay()]).toString(), readOnly: true, style: { ...inputInternalStyle, ...inputStyle }, ref: inputRef }),
+            React.createElement("input", { type: "text", value: StringObject.join([currentDate.getMonth(), "/", currentDate.getDay()]).toString(), readOnly: true, style: { ...inputInternalStyle, ...inputStyle } }),
             React.createElement("button", { onClick: goForwardDay, style: { ...buttonInternalStyle, ...buttonStyle } }, "\u2191"),
             React.createElement("button", { onClick: goBackDay, style: { ...buttonInternalStyle, ...buttonStyle } }, "\u2193"))));
 });

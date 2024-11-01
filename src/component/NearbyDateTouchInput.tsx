@@ -28,7 +28,6 @@ const NearbyDateTouchInput = forwardRef<HTMLDivElement, NearbyDateTouchInputProp
     inputInternalStyle.textAlign = "center";
     const buttonInternalStyle: CSSProperties = {};
     buttonInternalStyle.width = "2em";
-    const inputRef = useRef<HTMLInputElement>(null);
     const [currentDate] = useState<Datetime>(date ? date : new Datetime());
     const goForwardDay = () => {
         currentDate.addDay(1);
@@ -41,7 +40,7 @@ const NearbyDateTouchInput = forwardRef<HTMLDivElement, NearbyDateTouchInputProp
     return (
         <div style={{...internalStyle, ...props.style}} ref={ref} {...props}>
             <div style={rowStyle}>
-                <input type="text" value={StringObject.join([currentDate.getMonth(), "/", currentDate.getDay()]).toString()} readOnly={true} style={{...inputInternalStyle, ...inputStyle}} ref={inputRef} />
+                <input type="text" value={StringObject.join([currentDate.getMonth(), "/", currentDate.getDay()]).toString()} readOnly={true} style={{...inputInternalStyle, ...inputStyle}} />
                 <button onClick={goForwardDay} style={{...buttonInternalStyle, ...buttonStyle}}>↑</button>
                 <button onClick={goBackDay} style={{...buttonInternalStyle, ...buttonStyle}}>↓</button>
             </div>

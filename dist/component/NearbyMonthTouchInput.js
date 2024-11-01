@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { forwardRef, useRef } from "react";
+import { forwardRef } from "react";
 import { Datetime, StringObject } from "scent-typescript";
 /**
  * 初期値の付近の年月を入力するコンポーネント。
@@ -20,7 +20,6 @@ const NearbyMonthTouchInput = forwardRef(({ date, dispatch, inputStyle, buttonSt
     inputInternalStyle.textAlign = "center";
     const buttonInternalStyle = {};
     buttonInternalStyle.width = "2em";
-    const inputRef = useRef(null);
     const [currentMonth] = useState(date ? date : new Datetime());
     const goForwardMonth = () => {
         currentMonth.addMonth(1);
@@ -32,7 +31,7 @@ const NearbyMonthTouchInput = forwardRef(({ date, dispatch, inputStyle, buttonSt
     };
     return (React.createElement("div", { style: { ...internalStyle, ...props.style }, ref: ref, ...props },
         React.createElement("div", { style: rowStyle },
-            React.createElement("input", { type: "text", value: StringObject.join([currentMonth.getYear(), "/", currentMonth.getMonth()]).toString(), readOnly: true, style: { ...inputInternalStyle, ...inputStyle }, ref: inputRef }),
+            React.createElement("input", { type: "text", value: StringObject.join([currentMonth.getYear(), "/", currentMonth.getMonth()]).toString(), readOnly: true, style: { ...inputInternalStyle, ...inputStyle } }),
             React.createElement("button", { onClick: goForwardMonth, style: { ...buttonInternalStyle, ...buttonStyle } }, "\u2191"),
             React.createElement("button", { onClick: goBackMonth, style: { ...buttonInternalStyle, ...buttonStyle } }, "\u2193"))));
 });
