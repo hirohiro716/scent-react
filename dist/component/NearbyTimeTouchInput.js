@@ -13,7 +13,7 @@ const NearbyTimeTouchInput = forwardRef(({ date, dispatch, incrementMinutes = 10
     const rowStyle = {};
     rowStyle.display = "flex";
     rowStyle.flexDirection = "row";
-    rowStyle.alignItems = "center";
+    rowStyle.alignItems = "stretch";
     rowStyle.gap = "0.3em";
     const selectElementInternalStyle = {};
     selectElementInternalStyle.width = "5em";
