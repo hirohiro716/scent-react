@@ -18,10 +18,9 @@ type NoticeBannerProps = HTMLAttributes<HTMLDivElement> & {
  * @returns 
  */
 const NoticeBanner = forwardRef<HTMLDivElement, NoticeBannerProps>(({message, dispatch, top, width, timeoutMilliseconds, style, ...props}, ref): ReactElement => {
-    let bannerStyle: CSSProperties = {};
+    const bannerStyle: CSSProperties = {};
     bannerStyle.backgroundColor = "rgba(0, 0, 0, 0.9)";
     bannerStyle.color = "#fff";
-    bannerStyle = {...bannerStyle, ...style};
     useEffect(() => {
         if (StringObject.from(message).length() === 0) {
             return;
@@ -31,7 +30,7 @@ const NoticeBanner = forwardRef<HTMLDivElement, NoticeBannerProps>(({message, di
         }, timeoutMilliseconds);
     }, [message, dispatch, timeoutMilliseconds]);
     return (
-        <ErrorBanner message={message} dispatch={dispatch} top={top} width={width} style={bannerStyle} ref={ref} {...props} />
+        <ErrorBanner message={message} dispatch={dispatch} top={top} width={width} style={{...bannerStyle, ...style}} ref={ref} {...props} />
     );
 });
 export default NoticeBanner;

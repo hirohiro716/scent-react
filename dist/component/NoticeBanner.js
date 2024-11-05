@@ -9,10 +9,9 @@ import ErrorBanner from "./ErrorBanner.js";
  * @returns
  */
 const NoticeBanner = forwardRef(({ message, dispatch, top, width, timeoutMilliseconds, style, ...props }, ref) => {
-    let bannerStyle = {};
+    const bannerStyle = {};
     bannerStyle.backgroundColor = "rgba(0, 0, 0, 0.9)";
     bannerStyle.color = "#fff";
-    bannerStyle = { ...bannerStyle, ...style };
     useEffect(() => {
         if (StringObject.from(message).length() === 0) {
             return;
@@ -21,6 +20,6 @@ const NoticeBanner = forwardRef(({ message, dispatch, top, width, timeoutMillise
             dispatch(undefined);
         }, timeoutMilliseconds);
     }, [message, dispatch, timeoutMilliseconds]);
-    return (React.createElement(ErrorBanner, { message: message, dispatch: dispatch, top: top, width: width, style: bannerStyle, ref: ref, ...props }));
+    return (React.createElement(ErrorBanner, { message: message, dispatch: dispatch, top: top, width: width, style: { ...bannerStyle, ...style }, ref: ref, ...props }));
 });
 export default NoticeBanner;

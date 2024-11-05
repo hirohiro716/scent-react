@@ -18,7 +18,7 @@ type JANCodeReaderPopupProps = HTMLAttributes<HTMLDivElement> & {
  * @returns 
  */
 const JANCodeReaderPopup = forwardRef<HTMLDivElement, JANCodeReaderPopupProps>(({showing, dispatch, callbackAfterReading, validator, style, ...props}, ref): ReactElement => {
-    let divStyle: CSSProperties = {};
+    const divStyle: CSSProperties = {};
     divStyle.maxWidth = "100%";
     divStyle.maxHeight = "calc(100vh - 5em)";
     divStyle.minWidth = "300px";
@@ -26,7 +26,6 @@ const JANCodeReaderPopup = forwardRef<HTMLDivElement, JANCodeReaderPopupProps>((
     divStyle.display = "flex";
     divStyle.justifyContent = "center";
     divStyle.alignItems = "center";
-    divStyle = {...divStyle, ...style};
     const imgStyle: CSSProperties = {};
     imgStyle.position = "absolute";
     imgStyle.width = "3em";
@@ -52,7 +51,7 @@ const JANCodeReaderPopup = forwardRef<HTMLDivElement, JANCodeReaderPopupProps>((
     }, [showing]);
     return (
         <Popup showing={showing} dispatch={dispatch} width="auto" {...props} >
-            <div style={divStyle} ref={divRef}>
+            <div style={{...divStyle, ...style}} ref={divRef}>
                 <WaitingCircle style={imgStyle} />
             </div>
         </Popup>

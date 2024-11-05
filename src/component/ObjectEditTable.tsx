@@ -40,7 +40,7 @@ const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({pro
             element = elementMaker(object, property, onChangeEventHandler, dispatch);
         }
         if (typeof element === "undefined") {
-            element = <input type="text" onChange={onChangeEventHandler} value={value} style={{width: "10em"}} />;
+            element = <input type="text" onChange={onChangeEventHandler} value={value} style={{width:"10em"}} />;
         }
         return element;
     }
@@ -135,7 +135,7 @@ const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({pro
                 {objects.length === 0 &&
                     <tr>
                         <td colSpan={[...Object.keys({...leftFunctionButtons}), ...objects, ...Object.keys({...rightFunctionButtons})].length}>
-                            <span style={{fontSize: "80%", opacity: "0.25"}}>{typeof emptyMessage !== "undefined" ? emptyMessage : "情報がありません。"}</span>
+                            <span style={{fontSize:"80%", opacity:"0.25"}}>{typeof emptyMessage !== "undefined" ? emptyMessage : "情報がありません。"}</span>
                         </td>
                     </tr>
                 }

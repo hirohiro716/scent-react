@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { CSSProperties, Dispatch, SetStateAction } from "react";
 /**
  * 選択ダイアログのコンポーネント。
  *
@@ -16,6 +16,6 @@ declare const SelectionDialog: React.ForwardRefExoticComponent<React.HTMLAttribu
     selectFunction?: (selectedItems: string[]) => Promise<void>;
     cancelFunction?: () => Promise<void>;
     width: string;
-    overlayBackground?: string;
+    overlayBackgroundStyle?: CSSProperties;
 } & React.RefAttributes<HTMLDivElement>>;
 export default SelectionDialog;

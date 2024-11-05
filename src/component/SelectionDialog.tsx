@@ -13,7 +13,7 @@ type SelectionDialogProps = HTMLAttributes<HTMLDivElement> & {
     selectFunction?: (selectedItems: string[]) => Promise<void>,
     cancelFunction?: () => Promise<void>,
     width: string,
-    overlayBackground?: string,
+    overlayBackgroundStyle?: CSSProperties,
 }
 
 /**
@@ -22,7 +22,7 @@ type SelectionDialogProps = HTMLAttributes<HTMLDivElement> & {
  * @param props 
  * @returns 
  */
-const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showing, dispatch, message, selectableItems, displayTextMaker, isMultipleSelectionAllowed = true, defaultSelections=[], selectFunction, cancelFunction, width, overlayBackground, style, ...props}, ref): ReactElement => {
+const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showing, dispatch, message, selectableItems, displayTextMaker, isMultipleSelectionAllowed = true, defaultSelections=[], selectFunction, cancelFunction, width, overlayBackgroundStyle, ...props}, ref): ReactElement => {
     const preStyle: CSSProperties = {};
     preStyle.width = "100%";
     preStyle.paddingBottom = "1em";
@@ -113,7 +113,7 @@ const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showi
         dialogID.append("idless-selection-dialog");
     }
     return (
-        <Popup showing={showing} dispatch={dispatch} width={width} hideCancelButton={true} overlayBackground={overlayBackground} cancelFunction={cancelFunction} style={style} ref={ref} {...props}>
+        <Popup showing={showing} dispatch={dispatch} width={width} isCloseOnBackgroundClick={false} closeButtonStyle={{display:"none"}} overlayBackgroundStyle={overlayBackgroundStyle} cancelFunction={cancelFunction} ref={ref} {...props}>
             <pre style={preStyle} tabIndex={0} ref={preRef}>{message}</pre>
             <form style={formStyle} ref={formRef} onSubmit={(e) => e.preventDefault()}>
                 {selectableItems.map((selectableItem) => {

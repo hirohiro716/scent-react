@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { CSSProperties, Dispatch, SetStateAction } from "react";
 /**
  * 確認ダイアログのコンポーネント。
  *
@@ -12,6 +12,6 @@ declare const ConfirmationDialog: React.ForwardRefExoticComponent<React.HTMLAttr
     okFunction?: () => Promise<void>;
     cancelFunction?: () => Promise<void>;
     width: string;
-    overlayBackground?: string;
+    overlayBackgroundStyle?: CSSProperties;
 } & React.RefAttributes<HTMLDivElement>>;
 export default ConfirmationDialog;

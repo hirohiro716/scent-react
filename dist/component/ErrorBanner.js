@@ -20,7 +20,7 @@ const ErrorBanner = forwardRef(({ message, dispatch, top, width, style, ...props
     backgroundStyle.justifyContent = "center";
     backgroundStyle.alignItems = "start";
     backgroundStyle.pointerEvents = "none";
-    let bannerStyle = {};
+    const bannerStyle = {};
     bannerStyle.position = "relative";
     bannerStyle.maxWidth = width;
     bannerStyle.margin = "0 0.5em";
@@ -31,8 +31,7 @@ const ErrorBanner = forwardRef(({ message, dispatch, top, width, style, ...props
     bannerStyle.boxShadow = "0 0.5em 1em 0 rgba(0, 0, 0, 0.5)";
     bannerStyle.cursor = "pointer";
     bannerStyle.pointerEvents = "auto";
-    bannerStyle = { ...bannerStyle, ...style };
-    let preStyle = {};
+    const preStyle = {};
     preStyle.width = "100%";
     preStyle.height = "100%";
     preStyle.color = "inherit";
@@ -41,7 +40,7 @@ const ErrorBanner = forwardRef(({ message, dispatch, top, width, style, ...props
         dispatch("");
     };
     return (React.createElement(React.Fragment, null, message && (React.createElement("div", { style: backgroundStyle },
-        React.createElement("div", { style: bannerStyle, onClick: closeEventHandler, ref: ref, ...props },
+        React.createElement("div", { style: { ...bannerStyle, ...style }, onClick: closeEventHandler, ref: ref, ...props },
             React.createElement("pre", { style: preStyle }, message))))));
 });
 export default ErrorBanner;

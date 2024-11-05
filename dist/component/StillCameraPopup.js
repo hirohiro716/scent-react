@@ -9,12 +9,11 @@ import WaitingCircle from "../component/WaitingCircle.js";
  * @returns
  */
 const StillCameraPopup = forwardRef(({ showing, dispatch, mimeType = "image/png", maximumLongSide, callbackAfterCapturing, style, ...props }, ref) => {
-    let divStyle = {};
+    const divStyle = {};
     divStyle.display = "flex";
     divStyle.flexDirection = "column";
     divStyle.justifyContent = "center";
     divStyle.alignItems = "center";
-    divStyle = { ...divStyle, ...style };
     const videoDivStyle = {};
     videoDivStyle.maxWidth = "100%";
     videoDivStyle.maxHeight = "calc(100vh - 8em)";
@@ -106,7 +105,7 @@ const StillCameraPopup = forwardRef(({ showing, dispatch, mimeType = "image/png"
         }
     }, [showing]);
     return (React.createElement(Popup, { showing: showing, dispatch: dispatch, width: "auto", ...props },
-        React.createElement("div", { style: divStyle, ref: ref },
+        React.createElement("div", { style: { ...divStyle, ...style }, ref: ref },
             React.createElement("div", { style: videoDivStyle, ref: videoDivRef },
                 React.createElement(WaitingCircle, { style: imgStyle, ref: imgRef })),
             React.createElement("div", { style: buttonsStyle, ref: buttonsRef },

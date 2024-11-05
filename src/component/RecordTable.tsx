@@ -121,7 +121,7 @@ const RecordTable = forwardRef<HTMLTableElement, RecordTableProps>(({columns, id
                 {records.length === 0 &&
                     <tr>
                         <td colSpan={[...Object.keys({...leftFunctionButtons}), ...columns, ...Object.keys({...rightFunctionButtons})].length}>
-                            <span style={{fontSize: "80%", opacity: "0.25"}}>{typeof emptyMessage !== "undefined" ? emptyMessage : "レコードが見つかりません。"}</span>
+                            <span style={{fontSize:"80%", opacity:"0.25"}}>{typeof emptyMessage !== "undefined" ? emptyMessage : "レコードが見つかりません。"}</span>
                         </td>
                     </tr>
                 }

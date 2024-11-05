@@ -8,7 +8,7 @@ type ConfirmationDialogProps = HTMLAttributes<HTMLDivElement> & {
     okFunction?: () => Promise<void>,
     cancelFunction?: () => Promise<void>,
     width: string,
-    overlayBackground?: string,
+    overlayBackgroundStyle?: CSSProperties,
 }
 
 /**
@@ -17,7 +17,7 @@ type ConfirmationDialogProps = HTMLAttributes<HTMLDivElement> & {
  * @param props 
  * @returns 
  */
-const ConfirmationDialog = forwardRef<HTMLDivElement, ConfirmationDialogProps>(({showing, dispatch, message, okFunction, cancelFunction, width, overlayBackground, style, ...props}, ref): ReactElement => {
+const ConfirmationDialog = forwardRef<HTMLDivElement, ConfirmationDialogProps>(({showing, dispatch, message, okFunction, cancelFunction, width, overlayBackgroundStyle, style, ...props}, ref): ReactElement => {
     const preStyle: CSSProperties = {};
     preStyle.width = "100%";
     preStyle.paddingBottom = "2em";
@@ -67,7 +67,7 @@ const ConfirmationDialog = forwardRef<HTMLDivElement, ConfirmationDialogProps>((
         }
     }, [showing]);
     return (
-        <Popup showing={showing} dispatch={dispatch} width={width} hideCancelButton={true} overlayBackground={overlayBackground} cancelFunction={cancelFunction} style={style} ref={ref} {...props}>
+        <Popup showing={showing} dispatch={dispatch} width={width} isCloseOnBackgroundClick={false} closeButtonStyle={{display:"none"}} overlayBackgroundStyle={overlayBackgroundStyle} cancelFunction={cancelFunction} style={style} ref={ref} {...props}>
             <pre style={preStyle} tabIndex={0} ref={preRef}>{message}</pre>
             <div style={buttonsStyle}>
                 <button onClick={okEvent}>OK</button>

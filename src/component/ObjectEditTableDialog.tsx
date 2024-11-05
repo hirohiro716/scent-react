@@ -15,7 +15,7 @@ type ObjectEditTableDialogProps = HTMLAttributes<HTMLDivElement> & {
     rightFunctionButtons?: Record<string, (object: Record<string, any>) => Promise<void> | void>,
     closeFunction?: () => Promise<void>,
     width: string,
-    overlayBackground?: string,
+    overlayBackgroundStyle?: CSSProperties,
 }
 
 /**
@@ -24,7 +24,7 @@ type ObjectEditTableDialogProps = HTMLAttributes<HTMLDivElement> & {
  * @param props 
  * @returns 
  */
-const ObjectEditTableDialog = forwardRef<HTMLDivElement, ObjectEditTableDialogProps>(({showing, dispatch, message, properties, identifierMaker, objects, elementMaker, leftFunctionButtons, rightFunctionButtons, closeFunction, width, overlayBackground, style, ...props}, ref): ReactElement => {
+const ObjectEditTableDialog = forwardRef<HTMLDivElement, ObjectEditTableDialogProps>(({showing, dispatch, message, properties, identifierMaker, objects, elementMaker, leftFunctionButtons, rightFunctionButtons, closeFunction, width, overlayBackgroundStyle, ...props}, ref): ReactElement => {
     const preStyle: CSSProperties = {};
     preStyle.width = "100%";
     preStyle.paddingBottom = "1em";
@@ -66,7 +66,7 @@ const ObjectEditTableDialog = forwardRef<HTMLDivElement, ObjectEditTableDialogPr
         }
     }, [showing]);
     return (
-        <Popup showing={showing} dispatch={dispatch} width={width} hideCancelButton={true} overlayBackground={overlayBackground} cancelFunction={closeFunction} style={style} ref={ref} {...props}>
+        <Popup showing={showing} dispatch={dispatch} width={width} closeButtonStyle={{display:"none"}} overlayBackgroundStyle={overlayBackgroundStyle} cancelFunction={closeFunction} ref={ref} {...props}>
             <pre style={preStyle} tabIndex={0} ref={preRef}>{message}</pre>
             <div style={tableStyle}>
                 <ObjectEditTable properties={properties} identifierMaker={identifierMaker} objects={objects} elementMaker={elementMaker} leftFunctionButtons={leftFunctionButtons} rightFunctionButtons={rightFunctionButtons} />

@@ -7,7 +7,7 @@ import { StringObject } from "scent-typescript";
  * @param props
  * @returns
  */
-const SelectionDialog = forwardRef(({ showing, dispatch, message, selectableItems, displayTextMaker, isMultipleSelectionAllowed = true, defaultSelections = [], selectFunction, cancelFunction, width, overlayBackground, style, ...props }, ref) => {
+const SelectionDialog = forwardRef(({ showing, dispatch, message, selectableItems, displayTextMaker, isMultipleSelectionAllowed = true, defaultSelections = [], selectFunction, cancelFunction, width, overlayBackgroundStyle, ...props }, ref) => {
     const preStyle = {};
     preStyle.width = "100%";
     preStyle.paddingBottom = "1em";
@@ -99,7 +99,7 @@ const SelectionDialog = forwardRef(({ showing, dispatch, message, selectableItem
     if (dialogID.length() === 0) {
         dialogID.append("idless-selection-dialog");
     }
-    return (React.createElement(Popup, { showing: showing, dispatch: dispatch, width: width, hideCancelButton: true, overlayBackground: overlayBackground, cancelFunction: cancelFunction, style: style, ref: ref, ...props },
+    return (React.createElement(Popup, { showing: showing, dispatch: dispatch, width: width, isCloseOnBackgroundClick: false, closeButtonStyle: { display: "none" }, overlayBackgroundStyle: overlayBackgroundStyle, cancelFunction: cancelFunction, ref: ref, ...props },
         React.createElement("pre", { style: preStyle, tabIndex: 0, ref: preRef }, message),
         React.createElement("form", { style: formStyle, ref: formRef, onSubmit: (e) => e.preventDefault() }, selectableItems.map((selectableItem) => {
             const displayText = displayTextMaker ? displayTextMaker(selectableItem) : undefined;

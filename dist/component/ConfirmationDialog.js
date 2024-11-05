@@ -6,7 +6,7 @@ import Popup from "./Popup.js";
  * @param props
  * @returns
  */
-const ConfirmationDialog = forwardRef(({ showing, dispatch, message, okFunction, cancelFunction, width, overlayBackground, style, ...props }, ref) => {
+const ConfirmationDialog = forwardRef(({ showing, dispatch, message, okFunction, cancelFunction, width, overlayBackgroundStyle, style, ...props }, ref) => {
     const preStyle = {};
     preStyle.width = "100%";
     preStyle.paddingBottom = "2em";
@@ -57,7 +57,7 @@ const ConfirmationDialog = forwardRef(({ showing, dispatch, message, okFunction,
             preRef.current.focus();
         }
     }, [showing]);
-    return (React.createElement(Popup, { showing: showing, dispatch: dispatch, width: width, hideCancelButton: true, overlayBackground: overlayBackground, cancelFunction: cancelFunction, style: style, ref: ref, ...props },
+    return (React.createElement(Popup, { showing: showing, dispatch: dispatch, width: width, isCloseOnBackgroundClick: false, closeButtonStyle: { display: "none" }, overlayBackgroundStyle: overlayBackgroundStyle, cancelFunction: cancelFunction, style: style, ref: ref, ...props },
         React.createElement("pre", { style: preStyle, tabIndex: 0, ref: preRef }, message),
         React.createElement("div", { style: buttonsStyle },
             React.createElement("button", { onClick: okEvent }, "OK"),

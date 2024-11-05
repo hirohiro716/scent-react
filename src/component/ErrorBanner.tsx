@@ -28,7 +28,7 @@ const ErrorBanner = forwardRef<HTMLDivElement, ErrorBannerProps>(({message, disp
     backgroundStyle.justifyContent = "center";
     backgroundStyle.alignItems = "start";
     backgroundStyle.pointerEvents = "none";
-    let bannerStyle: CSSProperties = {};
+    const bannerStyle: CSSProperties = {};
     bannerStyle.position = "relative";
     bannerStyle.maxWidth = width;
     bannerStyle.margin = "0 0.5em";
@@ -39,8 +39,7 @@ const ErrorBanner = forwardRef<HTMLDivElement, ErrorBannerProps>(({message, disp
     bannerStyle.boxShadow = "0 0.5em 1em 0 rgba(0, 0, 0, 0.5)";
     bannerStyle.cursor = "pointer";
     bannerStyle.pointerEvents = "auto";
-    bannerStyle = {...bannerStyle, ...style};
-    let preStyle: CSSProperties = {};
+    const preStyle: CSSProperties = {};
     preStyle.width = "100%";
     preStyle.height = "100%";
     preStyle.color = "inherit";
@@ -52,7 +51,7 @@ const ErrorBanner = forwardRef<HTMLDivElement, ErrorBannerProps>(({message, disp
         <>
             {message && (
                 <div style={backgroundStyle}>
-                    <div style={bannerStyle} onClick={closeEventHandler} ref={ref} {...props}>
+                    <div style={{...bannerStyle, ...style}} onClick={closeEventHandler} ref={ref} {...props}>
                         <pre style={preStyle}>
                             {message}
                         </pre>

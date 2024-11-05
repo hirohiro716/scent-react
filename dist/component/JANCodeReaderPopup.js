@@ -9,7 +9,7 @@ import JANCodeReader from "../class/JANCodeReader.js";
  * @returns
  */
 const JANCodeReaderPopup = forwardRef(({ showing, dispatch, callbackAfterReading, validator, style, ...props }, ref) => {
-    let divStyle = {};
+    const divStyle = {};
     divStyle.maxWidth = "100%";
     divStyle.maxHeight = "calc(100vh - 5em)";
     divStyle.minWidth = "300px";
@@ -17,7 +17,6 @@ const JANCodeReaderPopup = forwardRef(({ showing, dispatch, callbackAfterReading
     divStyle.display = "flex";
     divStyle.justifyContent = "center";
     divStyle.alignItems = "center";
-    divStyle = { ...divStyle, ...style };
     const imgStyle = {};
     imgStyle.position = "absolute";
     imgStyle.width = "3em";
@@ -43,7 +42,7 @@ const JANCodeReaderPopup = forwardRef(({ showing, dispatch, callbackAfterReading
         }
     }, [showing]);
     return (React.createElement(Popup, { showing: showing, dispatch: dispatch, width: "auto", ...props },
-        React.createElement("div", { style: divStyle, ref: divRef },
+        React.createElement("div", { style: { ...divStyle, ...style }, ref: divRef },
             React.createElement(WaitingCircle, { style: imgStyle }))));
 });
 export default JANCodeReaderPopup;

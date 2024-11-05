@@ -1,4 +1,4 @@
-import React, { Dispatch, ReactElement, ReactEventHandler, SetStateAction } from "react";
+import React, { CSSProperties, Dispatch, ReactElement, ReactEventHandler, SetStateAction } from "react";
 import { Property } from "scent-typescript";
 /**
  * オブジェクト編集テーブルダイアログのコンポーネント。
@@ -18,6 +18,6 @@ declare const ObjectEditTableDialog: React.ForwardRefExoticComponent<React.HTMLA
     rightFunctionButtons?: Record<string, (object: Record<string, any>) => Promise<void> | void>;
     closeFunction?: () => Promise<void>;
     width: string;
-    overlayBackground?: string;
+    overlayBackgroundStyle?: CSSProperties;
 } & React.RefAttributes<HTMLDivElement>>;
 export default ObjectEditTableDialog;

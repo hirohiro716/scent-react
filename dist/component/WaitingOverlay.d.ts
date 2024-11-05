@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { CSSProperties, Dispatch, SetStateAction } from "react";
 /**
  * 待機中のオーバーレイコンポーネント。
  *
@@ -9,6 +9,6 @@ declare const WaitingOverlay: React.ForwardRefExoticComponent<React.HTMLAttribut
     showing: boolean;
     dispatch: Dispatch<SetStateAction<boolean>>;
     width?: string;
-    overlayBackground?: string;
+    overlayBackgroundStyle?: CSSProperties;
 } & React.RefAttributes<HTMLDivElement>>;
 export default WaitingOverlay;

@@ -19,12 +19,11 @@ type StillCameraPopupProps = HTMLAttributes<HTMLDivElement> & {
  * @returns 
  */
 const StillCameraPopup = forwardRef<HTMLDivElement, StillCameraPopupProps>(({showing, dispatch, mimeType = "image/png", maximumLongSide, callbackAfterCapturing, style, ...props}, ref): ReactElement => {
-    let divStyle: CSSProperties = {};
+    const divStyle: CSSProperties = {};
     divStyle.display = "flex";
     divStyle.flexDirection = "column";
     divStyle.justifyContent = "center";
     divStyle.alignItems = "center";
-    divStyle = {...divStyle, ...style};
     const videoDivStyle: CSSProperties = {};
     videoDivStyle.maxWidth = "100%";
     videoDivStyle.maxHeight = "calc(100vh - 8em)";
@@ -115,7 +114,7 @@ const StillCameraPopup = forwardRef<HTMLDivElement, StillCameraPopupProps>(({sho
     }, [showing]);
     return (
         <Popup showing={showing} dispatch={dispatch} width="auto" {...props} >
-            <div style={divStyle} ref={ref}>
+            <div style={{...divStyle, ...style}} ref={ref}>
                 <div style={videoDivStyle} ref={videoDivRef}>
                     <WaitingCircle style={imgStyle} ref={imgRef} />
                 </div>
