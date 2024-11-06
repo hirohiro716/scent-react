@@ -1,5 +1,6 @@
 import React, { CSSProperties, Dispatch, HTMLAttributes, MouseEvent, ReactElement, SetStateAction, forwardRef, useEffect, useRef, useState } from "react";
 import Popup from "./Popup";
+import { StringObject } from "scent-typescript";
 
 type MonthInputDialogProps = HTMLAttributes<HTMLDivElement> & {
     showing: boolean | undefined,
@@ -32,27 +33,54 @@ const MonthInputDialog = forwardRef<HTMLDivElement, MonthInputDialogProps>(({sho
     formStyle.flexDirection = "row";
     formStyle.justifyContent = "right";
     formStyle.flexWrap = "wrap";
-    formStyle.gap = "1em";
-    const inputInternalStyle: CSSProperties = {};
-    inputInternalStyle.width = "10em";
-    inputInternalStyle.textAlign = "center";
+    formStyle.gap = "0.2em";
+    const yearAndMonthInputInternalStyle: CSSProperties = {};
+    yearAndMonthInputInternalStyle.width = "10em";
+    yearAndMonthInputInternalStyle.textAlign = "center";
+    const yearInputInternalStyle: CSSProperties = {};
+    yearInputInternalStyle.width = "6em";
+    yearInputInternalStyle.textAlign = "center";
+    const monthInputInternalStyle: CSSProperties = {};
+    monthInputInternalStyle.width = "4.5em";
+    monthInputInternalStyle.textAlign = "center";
     const buttonsStyle: CSSProperties = {};
     buttonsStyle.paddingTop = "0.5em";
     buttonsStyle.display = "flex";
     buttonsStyle.flexDirection = "row";
     buttonsStyle.justifyContent = "right";
     buttonsStyle.gap = "0.5em";
-    const inputRef = useRef<HTMLInputElement>(null);
+    const yearAndMonthInputRef = useRef<HTMLInputElement>(null);
+    const yearInputRef = useRef<HTMLInputElement>(null);
+    const monthInputRef = useRef<HTMLInputElement>(null);
     const [alreadyPressed, setAlreadyPressed] = useState<boolean>(false);
     const okEvent = async (e: MouseEvent) => {
-        if (alreadyPressed || inputRef.current === null) {
+        if (alreadyPressed) {
+            return;
+        }
+        const yearAndMonth = new StringObject();
+        if (supportsMonthType) {
+            if (yearAndMonthInputRef.current !== null) {
+                yearAndMonth.append(yearAndMonthInputRef.current.value);
+            }
+        } else {
+            if (yearInputRef.current !== null && monthInputRef.current !== null) {
+                const year = StringObject.from(yearInputRef.current.value).toNumber();
+                const month = StringObject.from(monthInputRef.current.value).toNumber();
+                if (year !== null && year > 0 && month !== null && month >= 1 && month <= 12) {
+                    yearAndMonth.append(year).paddingLeft(4, "0");
+                    yearAndMonth.append("-");
+                    yearAndMonth.append(StringObject.from(month).paddingLeft(2, "0"));
+                }
+            }
+        }
+        if (yearAndMonth.length() === 0) {
             return;
         }
         setAlreadyPressed(true);
         const target: any = e.target;
         const button: HTMLButtonElement = target;
         button.disabled = true;
-        await okFunction(inputRef.current.value);
+        await okFunction(yearAndMonth.toString());
         dispatch(false);
     }
     const cancelEvent =  async (e: MouseEvent) => {
@@ -69,18 +97,33 @@ const MonthInputDialog = forwardRef<HTMLDivElement, MonthInputDialogProps>(({sho
         }
         dispatch(false);
     }
-    const preRef = useRef<HTMLPreElement>(null);
+    const [supportsMonthType, setSupportsMonthType] = useState<boolean>(true);
     useEffect(() => {
         setAlreadyPressed(false);
-        if (preRef.current) {
-            preRef.current.focus();
+        if (yearAndMonthInputRef.current) {
+            yearAndMonthInputRef.current.focus();
+            if (StringObject.from(yearAndMonthInputRef.current.type).equals("month") === false) {
+                setSupportsMonthType(false);
+            }
         }
-    }, [showing]);
+        if (yearInputRef.current) {
+            yearInputRef.current.focus();
+        }
+    }, [showing, supportsMonthType]);
     return (
         <Popup showing={showing} dispatch={dispatch} width={width} isCloseOnBackgroundClick={false} closeButtonStyle={{display:"none"}} overlayBackgroundStyle={overlayBackgroundStyle} cancelFunction={cancelFunction} ref={ref} {...props}>
-            <pre style={preStyle} tabIndex={0} ref={preRef}>{message}</pre>
+            <pre style={preStyle} tabIndex={0}>{message}</pre>
             <form style={formStyle} onSubmit={(e) => e.preventDefault()}>
-                <input type="month" style={{...inputInternalStyle, ...inputStyle}} ref={inputRef} />
+                {supportsMonthType &&
+                    <input type="month" defaultValue={defaultValue} style={{...yearAndMonthInputInternalStyle, ...inputStyle}} ref={yearAndMonthInputRef} />
+                }
+                {supportsMonthType === false &&
+                    <>
+                        <input type="number" min={1} max={9999} defaultValue={StringObject.from(defaultValue).toString().includes("-") ? StringObject.from(defaultValue).splitToStrings("-")[0] : ""} style={{...yearInputInternalStyle, ...inputStyle}} ref={yearInputRef} />
+                        /
+                        <input type="number" min={1} max={12} defaultValue={StringObject.from(defaultValue).toString().includes("-") ? StringObject.from(defaultValue).splitToStrings("-")[1] : ""} style={{...monthInputInternalStyle, ...inputStyle}} ref={monthInputRef} />
+                    </>
+                }
             </form>
             <div style={buttonsStyle}>
                 <button onClick={okEvent}>OK</button>

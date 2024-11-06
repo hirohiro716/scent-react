@@ -1,5 +1,6 @@
 import React, { forwardRef, useEffect, useRef, useState } from "react";
 import Popup from "./Popup";
+import { StringObject } from "scent-typescript";
 /**
  * 年月の入力ダイアログのコンポーネント。
  *
@@ -19,27 +20,55 @@ const MonthInputDialog = forwardRef(({ showing, dispatch, message, defaultValue,
     formStyle.flexDirection = "row";
     formStyle.justifyContent = "right";
     formStyle.flexWrap = "wrap";
-    formStyle.gap = "1em";
-    const inputInternalStyle = {};
-    inputInternalStyle.width = "10em";
-    inputInternalStyle.textAlign = "center";
+    formStyle.gap = "0.2em";
+    const yearAndMonthInputInternalStyle = {};
+    yearAndMonthInputInternalStyle.width = "10em";
+    yearAndMonthInputInternalStyle.textAlign = "center";
+    const yearInputInternalStyle = {};
+    yearInputInternalStyle.width = "6em";
+    yearInputInternalStyle.textAlign = "center";
+    const monthInputInternalStyle = {};
+    monthInputInternalStyle.width = "4.5em";
+    monthInputInternalStyle.textAlign = "center";
     const buttonsStyle = {};
     buttonsStyle.paddingTop = "0.5em";
     buttonsStyle.display = "flex";
     buttonsStyle.flexDirection = "row";
     buttonsStyle.justifyContent = "right";
     buttonsStyle.gap = "0.5em";
-    const inputRef = useRef(null);
+    const yearAndMonthInputRef = useRef(null);
+    const yearInputRef = useRef(null);
+    const monthInputRef = useRef(null);
     const [alreadyPressed, setAlreadyPressed] = useState(false);
     const okEvent = async (e) => {
-        if (alreadyPressed || inputRef.current === null) {
+        if (alreadyPressed) {
+            return;
+        }
+        const yearAndMonth = new StringObject();
+        if (supportsMonthType) {
+            if (yearAndMonthInputRef.current !== null) {
+                yearAndMonth.append(yearAndMonthInputRef.current.value);
+            }
+        }
+        else {
+            if (yearInputRef.current !== null && monthInputRef.current !== null) {
+                const year = StringObject.from(yearInputRef.current.value).toNumber();
+                const month = StringObject.from(monthInputRef.current.value).toNumber();
+                if (year !== null && year > 0 && month !== null && month >= 1 && month <= 12) {
+                    yearAndMonth.append(year).paddingLeft(4, "0");
+                    yearAndMonth.append("-");
+                    yearAndMonth.append(StringObject.from(month).paddingLeft(2, "0"));
+                }
+            }
+        }
+        if (yearAndMonth.length() === 0) {
             return;
         }
         setAlreadyPressed(true);
         const target = e.target;
         const button = target;
         button.disabled = true;
-        await okFunction(inputRef.current.value);
+        await okFunction(yearAndMonth.toString());
         dispatch(false);
     };
     const cancelEvent = async (e) => {
@@ -57,17 +86,29 @@ const MonthInputDialog = forwardRef(({ showing, dispatch, message, defaultValue,
         }
         dispatch(false);
     };
-    const preRef = useRef(null);
+    const [supportsMonthType, setSupportsMonthType] = useState(true);
     useEffect(() => {
         setAlreadyPressed(false);
-        if (preRef.current) {
-            preRef.current.focus();
+        if (yearAndMonthInputRef.current) {
+            yearAndMonthInputRef.current.focus();
+            if (StringObject.from(yearAndMonthInputRef.current.type).equals("month") === false) {
+                setSupportsMonthType(false);
+            }
         }
-    }, [showing]);
+        if (yearInputRef.current) {
+            yearInputRef.current.focus();
+        }
+    }, [showing, supportsMonthType]);
     return (React.createElement(Popup, { showing: showing, dispatch: dispatch, width: width, isCloseOnBackgroundClick: false, closeButtonStyle: { display: "none" }, overlayBackgroundStyle: overlayBackgroundStyle, cancelFunction: cancelFunction, ref: ref, ...props },
-        React.createElement("pre", { style: preStyle, tabIndex: 0, ref: preRef }, message),
+        React.createElement("pre", { style: preStyle, tabIndex: 0 }, message),
         React.createElement("form", { style: formStyle, onSubmit: (e) => e.preventDefault() },
-            React.createElement("input", { type: "month", style: { ...inputInternalStyle, ...inputStyle }, ref: inputRef })),
+            supportsMonthType &&
+                React.createElement("input", { type: "month", defaultValue: defaultValue, style: { ...yearAndMonthInputInternalStyle, ...inputStyle }, ref: yearAndMonthInputRef }),
+            supportsMonthType === false &&
+                React.createElement(React.Fragment, null,
+                    React.createElement("input", { type: "number", min: 1, max: 9999, defaultValue: StringObject.from(defaultValue).toString().includes("-") ? StringObject.from(defaultValue).splitToStrings("-")[0] : "", style: { ...yearInputInternalStyle, ...inputStyle }, ref: yearInputRef }),
+                    "/",
+                    React.createElement("input", { type: "number", min: 1, max: 12, defaultValue: StringObject.from(defaultValue).toString().includes("-") ? StringObject.from(defaultValue).splitToStrings("-")[1] : "", style: { ...monthInputInternalStyle, ...inputStyle }, ref: monthInputRef }))),
         React.createElement("div", { style: buttonsStyle },
             React.createElement("button", { onClick: okEvent }, "OK"),
             React.createElement("button", { onClick: cancelEvent }, "\u30AD\u30E3\u30F3\u30BB\u30EB"))));
