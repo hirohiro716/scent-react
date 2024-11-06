@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useRef, useState } from "react";
 import Popup from "./Popup";
-import { StringObject } from "scent-typescript";
+import { Datetime, DatetimeFormat, StringObject } from "scent-typescript";
 /**
  * 年月の入力ダイアログのコンポーネント。
  *
@@ -103,12 +103,12 @@ const MonthInputDialog = forwardRef(({ showing, dispatch, message, defaultValue,
         React.createElement("pre", { style: preStyle, tabIndex: 0 }, message),
         React.createElement("form", { style: formStyle, onSubmit: (e) => e.preventDefault() },
             supportsMonthType &&
-                React.createElement("input", { type: "month", defaultValue: defaultValue, style: { ...yearAndMonthInputInternalStyle, ...inputStyle }, ref: yearAndMonthInputRef }),
+                React.createElement("input", { type: "month", defaultValue: defaultValue ? defaultValue : Datetime.from().toString(DatetimeFormat.yearAndMonth), style: { ...yearAndMonthInputInternalStyle, ...inputStyle }, ref: yearAndMonthInputRef }),
             supportsMonthType === false &&
                 React.createElement(React.Fragment, null,
-                    React.createElement("input", { type: "number", min: 1, max: 9999, defaultValue: StringObject.from(defaultValue).toString().includes("-") ? StringObject.from(defaultValue).splitToStrings("-")[0] : "", style: { ...yearInputInternalStyle, ...inputStyle }, ref: yearInputRef }),
+                    React.createElement("input", { type: "number", min: 1, max: 9999, defaultValue: StringObject.from(defaultValue).toString().includes("-") ? StringObject.from(defaultValue).splitToStrings("-")[0] : Datetime.from().getYear(), style: { ...yearInputInternalStyle, ...inputStyle }, ref: yearInputRef }),
                     "/",
-                    React.createElement("input", { type: "number", min: 1, max: 12, defaultValue: StringObject.from(defaultValue).toString().includes("-") ? StringObject.from(defaultValue).splitToStrings("-")[1] : "", style: { ...monthInputInternalStyle, ...inputStyle }, ref: monthInputRef }))),
+                    React.createElement("input", { type: "number", min: 1, max: 12, defaultValue: StringObject.from(defaultValue).toString().includes("-") ? StringObject.from(defaultValue).splitToStrings("-")[1] : Datetime.from().getMonth(), style: { ...monthInputInternalStyle, ...inputStyle }, ref: monthInputRef }))),
         React.createElement("div", { style: buttonsStyle },
             React.createElement("button", { onClick: okEvent }, "OK"),
             React.createElement("button", { onClick: cancelEvent }, "\u30AD\u30E3\u30F3\u30BB\u30EB"))));

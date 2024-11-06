@@ -1,6 +1,6 @@
 import React, { CSSProperties, Dispatch, HTMLAttributes, MouseEvent, ReactElement, SetStateAction, forwardRef, useEffect, useRef, useState } from "react";
 import Popup from "./Popup";
-import { StringObject } from "scent-typescript";
+import { Datetime, DatetimeFormat, StringObject } from "scent-typescript";
 
 type MonthInputDialogProps = HTMLAttributes<HTMLDivElement> & {
     showing: boolean | undefined,
@@ -115,13 +115,13 @@ const MonthInputDialog = forwardRef<HTMLDivElement, MonthInputDialogProps>(({sho
             <pre style={preStyle} tabIndex={0}>{message}</pre>
             <form style={formStyle} onSubmit={(e) => e.preventDefault()}>
                 {supportsMonthType &&
-                    <input type="month" defaultValue={defaultValue} style={{...yearAndMonthInputInternalStyle, ...inputStyle}} ref={yearAndMonthInputRef} />
+                    <input type="month" defaultValue={defaultValue ? defaultValue : Datetime.from().toString(DatetimeFormat.yearAndMonth)} style={{...yearAndMonthInputInternalStyle, ...inputStyle}} ref={yearAndMonthInputRef} />
                 }
                 {supportsMonthType === false &&
                     <>
-                        <input type="number" min={1} max={9999} defaultValue={StringObject.from(defaultValue).toString().includes("-") ? StringObject.from(defaultValue).splitToStrings("-")[0] : ""} style={{...yearInputInternalStyle, ...inputStyle}} ref={yearInputRef} />
+                        <input type="number" min={1} max={9999} defaultValue={StringObject.from(defaultValue).toString().includes("-") ? StringObject.from(defaultValue).splitToStrings("-")[0] : Datetime.from().getYear()} style={{...yearInputInternalStyle, ...inputStyle}} ref={yearInputRef} />
                         /
-                        <input type="number" min={1} max={12} defaultValue={StringObject.from(defaultValue).toString().includes("-") ? StringObject.from(defaultValue).splitToStrings("-")[1] : ""} style={{...monthInputInternalStyle, ...inputStyle}} ref={monthInputRef} />
+                        <input type="number" min={1} max={12} defaultValue={StringObject.from(defaultValue).toString().includes("-") ? StringObject.from(defaultValue).splitToStrings("-")[1] : Datetime.from().getMonth()} style={{...monthInputInternalStyle, ...inputStyle}} ref={monthInputRef} />
                     </>
                 }
             </form>
