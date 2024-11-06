@@ -32,19 +32,25 @@ const SelectionDialog = forwardRef(({ showing, dispatch, message, selectableItem
     buttonsStyle.justifyContent = "right";
     buttonsStyle.gap = "0.5em";
     const formRef = useRef(null);
+    const [selectedItems, setSelectedItems] = useState([]);
     const checkChangeEventHandler = (e) => {
-        if (isMultipleSelectionAllowed) {
-            return;
-        }
-        const selectedItems = [];
-        const formData = new FormData(formRef.current ? formRef.current : undefined);
-        formData.forEach((value, key) => {
-            if (StringObject.from(value).toBoolean()) {
-                selectedItems.push(key);
+        if (isMultipleSelectionAllowed === false) {
+            if (e.currentTarget.checked) {
+                setSelectedItems([e.currentTarget.name]);
             }
-        });
-        if (selectedItems.length > 1) {
-            e.currentTarget.checked = false;
+            else {
+                setSelectedItems([]);
+            }
+        }
+        else {
+            const items = [...selectedItems];
+            if (e.currentTarget.checked) {
+                items.push(e.currentTarget.name);
+                setSelectedItems(items);
+            }
+            else {
+                setSelectedItems(items.filter((item) => item !== e.currentTarget.name));
+            }
         }
     };
     const [alreadyPressed, setAlreadyPressed] = useState(false);
@@ -94,6 +100,9 @@ const SelectionDialog = forwardRef(({ showing, dispatch, message, selectableItem
         if (preRef.current) {
             preRef.current.focus();
         }
+        if (showing) {
+            setSelectedItems([...defaultSelections]);
+        }
     }, [showing]);
     const dialogID = new StringObject(props.id);
     if (dialogID.length() === 0) {
@@ -101,10 +110,10 @@ const SelectionDialog = forwardRef(({ showing, dispatch, message, selectableItem
     }
     return (React.createElement(Popup, { showing: showing, dispatch: dispatch, width: width, isCloseOnBackgroundClick: false, closeButtonStyle: { display: "none" }, overlayBackgroundStyle: overlayBackgroundStyle, cancelFunction: cancelFunction, ref: ref, ...props },
         React.createElement("pre", { style: preStyle, tabIndex: 0, ref: preRef }, message),
-        React.createElement("form", { style: formStyle, ref: formRef, onSubmit: (e) => e.preventDefault() }, selectableItems.map((selectableItem) => {
+        React.createElement("form", { style: formStyle, ref: formRef, onSubmit: (e) => e.preventDefault() }, Array.from(new Set(selectableItems)).map((selectableItem) => {
             const displayText = displayTextMaker ? displayTextMaker(selectableItem) : undefined;
             return (React.createElement("label", { key: dialogID.clone().append(selectableItem).toString(), style: labelStyle },
-                React.createElement("input", { type: "checkbox", name: selectableItem, value: "true", defaultChecked: defaultSelections.includes(selectableItem), onChange: checkChangeEventHandler }),
+                React.createElement("input", { type: "checkbox", name: selectableItem, value: "true", checked: selectedItems.includes(selectableItem), onChange: checkChangeEventHandler }),
                 displayText ? displayText : selectableItem));
         })),
         React.createElement("div", { style: buttonsStyle },

@@ -47,19 +47,22 @@ const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showi
     buttonsStyle.justifyContent = "right";
     buttonsStyle.gap = "0.5em";
     const formRef = useRef<HTMLFormElement>(null);
+    const [selectedItems, setSelectedItems] = useState<string[]>([]);
     const checkChangeEventHandler: ChangeEventHandler<HTMLInputElement> = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (isMultipleSelectionAllowed) {
-            return;
-        }
-        const selectedItems: string[] = [];
-        const formData = new FormData(formRef.current ? formRef.current : undefined);
-        formData.forEach((value, key) => {
-            if (StringObject.from(value).toBoolean()) {
-                selectedItems.push(key);
+        if (isMultipleSelectionAllowed === false) {
+            if (e.currentTarget.checked) {
+                setSelectedItems([e.currentTarget.name]);
+            } else {
+                setSelectedItems([]);
             }
-        });
-        if (selectedItems.length > 1) {
-            e.currentTarget.checked = false;
+        } else {
+            const items: string[] = [...selectedItems];
+            if (e.currentTarget.checked) {
+                items.push(e.currentTarget.name);
+                setSelectedItems(items);
+            } else {
+                setSelectedItems(items.filter((item) => item !== e.currentTarget.name));
+            }
         }
     }
     const [alreadyPressed, setAlreadyPressed] = useState<boolean>(false);
@@ -107,6 +110,9 @@ const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showi
         if (preRef.current) {
             preRef.current.focus();
         }
+        if (showing) {
+            setSelectedItems([...defaultSelections]);
+        }
     }, [showing]);
     const dialogID = new StringObject(props.id);
     if (dialogID.length() === 0) {
@@ -116,11 +122,11 @@ const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showi
         <Popup showing={showing} dispatch={dispatch} width={width} isCloseOnBackgroundClick={false} closeButtonStyle={{display:"none"}} overlayBackgroundStyle={overlayBackgroundStyle} cancelFunction={cancelFunction} ref={ref} {...props}>
             <pre style={preStyle} tabIndex={0} ref={preRef}>{message}</pre>
             <form style={formStyle} ref={formRef} onSubmit={(e) => e.preventDefault()}>
-                {selectableItems.map((selectableItem) => {
+                {Array.from(new Set(selectableItems)).map((selectableItem) => {
                     const displayText = displayTextMaker ? displayTextMaker(selectableItem) : undefined;
                     return (
                         <label key={dialogID.clone().append(selectableItem).toString()} style={labelStyle}>
-                            <input type="checkbox" name={selectableItem} value={"true"} defaultChecked={defaultSelections.includes(selectableItem)} onChange={checkChangeEventHandler} />
+                            <input type="checkbox" name={selectableItem} value="true" checked={selectedItems.includes(selectableItem)} onChange={checkChangeEventHandler} />
                             {displayText ? displayText : selectableItem}
                         </label>
                     );
