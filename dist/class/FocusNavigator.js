@@ -1,29 +1,27 @@
 /**
- * フォーカスを循環させるクラス。
+ * フォーカスをナビゲートするクラス。
  */
-class FocusCycler {
-
+class FocusNavigator {
     /**
-     * コンストラクタ。フォーカスを循環させる要素のクラス名を指定する。
-     * 
+     * コンストラクタ。フォーカスさせる要素のクラス名を指定する。
+     *
      * @param className
+     * @param isCyclic 循環する場合はtrueを指定。
      */
-    public constructor(className: string) {
+    constructor(className, isCyclic) {
         this.className = className;
+        this.isCyclic = isCyclic;
     }
-
-    private readonly className: string;
-
     /**
      * 指定された要素の次の要素にフォーカスする。
-     * 
-     * @param currentElement 
+     *
+     * @param currentElement
      */
-    public next(currentElement: HTMLElement): void {
+    next(currentElement) {
         const elements = window.document.getElementsByClassName(this.className);
         let foundCurrentElement = false;
         for (let index = 0; index < elements.length; index++) {
-            const element = elements.item(index) as HTMLElement;
+            const element = elements.item(index);
             if (foundCurrentElement) {
                 element.focus();
                 return;
@@ -32,22 +30,21 @@ class FocusCycler {
                 foundCurrentElement = true;
             }
         }
-        if (foundCurrentElement) {
-            const firstElement = elements.item(0) as HTMLElement;
+        if (this.isCyclic && foundCurrentElement) {
+            const firstElement = elements.item(0);
             firstElement.focus();
         }
     }
-
     /**
      * 指定された要素の前の要素にフォーカスする。
-     * 
-     * @param currentElement 
+     *
+     * @param currentElement
      */
-    public previous(currentElement: HTMLElement): void {
+    previous(currentElement) {
         const elements = window.document.getElementsByClassName(this.className);
         let foundCurrentElement = false;
         for (let index = elements.length - 1; index >= 0; index--) {
-            const element = elements.item(index) as HTMLElement;
+            const element = elements.item(index);
             if (foundCurrentElement) {
                 element.focus();
                 return;
@@ -56,10 +53,10 @@ class FocusCycler {
                 foundCurrentElement = true;
             }
         }
-        if (foundCurrentElement) {
-            const lastElement = elements.item(elements.length - 1) as HTMLElement;
+        if (this.isCyclic && foundCurrentElement) {
+            const lastElement = elements.item(elements.length - 1);
             lastElement.focus();
         }
     }
 }
-export default FocusCycler;
+export default FocusNavigator;

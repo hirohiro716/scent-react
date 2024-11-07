@@ -1,14 +1,16 @@
 /**
- * フォーカスを循環させるクラス。
+ * フォーカスをナビゲートするクラス。
  */
-declare class FocusCycler {
+declare class FocusNavigator {
     /**
-     * コンストラクタ。フォーカスを循環させる要素のクラス名を指定する。
+     * コンストラクタ。フォーカスさせる要素のクラス名を指定する。
      *
      * @param className
+     * @param isCyclic 循環する場合はtrueを指定。
      */
-    constructor(className: string);
+    constructor(className: string, isCyclic: boolean);
     private readonly className;
+    private readonly isCyclic;
     /**
      * 指定された要素の次の要素にフォーカスする。
      *
@@ -22,4 +24,4 @@ declare class FocusCycler {
      */
     previous(currentElement: HTMLElement): void;
 }
-export default FocusCycler;
+export default FocusNavigator;
