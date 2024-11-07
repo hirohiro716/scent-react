@@ -7,13 +7,13 @@ import React, { forwardRef, useImperativeHandle, useRef } from "react";
  * @returns
  */
 const TimeInput = forwardRef(({ defaultDatetime, ...props }, ref) => {
-    const style = {};
-    style.width = "5em";
-    style.textAlign = "center";
     const inputRef = useRef(null);
     useImperativeHandle(ref, () => {
         return inputRef.current;
     });
+    const style = {};
+    style.width = "5em";
+    style.textAlign = "center";
     const isAlreadyInitialized = useRef(false);
     if (typeof window !== "undefined" && isAlreadyInitialized.current === false) {
         if (inputRef.current !== null) {
@@ -47,6 +47,6 @@ const TimeInput = forwardRef(({ defaultDatetime, ...props }, ref) => {
             });
         }
     }
-    return (React.createElement("input", { type: "text", defaultValue: defaultDatetime ? defaultDatetime.toString(DatetimeFormat.hourAndMinute) : undefined, ref: inputRef, style: { ...style, ...props.style }, ...props }));
+    return (React.createElement("input", { type: "text", defaultValue: defaultDatetime ? defaultDatetime.toString(DatetimeFormat.hourAndMinute) : undefined, style: { ...style, ...props.style }, ref: inputRef, ...props }));
 });
 export default TimeInput;

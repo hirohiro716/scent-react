@@ -1,7 +1,7 @@
 import { Datetime, DatetimeFormat, StringObject } from "scent-typescript";
-import React, { CSSProperties, forwardRef, HTMLAttributes, ReactElement, useImperativeHandle, useRef } from "react";
+import React, { CSSProperties, forwardRef, InputHTMLAttributes, ReactElement, useImperativeHandle, useRef } from "react";
 
-type TimeInputProps = HTMLAttributes<HTMLInputElement> & {
+type TimeInputProps = InputHTMLAttributes<HTMLInputElement> & {
     defaultDatetime: Datetime | null,
 }
 
@@ -11,14 +11,14 @@ type TimeInputProps = HTMLAttributes<HTMLInputElement> & {
  * @param props 
  * @returns 
  */
-const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(({defaultDatetime, ...props}, ref): ReactElement => {
-    const style: CSSProperties = {};
-    style.width = "5em";
-    style.textAlign = "center";
+const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(({defaultDatetime, ...props}: TimeInputProps, ref): ReactElement => {
     const inputRef = useRef<HTMLInputElement>(null);
     useImperativeHandle(ref, () => {
         return inputRef.current!;
     });
+    const style: CSSProperties = {};
+    style.width = "5em";
+    style.textAlign = "center";
     const isAlreadyInitialized = useRef<boolean>(false);
     if (typeof window !== "undefined" && isAlreadyInitialized.current === false) {
         if (inputRef.current !== null) {
@@ -52,7 +52,7 @@ const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(({defaultDatetime
         }
     }
     return (
-        <input type="text" defaultValue={defaultDatetime ? defaultDatetime.toString(DatetimeFormat.hourAndMinute) : undefined} ref={inputRef} style={{...style, ...props.style}} {...props} />
+        <input type="text" defaultValue={defaultDatetime ? defaultDatetime.toString(DatetimeFormat.hourAndMinute) : undefined} style={{...style, ...props.style}} ref={inputRef} {...props} />
     );
 });
 export default TimeInput;
