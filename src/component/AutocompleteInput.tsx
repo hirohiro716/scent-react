@@ -1,5 +1,5 @@
-import React, { CSSProperties, InputHTMLAttributes, KeyboardEvent, MouseEvent, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
-import { StringObject, UserAgent } from "scent-typescript";
+import React, { CSSProperties, InputHTMLAttributes, KeyboardEvent, MouseEvent, ReactElement, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
+import { StringObject } from "scent-typescript";
 
 type AutocompleteInputProps = InputHTMLAttributes<HTMLInputElement> & {
     items: any[],
@@ -14,7 +14,7 @@ type AutocompleteInputProps = InputHTMLAttributes<HTMLInputElement> & {
  * @param props 
  * @returns 
  */
-const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>(({items, displayTextMaker, keywordMaker, callbackAfterAutocomplete, ...props}: AutocompleteInputProps, ref) => {
+const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>(({items, displayTextMaker, keywordMaker, callbackAfterAutocomplete, ...props}: AutocompleteInputProps, ref): ReactElement => {
     const inputRef = useRef<HTMLInputElement>(null);
     useImperativeHandle(ref, () => {
         return inputRef.current!;
