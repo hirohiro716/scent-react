@@ -17,6 +17,7 @@ import RecordTable from "./component/RecordTable.js";
 import Popup from "./component/Popup.js";
 import ConfirmationDialog from "./component/ConfirmationDialog.js";
 import SelectionDialog from "./component/SelectionDialog.js";
+import DatetimeInputDialog from "./component/DatetimeInputDialog.js";
 import MonthInputDialog from "./component/MonthInputDialog.js";
 import ObjectEditTableDialog from "./component/ObjectEditTableDialog.js";
 import ErrorBanner from "./component/ErrorBanner.js";
@@ -27,5 +28,5 @@ import JANCodeReaderPopup from "./component/JANCodeReaderPopup.js";
 
 export {
     Scroller, FocusNavigator, StillCamera, JANCodeReader, Geolocation,
-    WaitingCircle, WaitingOverlay, AutocompleteInput, TimeInput, NearbyDateTouchInput, NearbyMonthTouchInput, NearbyTimeTouchInput, Button, ObjectEditTable, RecordTable, Popup, ConfirmationDialog, SelectionDialog, MonthInputDialog, ObjectEditTableDialog, ErrorBanner, NoticeBanner, ImageViewer, StillCameraPopup, JANCodeReaderPopup, 
+    WaitingCircle, WaitingOverlay, AutocompleteInput, TimeInput, NearbyDateTouchInput, NearbyMonthTouchInput, NearbyTimeTouchInput, Button, ObjectEditTable, RecordTable, Popup, ConfirmationDialog, SelectionDialog, DatetimeInputDialog, MonthInputDialog, ObjectEditTableDialog, ErrorBanner, NoticeBanner, ImageViewer, StillCameraPopup, JANCodeReaderPopup, 
 }
