@@ -1,4 +1,5 @@
 import Scroller from "./class/Scroller.js";
+import FocusCycler from "./class/FocusCycler.js";
 import StillCamera from "./class/StillCamera.js";
 import JANCodeReader from "./class/JANCodeReader.js";
 import Geolocation from "./class/Geolocation.js";
@@ -25,6 +26,6 @@ import StillCameraPopup from "./component/StillCameraPopup.js";
 import JANCodeReaderPopup from "./component/JANCodeReaderPopup.js";
 
 export {
-    Scroller, StillCamera, JANCodeReader, Geolocation,
+    Scroller, FocusCycler, StillCamera, JANCodeReader, Geolocation,
     WaitingCircle, WaitingOverlay, AutocompleteInput, TimeInput, NearbyDateTouchInput, NearbyMonthTouchInput, NearbyTimeTouchInput, Button, ObjectEditTable, RecordTable, Popup, ConfirmationDialog, SelectionDialog, MonthInputDialog, ObjectEditTableDialog, ErrorBanner, NoticeBanner, ImageViewer, StillCameraPopup, JANCodeReaderPopup, 
 }
