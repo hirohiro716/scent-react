@@ -1,11 +1,13 @@
-import React, { Dispatch, HTMLAttributes, MouseEvent, MouseEventHandler, ReactElement, ReactEventHandler, SetStateAction, forwardRef, useState } from "react";
+import React, { HTMLAttributes, MouseEvent, MouseEventHandler, ReactElement, ReactEventHandler, forwardRef } from "react";
 import { Property, StringObject } from "scent-typescript";
 
 type ObjectEditTableProps = HTMLAttributes<HTMLTableElement> & {
     properties: Property[],
     identifierMaker?: (record: Record<string, any>) => string | null,
     objects: Record<string, any>[],
-    elementMaker?: (object: Record<string, any>, property: Property, onChangeEventHandler: ReactEventHandler<any>, dispatch: Dispatch<SetStateAction<string>>) => ReactElement | undefined,
+    elementMaker?: (object: Record<string, any>, property: Property, onChangeEventHandler: ReactEventHandler<any>) => ReactElement | undefined,
+    objectValueGetter?: (property: Property, object: Record<string, any>) => string | undefined,
+    elementValueGetter?: (property: Property, object: Record<string, any>, element: any) => any,
     leftFunctionButtons?: Record<string, (object: Record<string, any>) => Promise<void> | void>,
     rightFunctionButtons?: Record<string, (object: Record<string, any>) => Promise<void> | void>,
     emptyMessage?: string,
@@ -17,30 +19,33 @@ type ObjectEditTableProps = HTMLAttributes<HTMLTableElement> & {
  * @param props 
  * @returns 
  */
-const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({properties, identifierMaker, objects, elementMaker, leftFunctionButtons, rightFunctionButtons, emptyMessage, ...props}, ref): ReactElement => {
+const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({properties, identifierMaker, objects, elementMaker, objectValueGetter, elementValueGetter, leftFunctionButtons, rightFunctionButtons, emptyMessage, ...props}, ref): ReactElement => {
     const defaultIdentifierMaker = (object: Record<string, any>): string | null => {
         return StringObject.from(objects.indexOf(object)).toString();
     }
     const fieldElementMaker = (object: Record<string, any>, property: Property): ReactElement => {
-        const [value, dispatch] = useState<string>(StringObject.from(object[property.physicalName]).toString());
         const onChangeEventHandler: ReactEventHandler<any> = (event) => {
-            dispatch(event.currentTarget.value);
-            switch (event.currentTarget.type) {
-                case "checkbox":
-                case "radio":
-                    object[property.physicalName] = event.currentTarget.checked;
-                    break;
-                default:
-                    object[property.physicalName] = event.currentTarget.value;
-                    break;
+            if (elementValueGetter) {
+                const value = elementValueGetter(property, object, event.currentTarget);
+                object[property.physicalName] = value;
+            } else {
+                switch (event.currentTarget.type) {
+                    case "checkbox":
+                    case "radio":
+                        object[property.physicalName] = event.currentTarget.checked;
+                        break;
+                    default:
+                        object[property.physicalName] = event.currentTarget.value;
+                        break;
+                }
             }
         }
         let element: ReactElement | undefined = undefined;
         if (elementMaker) {
-            element = elementMaker(object, property, onChangeEventHandler, dispatch);
+            element = elementMaker(object, property, onChangeEventHandler);
         }
         if (typeof element === "undefined") {
-            element = <input type="text" onChange={onChangeEventHandler} value={value} style={{width:"10em"}} />;
+            element = <input type="text" defaultValue={objectValueGetter ? objectValueGetter(property, object) : StringObject.from(object[property.physicalName]).toString()} onChange={onChangeEventHandler} style={{width:"10em"}} />;
         }
         return element;
     }

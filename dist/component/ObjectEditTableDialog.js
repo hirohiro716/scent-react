@@ -7,7 +7,7 @@ import ObjectEditTable from "./ObjectEditTable.js";
  * @param props
  * @returns
  */
-const ObjectEditTableDialog = forwardRef(({ showing, dispatch, message, properties, identifierMaker, objects, elementMaker, leftFunctionButtons, rightFunctionButtons, closeFunction, width, overlayBackgroundStyle, ...props }, ref) => {
+const ObjectEditTableDialog = forwardRef(({ showing, dispatch, message, properties, identifierMaker, objects, elementMaker, objectValueGetter, elementValueGetter, leftFunctionButtons, rightFunctionButtons, closeFunction, width, overlayBackgroundStyle, ...props }, ref) => {
     const preStyle = {};
     preStyle.width = "100%";
     preStyle.paddingBottom = "1em";
@@ -52,7 +52,7 @@ const ObjectEditTableDialog = forwardRef(({ showing, dispatch, message, properti
     return (React.createElement(Popup, { showing: showing, dispatch: dispatch, width: width, closeButtonStyle: { display: "none" }, overlayBackgroundStyle: overlayBackgroundStyle, cancelFunction: closeFunction, ref: ref, ...props },
         React.createElement("pre", { style: preStyle, tabIndex: 0, ref: preRef }, message),
         React.createElement("div", { style: tableStyle },
-            React.createElement(ObjectEditTable, { properties: properties, identifierMaker: identifierMaker, objects: objects, elementMaker: elementMaker, leftFunctionButtons: leftFunctionButtons, rightFunctionButtons: rightFunctionButtons })),
+            React.createElement(ObjectEditTable, { properties: properties, identifierMaker: identifierMaker, objects: objects, elementMaker: elementMaker, objectValueGetter: objectValueGetter, elementValueGetter: elementValueGetter, leftFunctionButtons: leftFunctionButtons, rightFunctionButtons: rightFunctionButtons })),
         React.createElement("div", { style: buttonsStyle },
             React.createElement("button", { onClick: closeEvent }, "\u9589\u3058\u308B"))));
 });

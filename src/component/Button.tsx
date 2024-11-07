@@ -1,10 +1,9 @@
-import React, { ButtonHTMLAttributes, Dispatch, ReactElement, SetStateAction, forwardRef, useEffect, useRef } from "react";
+import React, { ButtonHTMLAttributes, ReactElement, forwardRef, useEffect, useRef } from "react";
 import WaitingCircle from "./WaitingCircle.js";
 import { StringObject } from "scent-typescript";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     wait?: boolean,
-    dispatch: Dispatch<SetStateAction<boolean>>,
 }
 
 /**
@@ -13,7 +12,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
  * @param props 
  * @returns 
  */
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(({wait, dispatch, style, children, ...props}, ref): ReactElement => {
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(({wait, style, children, ...props}, ref): ReactElement => {
     const imageRef = useRef<HTMLImageElement>(null);
     const animation = () => {
         const frame = 1 / 200;

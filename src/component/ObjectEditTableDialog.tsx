@@ -10,7 +10,9 @@ type ObjectEditTableDialogProps = HTMLAttributes<HTMLDivElement> & {
     properties: Property[],
     identifierMaker?: (record: Record<string, any>) => string | null,
     objects: Record<string, any>[],
-    elementMaker?: (object: Record<string, any>, property: Property, onChangeEventHandler: ReactEventHandler<any>, dispatch: Dispatch<SetStateAction<string>>) => ReactElement | undefined,
+    elementMaker?: (object: Record<string, any>, property: Property, onChangeEventHandler: ReactEventHandler<any>) => ReactElement | undefined,
+    objectValueGetter?: (property: Property, object: Record<string, any>) => string | undefined,
+    elementValueGetter?: (property: Property, object: Record<string, any>, element: any) => any,
     leftFunctionButtons?: Record<string, (object: Record<string, any>) => Promise<void> | void>,
     rightFunctionButtons?: Record<string, (object: Record<string, any>) => Promise<void> | void>,
     closeFunction?: () => Promise<void>,
@@ -24,7 +26,7 @@ type ObjectEditTableDialogProps = HTMLAttributes<HTMLDivElement> & {
  * @param props 
  * @returns 
  */
-const ObjectEditTableDialog = forwardRef<HTMLDivElement, ObjectEditTableDialogProps>(({showing, dispatch, message, properties, identifierMaker, objects, elementMaker, leftFunctionButtons, rightFunctionButtons, closeFunction, width, overlayBackgroundStyle, ...props}, ref): ReactElement => {
+const ObjectEditTableDialog = forwardRef<HTMLDivElement, ObjectEditTableDialogProps>(({showing, dispatch, message, properties, identifierMaker, objects, elementMaker, objectValueGetter, elementValueGetter, leftFunctionButtons, rightFunctionButtons, closeFunction, width, overlayBackgroundStyle, ...props}, ref): ReactElement => {
     const preStyle: CSSProperties = {};
     preStyle.width = "100%";
     preStyle.paddingBottom = "1em";
@@ -69,7 +71,7 @@ const ObjectEditTableDialog = forwardRef<HTMLDivElement, ObjectEditTableDialogPr
         <Popup showing={showing} dispatch={dispatch} width={width} closeButtonStyle={{display:"none"}} overlayBackgroundStyle={overlayBackgroundStyle} cancelFunction={closeFunction} ref={ref} {...props}>
             <pre style={preStyle} tabIndex={0} ref={preRef}>{message}</pre>
             <div style={tableStyle}>
-                <ObjectEditTable properties={properties} identifierMaker={identifierMaker} objects={objects} elementMaker={elementMaker} leftFunctionButtons={leftFunctionButtons} rightFunctionButtons={rightFunctionButtons} />
+                <ObjectEditTable properties={properties} identifierMaker={identifierMaker} objects={objects} elementMaker={elementMaker} objectValueGetter={objectValueGetter} elementValueGetter={elementValueGetter} leftFunctionButtons={leftFunctionButtons} rightFunctionButtons={rightFunctionButtons} />
             </div>
             <div style={buttonsStyle}>
                 <button onClick={closeEvent}>閉じる</button>

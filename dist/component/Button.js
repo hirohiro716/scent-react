@@ -7,7 +7,7 @@ import { StringObject } from "scent-typescript";
  * @param props
  * @returns
  */
-const Button = forwardRef(({ wait, dispatch, style, children, ...props }, ref) => {
+const Button = forwardRef(({ wait, style, children, ...props }, ref) => {
     const imageRef = useRef(null);
     const animation = () => {
         const frame = 1 / 200;
