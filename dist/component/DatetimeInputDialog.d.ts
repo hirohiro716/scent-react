@@ -10,7 +10,7 @@ declare const DatetimeInputDialog: React.ForwardRefExoticComponent<React.HTMLAtt
     showing: boolean | undefined;
     dispatch: Dispatch<SetStateAction<boolean>>;
     message: string | undefined;
-    defaultDatetime?: Datetime;
+    defaultDatetime?: Datetime | null;
     okFunction: (datetime: Datetime) => Promise<void>;
     cancelFunction?: () => Promise<void>;
     width: string;

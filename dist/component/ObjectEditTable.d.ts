@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactEventHandler } from "react";
+import React, { Dispatch, ReactElement, ReactEventHandler, SetStateAction } from "react";
 import { Property } from "scent-typescript";
 /**
  * オブジェクトを編集するテーブルコンポーネント。
@@ -10,9 +10,7 @@ declare const ObjectEditTable: React.ForwardRefExoticComponent<React.HTMLAttribu
     properties: Property[];
     identifierMaker?: (record: Record<string, any>) => string | null;
     objects: Record<string, any>[];
-    elementMaker?: (object: Record<string, any>, property: Property, onChangeEventHandler: ReactEventHandler<any>) => ReactElement | undefined;
-    objectValueGetter?: (property: Property, object: Record<string, any>) => string | undefined;
-    elementValueGetter?: (property: Property, object: Record<string, any>, element: any) => any;
+    elementMaker?: (value: string, dispatch: Dispatch<SetStateAction<string>>, onChangeEventHandler: ReactEventHandler<any>, object: Record<string, any>, property: Property) => ReactElement | undefined;
     leftFunctionButtons?: Record<string, (object: Record<string, any>) => Promise<void> | void>;
     rightFunctionButtons?: Record<string, (object: Record<string, any>) => Promise<void> | void>;
     emptyMessage?: string;

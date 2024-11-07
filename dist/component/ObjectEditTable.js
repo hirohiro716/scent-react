@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
 import { StringObject } from "scent-typescript";
 /**
  * オブジェクトを編集するテーブルコンポーネント。
@@ -6,34 +6,31 @@ import { StringObject } from "scent-typescript";
  * @param props
  * @returns
  */
-const ObjectEditTable = forwardRef(({ properties, identifierMaker, objects, elementMaker, objectValueGetter, elementValueGetter, leftFunctionButtons, rightFunctionButtons, emptyMessage, ...props }, ref) => {
+const ObjectEditTable = forwardRef(({ properties, identifierMaker, objects, elementMaker, leftFunctionButtons, rightFunctionButtons, emptyMessage, ...props }, ref) => {
     const defaultIdentifierMaker = (object) => {
         return StringObject.from(objects.indexOf(object)).toString();
     };
     const fieldElementMaker = (object, property) => {
+        const [value, dispatch] = useState(StringObject.from(object[property.physicalName]).toString());
         const onChangeEventHandler = (event) => {
-            if (elementValueGetter) {
-                const value = elementValueGetter(property, object, event.currentTarget);
-                object[property.physicalName] = value;
-            }
-            else {
-                switch (event.currentTarget.type) {
-                    case "checkbox":
-                    case "radio":
-                        object[property.physicalName] = event.currentTarget.checked;
-                        break;
-                    default:
-                        object[property.physicalName] = event.currentTarget.value;
-                        break;
-                }
+            switch (event.currentTarget.type) {
+                case "checkbox":
+                case "radio":
+                    dispatch(StringObject.from(event.currentTarget.checked).toString());
+                    object[property.physicalName] = event.currentTarget.checked;
+                    break;
+                default:
+                    dispatch(event.currentTarget.value);
+                    object[property.physicalName] = event.currentTarget.value;
+                    break;
             }
         };
         let element = undefined;
         if (elementMaker) {
-            element = elementMaker(object, property, onChangeEventHandler);
+            element = elementMaker(value, dispatch, onChangeEventHandler, object, property);
         }
         if (typeof element === "undefined") {
-            element = React.createElement("input", { type: "text", defaultValue: objectValueGetter ? objectValueGetter(property, object) : StringObject.from(object[property.physicalName]).toString(), onChange: onChangeEventHandler, style: { width: "10em" } });
+            element = React.createElement("input", { type: "text", onChange: onChangeEventHandler, value: value, style: { width: "10em" } });
         }
         return element;
     };
