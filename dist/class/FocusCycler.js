@@ -33,6 +33,11 @@ class FocusCycler {
             firstElement.focus();
         }
     }
+    /**
+     * 指定された要素の前の要素にフォーカスする。
+     *
+     * @param currentElement
+     */
     previous(currentElement) {
         const elements = window.document.getElementsByClassName(this.className);
         let foundCurrentElement = false;

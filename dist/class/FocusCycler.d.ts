@@ -15,6 +15,11 @@ declare class FocusCycler {
      * @param currentElement
      */
     next(currentElement: HTMLElement): void;
+    /**
+     * 指定された要素の前の要素にフォーカスする。
+     *
+     * @param currentElement
+     */
     previous(currentElement: HTMLElement): void;
 }
 export default FocusCycler;
