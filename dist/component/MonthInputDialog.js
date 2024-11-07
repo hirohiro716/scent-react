@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useRef, useState } from "react";
-import Popup from "./Popup";
+import Popup from "./Popup.js";
 import { Datetime, DatetimeFormat, StringObject } from "scent-typescript";
 /**
  * 年月の入力ダイアログのコンポーネント。

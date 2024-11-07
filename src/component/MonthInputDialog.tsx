@@ -1,5 +1,5 @@
 import React, { CSSProperties, Dispatch, HTMLAttributes, MouseEvent, ReactElement, SetStateAction, forwardRef, useEffect, useRef, useState } from "react";
-import Popup from "./Popup";
+import Popup from "./Popup.js";
 import { Datetime, DatetimeFormat, StringObject } from "scent-typescript";
 
 type MonthInputDialogProps = HTMLAttributes<HTMLDivElement> & {
