@@ -7,6 +7,6 @@ import React from "react";
  * @returns
  */
 declare const TimeInput: React.ForwardRefExoticComponent<React.InputHTMLAttributes<HTMLInputElement> & {
-    defaultDatetime: Datetime | null;
+    defaultDatetime: Datetime | undefined | null;
 } & React.RefAttributes<HTMLInputElement>>;
 export default TimeInput;

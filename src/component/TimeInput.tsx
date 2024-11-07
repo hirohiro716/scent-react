@@ -2,7 +2,7 @@ import { Datetime, DatetimeFormat, StringObject } from "scent-typescript";
 import React, { CSSProperties, forwardRef, InputHTMLAttributes, ReactElement, useEffect, useImperativeHandle, useRef } from "react";
 
 type TimeInputProps = InputHTMLAttributes<HTMLInputElement> & {
-    defaultDatetime: Datetime | null,
+    defaultDatetime: Datetime | undefined | null,
 }
 
 /**
