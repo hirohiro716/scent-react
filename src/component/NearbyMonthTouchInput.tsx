@@ -15,7 +15,7 @@ type NearbyMonthTouchInputProps = HTMLAttributes<HTMLDivElement> & {
  * @param props 
  * @returns 
  */
-const NearbyMonthTouchInput = forwardRef<HTMLDivElement, NearbyMonthTouchInputProps>(({date, dispatch, inputStyle, buttonStyle, ...props}, ref): ReactElement => {
+const NearbyMonthTouchInput = forwardRef<HTMLDivElement, NearbyMonthTouchInputProps>(({date, dispatch, style, inputStyle, buttonStyle, ...props}, ref): ReactElement => {
     const internalStyle: CSSProperties = {};
     internalStyle.display = "inline-block";
     const rowStyle: CSSProperties = {};
@@ -38,7 +38,7 @@ const NearbyMonthTouchInput = forwardRef<HTMLDivElement, NearbyMonthTouchInputPr
         dispatch(currentMonth.clone());
     }
     return (
-        <div style={{...internalStyle, ...props.style}} ref={ref} {...props}>
+        <div style={{...internalStyle, ...style}} ref={ref} {...props}>
             <div style={rowStyle}>
                 <input type="text" value={StringObject.join([currentMonth.getYear(), "/", currentMonth.getMonth()]).toString()} readOnly={true} style={{...inputInternalStyle, ...inputStyle}} />
                 <button onClick={goForwardMonth} style={{...buttonInternalStyle, ...buttonStyle}}>↑</button>

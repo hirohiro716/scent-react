@@ -7,7 +7,7 @@ import { Datetime, StringObject } from "scent-typescript";
  * @param props
  * @returns
  */
-const NearbyTimeTouchInput = forwardRef(({ date, dispatch, incrementMinutes = 10, selectElementStyle: inputStyle, buttonElementStyle: buttonStyle, ...props }, ref) => {
+const NearbyTimeTouchInput = forwardRef(({ date, dispatch, incrementMinutes = 10, style, selectElementStyle: inputStyle, buttonElementStyle: buttonStyle, ...props }, ref) => {
     const internalStyle = {};
     internalStyle.display = "inline-block";
     const rowStyle = {};
@@ -47,7 +47,7 @@ const NearbyTimeTouchInput = forwardRef(({ date, dispatch, incrementMinutes = 10
     if (dialogID.length() === 0) {
         dialogID.append("nearby-time-touch-input");
     }
-    return (React.createElement("div", { style: { ...internalStyle, ...props.style }, ref: ref, ...props },
+    return (React.createElement("div", { style: { ...internalStyle, ...style }, ref: ref, ...props },
         React.createElement("div", { style: rowStyle },
             React.createElement("select", { onChange: hourChangeEventHandler, value: currentTime.getHour() }, [...Array(24)].map((value, hour) => {
                 return (React.createElement("option", { key: dialogID.append("-hour-option").append(hour).toString(), value: hour },

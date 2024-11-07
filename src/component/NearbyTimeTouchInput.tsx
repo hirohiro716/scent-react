@@ -16,7 +16,7 @@ type NearbyTimeTouchInputProps = HTMLAttributes<HTMLDivElement> & {
  * @param props 
  * @returns 
  */
-const NearbyTimeTouchInput = forwardRef<HTMLDivElement, NearbyTimeTouchInputProps>(({date, dispatch, incrementMinutes = 10, selectElementStyle: inputStyle, buttonElementStyle: buttonStyle, ...props}, ref): ReactElement => {
+const NearbyTimeTouchInput = forwardRef<HTMLDivElement, NearbyTimeTouchInputProps>(({date, dispatch, incrementMinutes = 10, style, selectElementStyle: inputStyle, buttonElementStyle: buttonStyle, ...props}, ref): ReactElement => {
     const internalStyle: CSSProperties = {};
     internalStyle.display = "inline-block";
     const rowStyle: CSSProperties = {};
@@ -57,7 +57,7 @@ const NearbyTimeTouchInput = forwardRef<HTMLDivElement, NearbyTimeTouchInputProp
         dialogID.append("nearby-time-touch-input");
     }
     return (
-        <div style={{...internalStyle, ...props.style}} ref={ref} {...props}>
+        <div style={{...internalStyle, ...style}} ref={ref} {...props}>
             <div style={rowStyle}>
                 <select onChange={hourChangeEventHandler} value={currentTime.getHour()}>
                     {[...Array(24)].map((value, hour) => {

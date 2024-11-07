@@ -11,14 +11,14 @@ type TimeInputProps = InputHTMLAttributes<HTMLInputElement> & {
  * @param props 
  * @returns 
  */
-const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(({defaultDatetime, ...props}: TimeInputProps, ref): ReactElement => {
+const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(({defaultDatetime, style, ...props}: TimeInputProps, ref): ReactElement => {
     const inputRef = useRef<HTMLInputElement>(null);
     useImperativeHandle(ref, () => {
         return inputRef.current!;
     });
-    const style: CSSProperties = {};
-    style.width = "5em";
-    style.textAlign = "center";
+    const inputInternalStyle: CSSProperties = {};
+    inputInternalStyle.width = "5em";
+    inputInternalStyle.textAlign = "center";
     useEffect(() => {
         if (inputRef.current === null) {
             return;
@@ -51,7 +51,7 @@ const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(({defaultDatetime
         });
     }, []);
     return (
-        <input type="text" defaultValue={defaultDatetime ? defaultDatetime.toString(DatetimeFormat.hourAndMinute) : undefined} style={{...style, ...props.style}} ref={inputRef} {...props} />
+        <input type="text" defaultValue={defaultDatetime ? defaultDatetime.toString(DatetimeFormat.hourAndMinute) : undefined} style={{...style, ...inputInternalStyle}} ref={inputRef} {...props} />
     );
 });
 export default TimeInput;
