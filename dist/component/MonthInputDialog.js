@@ -13,7 +13,6 @@ const MonthInputDialog = forwardRef(({ showing, dispatch, message, defaultValue,
     preStyle.paddingBottom = "1em";
     preStyle.whiteSpace = "pre-wrap";
     const formStyle = {};
-    formStyle.maxHeight = "calc(100vh - 20em)";
     formStyle.padding = "1em 0.5em 2em";
     formStyle.display = "flex";
     formStyle.flexDirection = "row";

@@ -26,7 +26,6 @@ const MonthInputDialog = forwardRef<HTMLDivElement, MonthInputDialogProps>(({sho
     preStyle.paddingBottom = "1em";
     preStyle.whiteSpace = "pre-wrap";
     const formStyle: CSSProperties = {};
-    formStyle.maxHeight = "calc(100vh - 20em)";
     formStyle.padding = "1em 0.5em 2em";
     formStyle.display = "flex";
     formStyle.flexDirection = "row";
