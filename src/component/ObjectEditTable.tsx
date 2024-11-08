@@ -1,11 +1,11 @@
-import React, { Dispatch, HTMLAttributes, MouseEvent, MouseEventHandler, ReactElement, ReactEventHandler, SetStateAction, forwardRef, useState } from "react";
+import React, { HTMLAttributes, MouseEvent, MouseEventHandler, ReactElement, ReactEventHandler, forwardRef, useImperativeHandle, useRef } from "react";
 import { Property, StringObject } from "scent-typescript";
 
 type ObjectEditTableProps = HTMLAttributes<HTMLTableElement> & {
     properties: Property[],
     identifierMaker?: (record: Record<string, any>) => string | null,
     objects: Record<string, any>[],
-    elementMaker?: (value: string, dispatch: Dispatch<SetStateAction<string>>, onChangeEventHandler: ReactEventHandler<any>, object: Record<string, any>, property: Property) => ReactElement | undefined,
+    elementMaker?: (className: string, changeEventHandler: ReactEventHandler<any>, object: Record<string, any>, property: Property, elementFinder: () => HTMLElement | undefined) => ReactElement | undefined,
     leftFunctionButtons?: Record<string, (object: Record<string, any>) => Promise<void> | void>,
     rightFunctionButtons?: Record<string, (object: Record<string, any>) => Promise<void> | void>,
     emptyMessage?: string,
@@ -14,34 +14,50 @@ type ObjectEditTableProps = HTMLAttributes<HTMLTableElement> & {
 /**
  * オブジェクトを編集するテーブルコンポーネント。
  * 
+ * @param properties 列プロパティの配列。
+ * @param identifierMaker 行のオブジェクトから一意の値を作成するコールバック。未指定の場合は行番号が使用される。
+ * @param objects 編集する行オブジェクトの配列。
+ * @param elementMaker フィールドに表示する要素を作成するコールバック。引数のクラス名とChangeEventHandlerを使用して要素を作成して返す必要がある。
+ * @param leftFunctionButtons データ列の左側に表示するボタンを作成するコールバック。
+ * @param rightFunctionButtons データ列の右側に表示するボタンを作成するコールバック。
+ * @param emptyMessage 表示する行オブジェクトがゼロ件の場合に表示するメッセージ。
  * @param props 
  * @returns 
  */
 const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({properties, identifierMaker, objects, elementMaker, leftFunctionButtons, rightFunctionButtons, emptyMessage, ...props}, ref): ReactElement => {
+    const tableRef = useRef<HTMLTableElement>(null);
+    useImperativeHandle(ref, () => {
+        return tableRef.current!;
+    });
     const defaultIdentifierMaker = (object: Record<string, any>): string | null => {
         return StringObject.from(objects.indexOf(object)).toString();
     }
-    const fieldElementMaker = (object: Record<string, any>, property: Property): ReactElement => {
-        const [value, dispatch] = useState<string>(StringObject.from(object[property.physicalName]).toString());
-        const onChangeEventHandler: ReactEventHandler<any> = (event) => {
+    const fieldElementMaker = (className: string, object: Record<string, any>, property: Property): ReactElement => {
+        const changeEventHandler: ReactEventHandler<any> = (event) => {
             switch (event.currentTarget.type) {
                 case "checkbox":
                 case "radio":
-                    dispatch(StringObject.from(event.currentTarget.checked).toString());
                     object[property.physicalName] = event.currentTarget.checked;
                     break;
                 default:
-                    dispatch(event.currentTarget.value);
                     object[property.physicalName] = event.currentTarget.value;
                     break;
             }
         }
+        const elementFinder = (): HTMLElement | undefined => {
+            if (tableRef.current === null) {
+                return;
+            }
+            for (const element of tableRef.current.getElementsByClassName(className)) {
+                return element as HTMLElement;
+            }
+        }
         let element: ReactElement | undefined = undefined;
         if (elementMaker) {
-            element = elementMaker(value, dispatch, onChangeEventHandler, object, property);
+            element = elementMaker(className, changeEventHandler, object, property, elementFinder);
         }
         if (typeof element === "undefined") {
-            element = <input type="text" onChange={onChangeEventHandler} value={value} style={{width:"10em"}} />;
+            element = <input type="text" className={className} onChange={changeEventHandler} style={{width:"10em"}} />;
         }
         return element;
     }
@@ -51,7 +67,7 @@ const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({pro
     }
     const headerKey = tableID.clone().append("-header-");
     return (
-        <table ref={ref} {...props}>
+        <table ref={tableRef} {...props}>
             <thead>
                 <tr>
                     {leftFunctionButtons && Object.keys(leftFunctionButtons).map((key) => {
@@ -101,9 +117,10 @@ const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({pro
                                 );
                             })}
                             {Object.values(properties).map((property) => {
+                                const key = columnKey.clone().append(property.physicalName);
                                 return (
-                                    <td key={columnKey.clone().append(property.physicalName).toString()} className={property.physicalName}>
-                                        {fieldElementMaker(object, property)}
+                                    <td key={key.toString()} className={property.physicalName}>
+                                        {fieldElementMaker(key.toString(), object, property)}
                                     </td>
                                 );
                             })}

@@ -1,36 +1,52 @@
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import { StringObject } from "scent-typescript";
 /**
  * オブジェクトを編集するテーブルコンポーネント。
  *
+ * @param properties 列プロパティの配列。
+ * @param identifierMaker 行のオブジェクトから一意の値を作成するコールバック。未指定の場合は行番号が使用される。
+ * @param objects 編集する行オブジェクトの配列。
+ * @param elementMaker フィールドに表示する要素を作成するコールバック。引数のクラス名とChangeEventHandlerを使用して要素を作成して返す必要がある。
+ * @param leftFunctionButtons データ列の左側に表示するボタンを作成するコールバック。
+ * @param rightFunctionButtons データ列の右側に表示するボタンを作成するコールバック。
+ * @param emptyMessage 表示する行オブジェクトがゼロ件の場合に表示するメッセージ。
  * @param props
  * @returns
  */
 const ObjectEditTable = forwardRef(({ properties, identifierMaker, objects, elementMaker, leftFunctionButtons, rightFunctionButtons, emptyMessage, ...props }, ref) => {
+    const tableRef = useRef(null);
+    useImperativeHandle(ref, () => {
+        return tableRef.current;
+    });
     const defaultIdentifierMaker = (object) => {
         return StringObject.from(objects.indexOf(object)).toString();
     };
-    const fieldElementMaker = (object, property) => {
-        const [value, dispatch] = useState(StringObject.from(object[property.physicalName]).toString());
-        const onChangeEventHandler = (event) => {
+    const fieldElementMaker = (className, object, property) => {
+        const changeEventHandler = (event) => {
             switch (event.currentTarget.type) {
                 case "checkbox":
                 case "radio":
-                    dispatch(StringObject.from(event.currentTarget.checked).toString());
                     object[property.physicalName] = event.currentTarget.checked;
                     break;
                 default:
-                    dispatch(event.currentTarget.value);
                     object[property.physicalName] = event.currentTarget.value;
                     break;
             }
         };
+        const elementFinder = () => {
+            if (tableRef.current === null) {
+                return;
+            }
+            for (const element of tableRef.current.getElementsByClassName(className)) {
+                return element;
+            }
+        };
         let element = undefined;
         if (elementMaker) {
-            element = elementMaker(value, dispatch, onChangeEventHandler, object, property);
+            element = elementMaker(className, changeEventHandler, object, property, elementFinder);
         }
         if (typeof element === "undefined") {
-            element = React.createElement("input", { type: "text", onChange: onChangeEventHandler, value: value, style: { width: "10em" } });
+            element = React.createElement("input", { type: "text", className: className, onChange: changeEventHandler, style: { width: "10em" } });
         }
         return element;
     };
@@ -39,7 +55,7 @@ const ObjectEditTable = forwardRef(({ properties, identifierMaker, objects, elem
         tableID.append("idless-object-edit-table");
     }
     const headerKey = tableID.clone().append("-header-");
-    return (React.createElement("table", { ref: ref, ...props },
+    return (React.createElement("table", { ref: tableRef, ...props },
         React.createElement("thead", null,
             React.createElement("tr", null,
                 leftFunctionButtons && Object.keys(leftFunctionButtons).map((key) => {
@@ -77,7 +93,8 @@ const ObjectEditTable = forwardRef(({ properties, identifierMaker, objects, elem
                             React.createElement("button", { onClick: handler }, key)));
                     }),
                     Object.values(properties).map((property) => {
-                        return (React.createElement("td", { key: columnKey.clone().append(property.physicalName).toString(), className: property.physicalName }, fieldElementMaker(object, property)));
+                        const key = columnKey.clone().append(property.physicalName);
+                        return (React.createElement("td", { key: key.toString(), className: property.physicalName }, fieldElementMaker(key.toString(), object, property)));
                     }),
                     rightFunctionButtons && Object.keys(rightFunctionButtons).map((key) => {
                         const handler = async (e) => {
