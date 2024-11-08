@@ -2,6 +2,11 @@ import React, { CSSProperties, Dispatch, SetStateAction } from "react";
 /**
  * 画像ビューアーのコンポーネント。
  *
+ * @param src 表示する画像のURL。
+ * @param dispatch 表示と非表示を切り替えるためのDispatch。
+ * @param isCloseOnBackgroundClick 背景クリックで画像を閉じる場合はtrue。
+ * @param closeButtonStyle 閉じるボタン要素へ渡すスタイル。
+ * @param overlayBackgroundStyle 背景要素へ渡すスタイル。
  * @param props
  * @returns
  */

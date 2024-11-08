@@ -9,13 +9,17 @@ type StillCameraPopupProps = HTMLAttributes<HTMLDivElement> & {
     mimeType?: string,
     maximumLongSide?: number,
     callbackAfterCapturing: (canvas: HTMLCanvasElement) => Promise<void>,
-    style?: CSSProperties,
 }
 
 /**
  * 静止画撮影ポップアップのコンポーネント。
  * 
- * @param props mimeTypeプロパティ。"image/png"がデフォルト。
+ * @param showing 表示する場合はtrueを指定する。
+ * @param dispatch 表示と非表示を切り替えるためのDispatch。
+ * @param mimeType メディア種別。"image/png"がデフォルト。
+ * @param maximumLongSide 画像の最大長辺サイズ。
+ * @param callbackAfterCapturing キャプチャ後の処理。
+ * @param props
  * @returns 
  */
 const StillCameraPopup = forwardRef<HTMLDivElement, StillCameraPopupProps>(({showing, dispatch, mimeType = "image/png", maximumLongSide, callbackAfterCapturing, style, ...props}, ref): ReactElement => {

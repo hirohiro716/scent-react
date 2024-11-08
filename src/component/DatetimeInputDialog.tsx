@@ -18,6 +18,15 @@ type DatetimeInputDialogProps = HTMLAttributes<HTMLDivElement> & {
 /**
  * 年月日と時刻の入力ダイアログのコンポーネント。
  * 
+ * @param showing 表示する場合はtrueを指定する。
+ * @param dispatch 表示と非表示を切り替えるためのDispatch。
+ * @param message メッセージ。
+ * @param defaultDatetime 日時のデフォルト値。
+ * @param okFunction OKボタン押下時の処理。
+ * @param cancelFunction キャンセルボタン押下時の処理。
+ * @param width ダイアログの幅。
+ * @param inputStyle input要素へ渡すスタイル。
+ * @param overlayBackgroundStyle 背景要素へ渡すスタイル。
  * @param props 
  * @returns 
  */
@@ -104,7 +113,7 @@ const DatetimeInputDialog = forwardRef<HTMLDivElement, DatetimeInputDialogProps>
             <pre style={preStyle} tabIndex={0}>{message}</pre>
             <form style={formStyle} onSubmit={(e) => e.preventDefault()}>
                 <input type="date" defaultValue={defaultDatetime ? defaultDatetime.toStringOnlyDate() : Datetime.from().toStringOnlyDate()} style={{...dateInputInternalStyle, ...inputStyle}} ref={dateInputRef} />
-                <TimeInput defaultDatetime={defaultDatetime} style={inputStyle} ref={timeInputRef} />
+                <TimeInput defaultDatetime={defaultDatetime ? defaultDatetime.toString() : undefined} style={inputStyle} ref={timeInputRef} />
             </form>
             <div style={buttonsStyle}>
                 <button onClick={okEvent}>OK</button>

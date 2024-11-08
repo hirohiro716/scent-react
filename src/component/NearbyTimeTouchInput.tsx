@@ -11,8 +11,13 @@ type NearbyTimeTouchInputProps = HTMLAttributes<HTMLDivElement> & {
 }
 
 /**
- * 初期値の付近の時刻を入力するコンポーネント。
+ * 初期値の付近の時刻をタッチ入力するコンポーネント。
  * 
+ * @param date 対象の日時。
+ * @param dispatch ユーザーがボタンを押した際に時刻を変更するためのDispatch。
+ * @param incrementMinutes ボタン押下で加減算する分。初期値は10分。
+ * @param selectElementStyle select要素へ渡すスタイル。
+ * @param buttonElementStyle button要素へ渡すスタイル。
  * @param props 
  * @returns 
  */

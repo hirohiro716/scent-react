@@ -5,6 +5,15 @@ import TimeInput from "./TimeInput.js";
 /**
  * 年月日と時刻の入力ダイアログのコンポーネント。
  *
+ * @param showing 表示する場合はtrueを指定する。
+ * @param dispatch 表示と非表示を切り替えるためのDispatch。
+ * @param message メッセージ。
+ * @param defaultDatetime 日時のデフォルト値。
+ * @param okFunction OKボタン押下時の処理。
+ * @param cancelFunction キャンセルボタン押下時の処理。
+ * @param width ダイアログの幅。
+ * @param inputStyle input要素へ渡すスタイル。
+ * @param overlayBackgroundStyle 背景要素へ渡すスタイル。
  * @param props
  * @returns
  */
@@ -92,7 +101,7 @@ const DatetimeInputDialog = forwardRef(({ showing, dispatch, message, defaultDat
         React.createElement("pre", { style: preStyle, tabIndex: 0 }, message),
         React.createElement("form", { style: formStyle, onSubmit: (e) => e.preventDefault() },
             React.createElement("input", { type: "date", defaultValue: defaultDatetime ? defaultDatetime.toStringOnlyDate() : Datetime.from().toStringOnlyDate(), style: { ...dateInputInternalStyle, ...inputStyle }, ref: dateInputRef }),
-            React.createElement(TimeInput, { defaultDatetime: defaultDatetime, style: inputStyle, ref: timeInputRef })),
+            React.createElement(TimeInput, { defaultDatetime: defaultDatetime ? defaultDatetime.toString() : undefined, style: inputStyle, ref: timeInputRef })),
         React.createElement("div", { style: buttonsStyle },
             React.createElement("button", { onClick: okEvent }, "OK"),
             React.createElement("button", { onClick: cancelEvent }, "\u30AD\u30E3\u30F3\u30BB\u30EB"))));

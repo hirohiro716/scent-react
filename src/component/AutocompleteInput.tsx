@@ -11,6 +11,10 @@ type AutocompleteInputProps = InputHTMLAttributes<HTMLInputElement> & {
 /**
  * オートコンプリート機能付きのinputコンポーネント。
  * 
+ * @param items 選択可能なリストアイテム。
+ * @param displayTextMaker リストアイテムの表示値を作成するコールバック。
+ * @param keywordMaker リストアイテムの検索キーワードを作成するコールバック。
+ * @param callbackAfterAutocomplete リストアイテムを選択した際のコールバック。
  * @param props 
  * @returns 
  */

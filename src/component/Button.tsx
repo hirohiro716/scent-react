@@ -9,6 +9,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 /**
  * Buttonのコンポーネント。
  * 
+ * @param wait ボタンを待機中にする場合はtrueを指定する。
  * @param props 
  * @returns 
  */
