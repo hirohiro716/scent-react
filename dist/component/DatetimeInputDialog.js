@@ -49,25 +49,12 @@ const DatetimeInputDialog = forwardRef(({ showing, dispatch, message, defaultDat
         if (datetime === null) {
             return;
         }
-        const timeParts = StringObject.from(timeInputRef.current.value).split("[^0-9]");
-        let hour = null;
-        let minute = null;
-        for (const timePart of timeParts) {
-            const number = timePart.toNumber();
-            if (number !== null) {
-                if (hour === null) {
-                    hour = number;
-                }
-                else if (minute === null) {
-                    minute = number;
-                }
-            }
-        }
-        if (hour === null || minute === null) {
+        const hoursAndMinutes = Datetime.timeStringToHoursAndMinutes(timeInputRef.current.value);
+        if (hoursAndMinutes === null) {
             return;
         }
-        datetime.setHour(hour);
-        datetime.setMinute(minute);
+        datetime.setHour(hoursAndMinutes.hours);
+        datetime.setMinute(hoursAndMinutes.minutes);
         datetime.setSecond(0).setMillisecond(0);
         setAlreadyPressed(true);
         const target = e.target;

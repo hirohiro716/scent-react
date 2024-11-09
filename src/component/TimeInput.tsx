@@ -30,25 +30,13 @@ const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(({baseDate, defau
         }
     }
     const inputBlurEventHandler: ReactEventHandler<HTMLInputElement> = (event: React.FocusEvent<HTMLInputElement>) => {
-        const timeParts = StringObject.from(event.currentTarget.value).split("[^0-9]");
-        let hour: number | null = null;
-        let minute: number | null = null;
-        for (const timePart of timeParts) {
-            const number = timePart.toNumber();
-            if (number !== null) {
-                if (hour === null) {
-                    hour = number;
-                } else if (minute === null) {
-                    minute = number;
-                }
-            }
-        }
+        const hoursAndMinutes = Datetime.timeStringToHoursAndMinutes(event.currentTarget.value);
         const value = new StringObject();
-        if (hour !== null && minute !== null) {
+        if (hoursAndMinutes !== null) {
             const baseDate = StringObject.from(event.currentTarget.getAttribute("data-base-date")).toDatetime();
             const inputDatetime = baseDate ? baseDate.clone() : new Datetime();
-            inputDatetime.setHour(hour);
-            inputDatetime.setMinute(minute);
+            inputDatetime.setHour(hoursAndMinutes.hours);
+            inputDatetime.setMinute(hoursAndMinutes.minutes);
             value.append(inputDatetime.toString(DatetimeFormat.hourAndMinute));
             setDatetime(inputDatetime);
         } else {
