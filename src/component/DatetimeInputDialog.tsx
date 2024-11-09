@@ -102,15 +102,16 @@ const DatetimeInputDialog = forwardRef<HTMLDivElement, DatetimeInputDialogProps>
         }
         dispatch(false);
     }
+    const preRef = useRef<HTMLPreElement>(null);
     useEffect(() => {
         setAlreadyPressed(false);
-        if (dateInputRef.current) {
-            dateInputRef.current.focus();
+        if (preRef.current) {
+            preRef.current.focus();
         }
     }, [showing]);
     return (
         <Popup showing={showing} dispatch={dispatch} width={width} isCloseOnBackgroundClick={false} closeButtonStyle={{display:"none"}} overlayBackgroundStyle={overlayBackgroundStyle} cancelFunction={cancelFunction} ref={ref} {...props}>
-            <pre style={preStyle} tabIndex={0}>{message}</pre>
+            <pre style={preStyle} tabIndex={0} ref={preRef}>{message}</pre>
             <form style={formStyle} onSubmit={(e) => e.preventDefault()}>
                 <input type="date" defaultValue={defaultDatetime ? defaultDatetime.toStringOnlyDate() : Datetime.from().toStringOnlyDate()} style={{...dateInputInternalStyle, ...inputStyle}} ref={dateInputRef} />
                 <TimeInput defaultDatetime={defaultDatetime ? defaultDatetime.toString() : undefined} style={inputStyle} ref={timeInputRef} />

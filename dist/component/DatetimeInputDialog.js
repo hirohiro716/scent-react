@@ -91,14 +91,15 @@ const DatetimeInputDialog = forwardRef(({ showing, dispatch, message, defaultDat
         }
         dispatch(false);
     };
+    const preRef = useRef(null);
     useEffect(() => {
         setAlreadyPressed(false);
-        if (dateInputRef.current) {
-            dateInputRef.current.focus();
+        if (preRef.current) {
+            preRef.current.focus();
         }
     }, [showing]);
     return (React.createElement(Popup, { showing: showing, dispatch: dispatch, width: width, isCloseOnBackgroundClick: false, closeButtonStyle: { display: "none" }, overlayBackgroundStyle: overlayBackgroundStyle, cancelFunction: cancelFunction, ref: ref, ...props },
-        React.createElement("pre", { style: preStyle, tabIndex: 0 }, message),
+        React.createElement("pre", { style: preStyle, tabIndex: 0, ref: preRef }, message),
         React.createElement("form", { style: formStyle, onSubmit: (e) => e.preventDefault() },
             React.createElement("input", { type: "date", defaultValue: defaultDatetime ? defaultDatetime.toStringOnlyDate() : Datetime.from().toStringOnlyDate(), style: { ...dateInputInternalStyle, ...inputStyle }, ref: dateInputRef }),
             React.createElement(TimeInput, { defaultDatetime: defaultDatetime ? defaultDatetime.toString() : undefined, style: inputStyle, ref: timeInputRef })),

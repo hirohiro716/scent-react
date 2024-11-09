@@ -45,6 +45,6 @@ const TimeInput = forwardRef(({ baseDate, defaultDatetime, value, style, onBlur,
             onBlur(event);
         }
     };
-    return (React.createElement("input", { type: "text", "data-base-date": baseDate, "data-datetime": datetime ? datetime.toString() : undefined, value: value, defaultValue: datetime ? datetime.toString(DatetimeFormat.hourAndMinute) : undefined, style: { ...style, ...inputInternalStyle }, onBlur: inputBlurEventHandler, ref: ref, ...props }));
+    return (React.createElement("input", { type: "text", inputMode: "numeric", "data-base-date": baseDate, "data-datetime": datetime ? datetime.toString() : undefined, value: value, defaultValue: datetime ? datetime.toString(DatetimeFormat.hourAndMinute) : undefined, style: { ...style, ...inputInternalStyle }, onBlur: inputBlurEventHandler, ref: ref, ...props }));
 });
 export default TimeInput;

@@ -105,6 +105,7 @@ const MonthInputDialog = forwardRef<HTMLDivElement, MonthInputDialogProps>(({sho
         dispatch(false);
     }
     const [supportsMonthType, setSupportsMonthType] = useState<boolean>(true);
+    const preRef = useRef<HTMLPreElement>(null);
     useEffect(() => {
         setAlreadyPressed(false);
         if (yearAndMonthInputRef.current) {
@@ -113,13 +114,13 @@ const MonthInputDialog = forwardRef<HTMLDivElement, MonthInputDialogProps>(({sho
                 setSupportsMonthType(false);
             }
         }
-        if (yearInputRef.current) {
-            yearInputRef.current.focus();
+        if (preRef.current) {
+            preRef.current.focus();
         }
     }, [showing, supportsMonthType]);
     return (
         <Popup showing={showing} dispatch={dispatch} width={width} isCloseOnBackgroundClick={false} closeButtonStyle={{display:"none"}} overlayBackgroundStyle={overlayBackgroundStyle} cancelFunction={cancelFunction} ref={ref} {...props}>
-            <pre style={preStyle} tabIndex={0}>{message}</pre>
+            <pre style={preStyle} tabIndex={0} ref={preRef}>{message}</pre>
             <form style={formStyle} onSubmit={(e) => e.preventDefault()}>
                 {supportsMonthType &&
                     <input type="month" defaultValue={defaultValue ? defaultValue : Datetime.from().toString(DatetimeFormat.yearAndMonth)} style={{...yearAndMonthInputInternalStyle, ...inputStyle}} ref={yearAndMonthInputRef} />

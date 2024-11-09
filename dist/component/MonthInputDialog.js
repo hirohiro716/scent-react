@@ -94,6 +94,7 @@ const MonthInputDialog = forwardRef(({ showing, dispatch, message, defaultValue,
         dispatch(false);
     };
     const [supportsMonthType, setSupportsMonthType] = useState(true);
+    const preRef = useRef(null);
     useEffect(() => {
         setAlreadyPressed(false);
         if (yearAndMonthInputRef.current) {
@@ -102,12 +103,12 @@ const MonthInputDialog = forwardRef(({ showing, dispatch, message, defaultValue,
                 setSupportsMonthType(false);
             }
         }
-        if (yearInputRef.current) {
-            yearInputRef.current.focus();
+        if (preRef.current) {
+            preRef.current.focus();
         }
     }, [showing, supportsMonthType]);
     return (React.createElement(Popup, { showing: showing, dispatch: dispatch, width: width, isCloseOnBackgroundClick: false, closeButtonStyle: { display: "none" }, overlayBackgroundStyle: overlayBackgroundStyle, cancelFunction: cancelFunction, ref: ref, ...props },
-        React.createElement("pre", { style: preStyle, tabIndex: 0 }, message),
+        React.createElement("pre", { style: preStyle, tabIndex: 0, ref: preRef }, message),
         React.createElement("form", { style: formStyle, onSubmit: (e) => e.preventDefault() },
             supportsMonthType &&
                 React.createElement("input", { type: "month", defaultValue: defaultValue ? defaultValue : Datetime.from().toString(DatetimeFormat.yearAndMonth), style: { ...yearAndMonthInputInternalStyle, ...inputStyle }, ref: yearAndMonthInputRef }),
