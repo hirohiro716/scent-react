@@ -5,14 +5,23 @@ import React, { forwardRef, useState } from "react";
  *
  * @param baseDate 基本となる日付。未指定の場合は現在の日付になる。"data-base-date"属性値でも設定可能。
  * @param defaultDatetime 時刻の初期値。
+ * @param isSelectAllOnFocus フォーカス時にテキストを全選択しない場合はfalseを指定。
  * @param props
  * @returns
  */
-const TimeInput = forwardRef(({ baseDate, defaultDatetime, value, style, onBlur, ...props }, ref) => {
+const TimeInput = forwardRef(({ baseDate, defaultDatetime, isSelectAllOnFocus = true, value, style, onFocus, onBlur, ...props }, ref) => {
     const inputInternalStyle = {};
     inputInternalStyle.width = "5em";
     inputInternalStyle.textAlign = "center";
     const [datetime, setDatetime] = useState(StringObject.from(defaultDatetime).toDatetime());
+    const inputFocusEventHandler = (event) => {
+        if (isSelectAllOnFocus) {
+            event.currentTarget.select();
+        }
+        if (onFocus) {
+            onFocus(event);
+        }
+    };
     const inputBlurEventHandler = (event) => {
         const timeParts = StringObject.from(event.currentTarget.value).split("[^0-9]");
         let hour = null;
@@ -45,6 +54,6 @@ const TimeInput = forwardRef(({ baseDate, defaultDatetime, value, style, onBlur,
             onBlur(event);
         }
     };
-    return (React.createElement("input", { type: "text", inputMode: "decimal", "data-base-date": baseDate, "data-datetime": datetime ? datetime.toString() : undefined, value: value, defaultValue: datetime ? datetime.toString(DatetimeFormat.hourAndMinute) : undefined, style: { ...style, ...inputInternalStyle }, onBlur: inputBlurEventHandler, ref: ref, ...props }));
+    return (React.createElement("input", { type: "text", inputMode: "decimal", "data-base-date": baseDate, "data-datetime": datetime ? datetime.toString() : undefined, value: value, defaultValue: datetime ? datetime.toString(DatetimeFormat.hourAndMinute) : undefined, style: { ...style, ...inputInternalStyle }, onFocus: inputFocusEventHandler, onBlur: inputBlurEventHandler, ref: ref, ...props }));
 });
 export default TimeInput;

@@ -4,11 +4,13 @@ import React from "react";
  *
  * @param baseDate 基本となる日付。未指定の場合は現在の日付になる。"data-base-date"属性値でも設定可能。
  * @param defaultDatetime 時刻の初期値。
+ * @param isSelectAllOnFocus フォーカス時にテキストを全選択しない場合はfalseを指定。
  * @param props
  * @returns
  */
 declare const TimeInput: React.ForwardRefExoticComponent<React.InputHTMLAttributes<HTMLInputElement> & {
     baseDate?: string | null;
     defaultDatetime?: string | null;
+    isSelectAllOnFocus?: boolean;
 } & React.RefAttributes<HTMLInputElement>>;
 export default TimeInput;

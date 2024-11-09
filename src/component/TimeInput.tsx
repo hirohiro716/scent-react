@@ -4,6 +4,7 @@ import React, { CSSProperties, forwardRef, InputHTMLAttributes, ReactElement, Re
 type TimeInputProps = InputHTMLAttributes<HTMLInputElement> & {
     baseDate?: string | null,
     defaultDatetime?: string | null,
+    isSelectAllOnFocus?: boolean,
 }
 
 /**
@@ -11,14 +12,23 @@ type TimeInputProps = InputHTMLAttributes<HTMLInputElement> & {
  * 
  * @param baseDate 基本となる日付。未指定の場合は現在の日付になる。"data-base-date"属性値でも設定可能。
  * @param defaultDatetime 時刻の初期値。
+ * @param isSelectAllOnFocus フォーカス時にテキストを全選択しない場合はfalseを指定。
  * @param props 
  * @returns 
  */
-const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(({baseDate, defaultDatetime, value, style, onBlur, ...props}: TimeInputProps, ref): ReactElement => {
+const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(({baseDate, defaultDatetime, isSelectAllOnFocus = true, value, style, onFocus, onBlur, ...props}: TimeInputProps, ref): ReactElement => {
     const inputInternalStyle: CSSProperties = {};
     inputInternalStyle.width = "5em";
     inputInternalStyle.textAlign = "center";
     const [datetime, setDatetime] = useState<Datetime | null>(StringObject.from(defaultDatetime).toDatetime());
+    const inputFocusEventHandler: ReactEventHandler<HTMLInputElement> = (event: React.FocusEvent<HTMLInputElement>) => {
+        if (isSelectAllOnFocus) {
+            event.currentTarget.select()
+        }
+        if (onFocus) {
+            onFocus(event);
+        }
+    }
     const inputBlurEventHandler: ReactEventHandler<HTMLInputElement> = (event: React.FocusEvent<HTMLInputElement>) => {
         const timeParts = StringObject.from(event.currentTarget.value).split("[^0-9]");
         let hour: number | null = null;
@@ -50,7 +60,7 @@ const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(({baseDate, defau
         }
     }
     return (
-        <input type="text" inputMode="decimal" data-base-date={baseDate} data-datetime={datetime ? datetime.toString() : undefined} value={value} defaultValue={datetime ? datetime.toString(DatetimeFormat.hourAndMinute) : undefined} style={{...style, ...inputInternalStyle}} onBlur={inputBlurEventHandler} ref={ref} {...props} />
+        <input type="text" inputMode="decimal" data-base-date={baseDate} data-datetime={datetime ? datetime.toString() : undefined} value={value} defaultValue={datetime ? datetime.toString(DatetimeFormat.hourAndMinute) : undefined} style={{...style, ...inputInternalStyle}} onFocus={inputFocusEventHandler} onBlur={inputBlurEventHandler} ref={ref} {...props} />
     );
 });
 export default TimeInput;
