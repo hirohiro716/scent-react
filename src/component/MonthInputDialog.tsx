@@ -109,7 +109,6 @@ const MonthInputDialog = forwardRef<HTMLDivElement, MonthInputDialogProps>(({sho
     useEffect(() => {
         setAlreadyPressed(false);
         if (yearAndMonthInputRef.current) {
-            yearAndMonthInputRef.current.focus();
             if (StringObject.from(yearAndMonthInputRef.current.type).equals("month") === false) {
                 setSupportsMonthType(false);
             }
