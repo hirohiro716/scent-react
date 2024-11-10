@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import { StringObject } from "scent-typescript";
 /**
  * オートコンプリート機能付きのinputコンポーネント。
@@ -208,13 +208,16 @@ const AutocompleteInput = forwardRef(({ items, displayTextMaker, keywordMaker, c
         }
     };
     // Create elements
-    const keyPrefix = new StringObject(props.id);
-    if (keyPrefix.length() === 0) {
-        keyPrefix.append(props.name);
-    }
-    if (keyPrefix.length() === 0) {
-        keyPrefix.append("idless_autocomplete_input");
-    }
+    const keyPrefix = useMemo(() => {
+        const id = new StringObject(props.id);
+        if (id.length() === 0) {
+            id.append(props.name);
+        }
+        if (id.length() === 0) {
+            id.append("idless-autocomplete-input");
+        }
+        return id;
+    }, []);
     const keyMaker = (index) => {
         return keyPrefix.clone().append("-").append(index).toString();
     };

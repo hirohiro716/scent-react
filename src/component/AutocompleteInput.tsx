@@ -1,4 +1,4 @@
-import React, { CSSProperties, InputHTMLAttributes, KeyboardEvent, MouseEvent, ReactElement, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
+import React, { CSSProperties, InputHTMLAttributes, KeyboardEvent, MouseEvent, ReactElement, forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import { StringObject } from "scent-typescript";
 
 type AutocompleteInputProps = InputHTMLAttributes<HTMLInputElement> & {
@@ -212,13 +212,16 @@ const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>((
         }
     }
     // Create elements
-    const keyPrefix = new StringObject(props.id);
-    if (keyPrefix.length() === 0) {
-        keyPrefix.append(props.name);
-    }
-    if (keyPrefix.length() === 0) {
-        keyPrefix.append("idless_autocomplete_input");
-    }
+    const keyPrefix = useMemo<StringObject>(() => {
+        const id = new StringObject(props.id);
+        if (id.length() === 0) {
+            id.append(props.name);
+        }
+        if (id.length() === 0) {
+            id.append("idless-autocomplete-input");
+        }
+        return id;
+    }, []);
     const keyMaker = (index: number) :string => {
         return keyPrefix.clone().append("-").append(index).toString();
     }

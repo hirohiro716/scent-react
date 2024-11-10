@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useMemo } from "react";
 import { StringObject } from "scent-typescript";
 /**
  * レコードを表示するテーブルコンポーネント。
@@ -26,22 +26,27 @@ const RecordTable = forwardRef(({ columns, identifierMaker, records, elementMake
         }
         return (React.createElement(React.Fragment, null, StringObject.from(record[column.physicalName]).toString()));
     };
-    const tableID = new StringObject(props.id);
-    if (tableID.length() === 0) {
-        tableID.append("idless-record-table");
-    }
-    const headerKey = tableID.clone().append("-header-");
+    const tableID = useMemo(() => {
+        const id = new StringObject(props.id);
+        if (id.length() === 0) {
+            id.append("idless-record-table");
+        }
+        return id;
+    }, []);
+    const makeHeaderKey = (headerName) => {
+        return tableID.clone().append("-header-").append(headerName);
+    };
     return (React.createElement("table", { ref: ref, ...props },
         React.createElement("thead", null,
             React.createElement("tr", null,
                 leftFunctionButtons && Object.keys(leftFunctionButtons).map((key) => {
-                    return (React.createElement("th", { key: headerKey.clone().append(key).toString(), className: key }, key));
+                    return (React.createElement("th", { key: makeHeaderKey(key).toString(), className: key }, key));
                 }),
                 Object.values(columns).map((column) => {
-                    return (React.createElement("th", { key: headerKey.clone().append(column.physicalName).toString(), className: column.physicalName }, column.logicalName));
+                    return (React.createElement("th", { key: makeHeaderKey(column.physicalName).toString(), className: column.physicalName }, column.logicalName));
                 }),
                 rightFunctionButtons && Object.keys(rightFunctionButtons).map((key) => {
-                    return (React.createElement("th", { key: headerKey.clone().append(key).toString(), className: key }, key));
+                    return (React.createElement("th", { key: makeHeaderKey(key).toString(), className: key }, key));
                 }))),
         React.createElement("tbody", null,
             records.map((record) => {

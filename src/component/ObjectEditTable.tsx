@@ -1,11 +1,11 @@
-import React, { HTMLAttributes, MouseEvent, MouseEventHandler, ReactElement, ReactEventHandler, forwardRef, useImperativeHandle, useRef } from "react";
+import React, { HTMLAttributes, MouseEvent, MouseEventHandler, ReactElement, ReactEventHandler, forwardRef, useImperativeHandle, useMemo, useRef } from "react";
 import { Property, StringObject } from "scent-typescript";
 
 type ObjectEditTableProps = HTMLAttributes<HTMLTableElement> & {
     properties: Property[],
     identifierMaker?: (record: Record<string, any>) => string | null,
     objects: Record<string, any>[],
-    elementMaker?: (className: string, changeEventHandler: ReactEventHandler<any>, object: Record<string, any>, property: Property, elementFinder: () => HTMLElement | undefined) => ReactElement | undefined,
+    elementMaker?: (className: string, changeEventHandler: ReactEventHandler<any>, object: Record<string, any>, property: Property, elementFinder: (object: Record<string, any>, property: Property) => HTMLElement | undefined) => ReactElement | undefined,
     leftFunctionButtons?: Record<string, (object: Record<string, any>) => Promise<void> | void>,
     rightFunctionButtons?: Record<string, (object: Record<string, any>) => Promise<void> | void>,
     emptyMessage?: string,
@@ -32,6 +32,22 @@ const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({pro
     const defaultIdentifierMaker = (object: Record<string, any>): string | null => {
         return StringObject.from(objects.indexOf(object)).toString();
     }
+    const tableID = useMemo<StringObject>(() => {
+        const id = new StringObject(props.id);
+        if (id.length() === 0) {
+            id.append("idless-object-edit-table");
+        }
+        return id;
+    }, []);
+    const makeHeaderKey = (headerName: string): StringObject => {
+        return tableID.clone().append("-header-").append(headerName);
+    }
+    const makeRowKey = (object: Record<string, any>): StringObject => {
+        return tableID.clone().append("-").append(identifierMaker ? identifierMaker(object) : defaultIdentifierMaker(object));
+    }
+    const makeFieldKey = (object: Record<string, any>, fieldName: string): StringObject => {
+        return makeRowKey(object).append("-").append(fieldName);
+    }
     const fieldElementMaker = (className: string, object: Record<string, any>, property: Property): ReactElement => {
         const changeEventHandler: ReactEventHandler<any> = (event) => {
             switch (event.currentTarget.type) {
@@ -44,11 +60,12 @@ const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({pro
                     break;
             }
         }
-        const elementFinder = (): HTMLElement | undefined => {
+        const elementFinder = (object: Record<string, any>, property: Property): HTMLElement | undefined => {
             if (tableRef.current === null) {
                 return;
             }
-            for (const element of tableRef.current.getElementsByClassName(className)) {
+            const classNameForSearch = makeFieldKey(object, property.physicalName);
+            for (const element of tableRef.current.getElementsByClassName(classNameForSearch.toString())) {
                 return element as HTMLElement;
             }
         }
@@ -61,38 +78,31 @@ const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({pro
         }
         return element;
     }
-    const tableID = new StringObject(props.id);
-    if (tableID.length() === 0) {
-        tableID.append("idless-object-edit-table");
-    }
-    const headerKey = tableID.clone().append("-header-");
     return (
         <table ref={tableRef} {...props}>
             <thead>
                 <tr>
                     {leftFunctionButtons && Object.keys(leftFunctionButtons).map((key) => {
                         return (
-                            <th key={headerKey.clone().append(key).toString()} className={key}>{key}</th>
+                            <th key={makeHeaderKey(key).toString()} className={key}>{key}</th>
                         );
                     })}
                     {Object.values(properties).map((property) => {
                         return (
-                            <th key={headerKey.clone().append(property.physicalName).toString()} className={property.physicalName}>{property.logicalName}</th>
+                            <th key={makeHeaderKey(property.physicalName).toString()} className={property.physicalName}>{property.logicalName}</th>
                         );
                     })}
                     {rightFunctionButtons && Object.keys(rightFunctionButtons).map((key) => {
                         return (
-                            <th key={headerKey.clone().append(key).toString()} className={key}>{key}</th>
+                            <th key={makeHeaderKey(key).toString()} className={key}>{key}</th>
                         );
                     })}
                 </tr>
             </thead>
             <tbody>
                 {objects.map((object) => {
-                    const rowKey = tableID.clone().append("-").append(identifierMaker ? identifierMaker(object) : defaultIdentifierMaker(object));
-                    const columnKey = rowKey.clone().append("-");
                     return (
-                        <tr key={rowKey.toString()}>
+                        <tr key={makeRowKey(object).toString()}>
                             {leftFunctionButtons && Object.keys(leftFunctionButtons).map((key) => {
                                 const handler: MouseEventHandler = async (e: MouseEvent) => {
                                     const button: any = e.target;
@@ -109,7 +119,7 @@ const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({pro
                                     }
                                 }
                                 return (
-                                    <td key={columnKey.clone().append(key).toString()} className={key}>
+                                    <td key={makeFieldKey(object, key).toString()} className={key}>
                                         <button type="button" onClick={handler}>
                                             {key}
                                         </button>
@@ -117,10 +127,10 @@ const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({pro
                                 );
                             })}
                             {Object.values(properties).map((property) => {
-                                const key = columnKey.clone().append(property.physicalName);
+                                const key = makeFieldKey(object, property.physicalName).toString();
                                 return (
-                                    <td key={key.toString()} className={property.physicalName}>
-                                        {fieldElementMaker(key.toString(), object, property)}
+                                    <td key={key} className={property.physicalName}>
+                                        {fieldElementMaker(key, object, property)}
                                     </td>
                                 );
                             })}
@@ -140,7 +150,7 @@ const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({pro
                                     }
                                 }
                                 return (
-                                    <td key={columnKey.clone().append(key).toString()} className={key}>
+                                    <td key={makeFieldKey(object, key).toString()} className={key}>
                                         <button type="button" onClick={handler}>
                                             {key}
                                         </button>

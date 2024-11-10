@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useRef } from "react";
+import React, { forwardRef, useImperativeHandle, useMemo, useRef } from "react";
 import { StringObject } from "scent-typescript";
 /**
  * オブジェクトを編集するテーブルコンポーネント。
@@ -21,6 +21,22 @@ const ObjectEditTable = forwardRef(({ properties, identifierMaker, objects, elem
     const defaultIdentifierMaker = (object) => {
         return StringObject.from(objects.indexOf(object)).toString();
     };
+    const tableID = useMemo(() => {
+        const id = new StringObject(props.id);
+        if (id.length() === 0) {
+            id.append("idless-object-edit-table");
+        }
+        return id;
+    }, []);
+    const makeHeaderKey = (headerName) => {
+        return tableID.clone().append("-header-").append(headerName);
+    };
+    const makeRowKey = (object) => {
+        return tableID.clone().append("-").append(identifierMaker ? identifierMaker(object) : defaultIdentifierMaker(object));
+    };
+    const makeFieldKey = (object, fieldName) => {
+        return makeRowKey(object).append("-").append(fieldName);
+    };
     const fieldElementMaker = (className, object, property) => {
         const changeEventHandler = (event) => {
             switch (event.currentTarget.type) {
@@ -33,11 +49,12 @@ const ObjectEditTable = forwardRef(({ properties, identifierMaker, objects, elem
                     break;
             }
         };
-        const elementFinder = () => {
+        const elementFinder = (object, property) => {
             if (tableRef.current === null) {
                 return;
             }
-            for (const element of tableRef.current.getElementsByClassName(className)) {
+            const classNameForSearch = makeFieldKey(object, property.physicalName);
+            for (const element of tableRef.current.getElementsByClassName(classNameForSearch.toString())) {
                 return element;
             }
         };
@@ -50,28 +67,21 @@ const ObjectEditTable = forwardRef(({ properties, identifierMaker, objects, elem
         }
         return element;
     };
-    const tableID = new StringObject(props.id);
-    if (tableID.length() === 0) {
-        tableID.append("idless-object-edit-table");
-    }
-    const headerKey = tableID.clone().append("-header-");
     return (React.createElement("table", { ref: tableRef, ...props },
         React.createElement("thead", null,
             React.createElement("tr", null,
                 leftFunctionButtons && Object.keys(leftFunctionButtons).map((key) => {
-                    return (React.createElement("th", { key: headerKey.clone().append(key).toString(), className: key }, key));
+                    return (React.createElement("th", { key: makeHeaderKey(key).toString(), className: key }, key));
                 }),
                 Object.values(properties).map((property) => {
-                    return (React.createElement("th", { key: headerKey.clone().append(property.physicalName).toString(), className: property.physicalName }, property.logicalName));
+                    return (React.createElement("th", { key: makeHeaderKey(property.physicalName).toString(), className: property.physicalName }, property.logicalName));
                 }),
                 rightFunctionButtons && Object.keys(rightFunctionButtons).map((key) => {
-                    return (React.createElement("th", { key: headerKey.clone().append(key).toString(), className: key }, key));
+                    return (React.createElement("th", { key: makeHeaderKey(key).toString(), className: key }, key));
                 }))),
         React.createElement("tbody", null,
             objects.map((object) => {
-                const rowKey = tableID.clone().append("-").append(identifierMaker ? identifierMaker(object) : defaultIdentifierMaker(object));
-                const columnKey = rowKey.clone().append("-");
-                return (React.createElement("tr", { key: rowKey.toString() },
+                return (React.createElement("tr", { key: makeRowKey(object).toString() },
                     leftFunctionButtons && Object.keys(leftFunctionButtons).map((key) => {
                         const handler = async (e) => {
                             const button = e.target;
@@ -89,12 +99,12 @@ const ObjectEditTable = forwardRef(({ properties, identifierMaker, objects, elem
                                 button.disabled = false;
                             }
                         };
-                        return (React.createElement("td", { key: columnKey.clone().append(key).toString(), className: key },
+                        return (React.createElement("td", { key: makeFieldKey(object, key).toString(), className: key },
                             React.createElement("button", { type: "button", onClick: handler }, key)));
                     }),
                     Object.values(properties).map((property) => {
-                        const key = columnKey.clone().append(property.physicalName);
-                        return (React.createElement("td", { key: key.toString(), className: property.physicalName }, fieldElementMaker(key.toString(), object, property)));
+                        const key = makeFieldKey(object, property.physicalName).toString();
+                        return (React.createElement("td", { key: key, className: property.physicalName }, fieldElementMaker(key, object, property)));
                     }),
                     rightFunctionButtons && Object.keys(rightFunctionButtons).map((key) => {
                         const handler = async (e) => {
@@ -113,7 +123,7 @@ const ObjectEditTable = forwardRef(({ properties, identifierMaker, objects, elem
                                 button.disabled = false;
                             }
                         };
-                        return (React.createElement("td", { key: columnKey.clone().append(key).toString(), className: key },
+                        return (React.createElement("td", { key: makeFieldKey(object, key).toString(), className: key },
                             React.createElement("button", { type: "button", onClick: handler }, key)));
                     })));
             }),

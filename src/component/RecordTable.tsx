@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, MouseEvent, MouseEventHandler, ReactElement, forwardRef } from "react";
+import React, { HTMLAttributes, MouseEvent, MouseEventHandler, ReactElement, forwardRef, useMemo } from "react";
 import { Column, StringObject } from "scent-typescript";
 
 type RecordTableProps = HTMLAttributes<HTMLTableElement> & {
@@ -37,28 +37,33 @@ const RecordTable = forwardRef<HTMLTableElement, RecordTableProps>(({columns, id
         }
         return (<>{StringObject.from(record[column.physicalName]).toString()}</>);
     }
-    const tableID = new StringObject(props.id);
-    if (tableID.length() === 0) {
-        tableID.append("idless-record-table");
+    const tableID = useMemo<StringObject>(() => {
+        const id = new StringObject(props.id);
+        if (id.length() === 0) {
+            id.append("idless-record-table");
+        }
+        return id;
+    }, []);
+    const makeHeaderKey = (headerName: string): StringObject => {
+        return tableID.clone().append("-header-").append(headerName);
     }
-    const headerKey = tableID.clone().append("-header-");
     return (
         <table ref={ref} {...props}>
             <thead>
                 <tr>
                     {leftFunctionButtons && Object.keys(leftFunctionButtons).map((key) => {
                         return (
-                            <th key={headerKey.clone().append(key).toString()} className={key}>{key}</th>
+                            <th key={makeHeaderKey(key).toString()} className={key}>{key}</th>
                         );
                     })}
                     {Object.values(columns).map((column) => {
                         return (
-                            <th key={headerKey.clone().append(column.physicalName).toString()} className={column.physicalName}>{column.logicalName}</th>
+                            <th key={makeHeaderKey(column.physicalName).toString()} className={column.physicalName}>{column.logicalName}</th>
                         );
                     })}
                     {rightFunctionButtons && Object.keys(rightFunctionButtons).map((key) => {
                         return (
-                            <th key={headerKey.clone().append(key).toString()} className={key}>{key}</th>
+                            <th key={makeHeaderKey(key).toString()} className={key}>{key}</th>
                         );
                     })}
                 </tr>

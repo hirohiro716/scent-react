@@ -1,4 +1,4 @@
-import React, { CSSProperties, ChangeEventHandler, Dispatch, HTMLAttributes, MouseEvent, ReactElement, SetStateAction, forwardRef, useEffect, useRef, useState } from "react";
+import React, { CSSProperties, ChangeEventHandler, Dispatch, HTMLAttributes, MouseEvent, ReactElement, SetStateAction, forwardRef, useEffect, useMemo, useRef, useState } from "react";
 import Popup from "./Popup.js";
 import { StringObject } from "scent-typescript";
 
@@ -125,10 +125,13 @@ const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showi
             setSelectedItems([...defaultSelections]);
         }
     }, [showing]);
-    const dialogID = new StringObject(props.id);
-    if (dialogID.length() === 0) {
-        dialogID.append("idless-selection-dialog");
-    }
+    const dialogID = useMemo<StringObject>(() => {
+        const id = new StringObject(props.id);
+        if (id.length() === 0) {
+            id.append("idless-selection-dialog");
+        }
+        return id;
+    }, []);
     return (
         <Popup showing={showing} dispatch={dispatch} width={width} isCloseOnBackgroundClick={false} closeButtonStyle={{display:"none"}} overlayBackgroundStyle={overlayBackgroundStyle} cancelFunction={cancelFunction} ref={ref} {...props}>
             <pre style={preStyle} tabIndex={0} ref={preRef}>{message}</pre>

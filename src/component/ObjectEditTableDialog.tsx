@@ -10,7 +10,7 @@ type ObjectEditTableDialogProps = HTMLAttributes<HTMLDivElement> & {
     properties: Property[],
     identifierMaker?: (record: Record<string, any>) => string | null,
     objects: Record<string, any>[],
-    elementMaker?: (className: string, changeEventHandler: ReactEventHandler<any>, object: Record<string, any>, property: Property, elementFinder: () => HTMLElement | undefined) => ReactElement | undefined,
+    elementMaker?: (className: string, changeEventHandler: ReactEventHandler<any>, object: Record<string, any>, property: Property, elementFinder: (object: Record<string, any>, property: Property) => HTMLElement | undefined) => ReactElement | undefined,
     leftFunctionButtons?: Record<string, (object: Record<string, any>) => Promise<void> | void>,
     rightFunctionButtons?: Record<string, (object: Record<string, any>) => Promise<void> | void>,
     closeFunction?: () => Promise<void>,

@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useRef, useState } from "react";
+import React, { forwardRef, useEffect, useMemo, useRef, useState } from "react";
 import Popup from "./Popup.js";
 import { StringObject } from "scent-typescript";
 /**
@@ -115,10 +115,13 @@ const SelectionDialog = forwardRef(({ showing, dispatch, message, selectableItem
             setSelectedItems([...defaultSelections]);
         }
     }, [showing]);
-    const dialogID = new StringObject(props.id);
-    if (dialogID.length() === 0) {
-        dialogID.append("idless-selection-dialog");
-    }
+    const dialogID = useMemo(() => {
+        const id = new StringObject(props.id);
+        if (id.length() === 0) {
+            id.append("idless-selection-dialog");
+        }
+        return id;
+    }, []);
     return (React.createElement(Popup, { showing: showing, dispatch: dispatch, width: width, isCloseOnBackgroundClick: false, closeButtonStyle: { display: "none" }, overlayBackgroundStyle: overlayBackgroundStyle, cancelFunction: cancelFunction, ref: ref, ...props },
         React.createElement("pre", { style: preStyle, tabIndex: 0, ref: preRef }, message),
         React.createElement("form", { style: formStyle, ref: formRef, onSubmit: (e) => e.preventDefault() }, Array.from(new Set(selectableItems)).map((selectableItem) => {
