@@ -84,7 +84,7 @@ const ObjectEditTableDialog = forwardRef<HTMLDivElement, ObjectEditTableDialogPr
                 <ObjectEditTable properties={properties} identifierMaker={identifierMaker} objects={objects} elementMaker={elementMaker} leftFunctionButtons={leftFunctionButtons} rightFunctionButtons={rightFunctionButtons} />
             </div>
             <div style={buttonsStyle}>
-                <button onClick={closeEvent}>閉じる</button>
+                <button type="button" onClick={closeEvent}>閉じる</button>
             </div>
         </Popup>
     );

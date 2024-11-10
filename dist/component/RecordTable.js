@@ -66,7 +66,7 @@ const RecordTable = forwardRef(({ columns, identifierMaker, records, elementMake
                             }
                         };
                         return (React.createElement("td", { key: columnKey.clone().append(key).toString(), className: key },
-                            React.createElement("button", { onClick: handler }, key)));
+                            React.createElement("button", { type: "button", onClick: handler }, key)));
                     }),
                     Object.values(columns).map((column) => {
                         return (React.createElement("td", { key: columnKey.clone().append(column.physicalName).toString(), className: column.physicalName }, fieldElementMaker(record, column)));
@@ -89,7 +89,7 @@ const RecordTable = forwardRef(({ columns, identifierMaker, records, elementMake
                             }
                         };
                         return (React.createElement("td", { key: columnKey.clone().append(key).toString(), className: key },
-                            React.createElement("button", { onClick: handler }, key)));
+                            React.createElement("button", { type: "button", onClick: handler }, key)));
                     })));
             }),
             records.length === 0 &&

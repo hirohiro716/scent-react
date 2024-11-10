@@ -45,8 +45,8 @@ const NearbyMonthTouchInput = forwardRef<HTMLDivElement, NearbyMonthTouchInputPr
         <div style={{...internalStyle, ...style}} ref={ref} {...props}>
             <div style={rowStyle}>
                 <input type="text" value={StringObject.join([currentMonth.getYear(), "/", currentMonth.getMonth()]).toString()} readOnly={true} style={{...inputInternalStyle, ...inputStyle}} />
-                <button onClick={goForwardMonth} style={{...buttonInternalStyle, ...buttonStyle}}>↑</button>
-                <button onClick={goBackMonth} style={{...buttonInternalStyle, ...buttonStyle}}>↓</button>
+                <button type="button" onClick={goForwardMonth} style={{...buttonInternalStyle, ...buttonStyle}}>↑</button>
+                <button type="button" onClick={goBackMonth} style={{...buttonInternalStyle, ...buttonStyle}}>↓</button>
             </div>
         </div>
     );

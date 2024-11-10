@@ -105,8 +105,8 @@ const DatetimeInputDialog = forwardRef<HTMLDivElement, DatetimeInputDialogProps>
                 <TimeInput defaultDatetime={defaultDatetime ? defaultDatetime.toString() : undefined} style={inputStyle} ref={timeInputRef} />
             </form>
             <div style={buttonsStyle}>
-                <button onClick={okEvent}>OK</button>
-                <button onClick={cancelEvent}>キャンセル</button>
+                <button type="button" onClick={okEvent}>OK</button>
+                <button type="button" onClick={cancelEvent}>キャンセル</button>
             </div>
         </Popup>
     );

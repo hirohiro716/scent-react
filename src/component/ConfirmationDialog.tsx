@@ -77,8 +77,8 @@ const ConfirmationDialog = forwardRef<HTMLDivElement, ConfirmationDialogProps>((
         <Popup showing={showing} dispatch={dispatch} width={width} isCloseOnBackgroundClick={false} closeButtonStyle={{display:"none"}} overlayBackgroundStyle={overlayBackgroundStyle} cancelFunction={cancelFunction} style={style} ref={ref} {...props}>
             <pre style={preStyle} tabIndex={0} ref={preRef}>{message}</pre>
             <div style={buttonsStyle}>
-                <button onClick={okEvent}>OK</button>
-                <button onClick={cancelEvent}>キャンセル</button>
+                <button type="button" onClick={okEvent}>OK</button>
+                <button type="button" onClick={cancelEvent}>キャンセル</button>
             </div>
         </Popup>
     );

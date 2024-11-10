@@ -66,6 +66,6 @@ const ObjectEditTableDialog = forwardRef(({ showing, dispatch, message, properti
         React.createElement("div", { style: tableStyle },
             React.createElement(ObjectEditTable, { properties: properties, identifierMaker: identifierMaker, objects: objects, elementMaker: elementMaker, leftFunctionButtons: leftFunctionButtons, rightFunctionButtons: rightFunctionButtons })),
         React.createElement("div", { style: buttonsStyle },
-            React.createElement("button", { onClick: closeEvent }, "\u9589\u3058\u308B"))));
+            React.createElement("button", { type: "button", onClick: closeEvent }, "\u9589\u3058\u308B"))));
 });
 export default ObjectEditTableDialog;

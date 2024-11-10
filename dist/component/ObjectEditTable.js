@@ -90,7 +90,7 @@ const ObjectEditTable = forwardRef(({ properties, identifierMaker, objects, elem
                             }
                         };
                         return (React.createElement("td", { key: columnKey.clone().append(key).toString(), className: key },
-                            React.createElement("button", { onClick: handler }, key)));
+                            React.createElement("button", { type: "button", onClick: handler }, key)));
                     }),
                     Object.values(properties).map((property) => {
                         const key = columnKey.clone().append(property.physicalName);
@@ -114,7 +114,7 @@ const ObjectEditTable = forwardRef(({ properties, identifierMaker, objects, elem
                             }
                         };
                         return (React.createElement("td", { key: columnKey.clone().append(key).toString(), className: key },
-                            React.createElement("button", { onClick: handler }, key)));
+                            React.createElement("button", { type: "button", onClick: handler }, key)));
                     })));
             }),
             objects.length === 0 &&

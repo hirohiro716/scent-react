@@ -78,8 +78,8 @@ const NearbyTimeTouchInput = forwardRef<HTMLDivElement, NearbyTimeTouchInputProp
                         );
                     })}
                 </select>
-                <button onClick={goForwardMinute} style={{...buttonElementInternalStyle, ...buttonStyle}}>↑</button>
-                <button onClick={goBackMinute} style={{...buttonElementInternalStyle, ...buttonStyle}}>↓</button>
+                <button type="button" onClick={goForwardMinute} style={{...buttonElementInternalStyle, ...buttonStyle}}>↑</button>
+                <button type="button" onClick={goBackMinute} style={{...buttonElementInternalStyle, ...buttonStyle}}>↓</button>
             </div>
         </div>
     );

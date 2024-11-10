@@ -117,7 +117,7 @@ const MonthInputDialog = forwardRef(({ showing, dispatch, message, defaultValue,
                     "/",
                     React.createElement("input", { type: "number", min: 1, max: 12, defaultValue: StringObject.from(defaultValue).toString().includes("-") ? StringObject.from(defaultValue).splitToStrings("-")[1] : Datetime.from().getMonth(), style: { ...monthInputInternalStyle, ...inputStyle }, ref: monthInputRef }))),
         React.createElement("div", { style: buttonsStyle },
-            React.createElement("button", { onClick: okEvent }, "OK"),
-            React.createElement("button", { onClick: cancelEvent }, "\u30AD\u30E3\u30F3\u30BB\u30EB"))));
+            React.createElement("button", { type: "button", onClick: okEvent }, "OK"),
+            React.createElement("button", { type: "button", onClick: cancelEvent }, "\u30AD\u30E3\u30F3\u30BB\u30EB"))));
 });
 export default MonthInputDialog;

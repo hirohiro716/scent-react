@@ -95,8 +95,8 @@ const DateInputDialog = forwardRef<HTMLDivElement, DateInputDialogProps>(({showi
                 <input type="date" defaultValue={defaultDate ? defaultDate.toStringOnlyDate() : Datetime.from().toStringOnlyDate()} style={{...dateInputInternalStyle, ...inputStyle}} ref={dateInputRef} />
             </form>
             <div style={buttonsStyle}>
-                <button onClick={okEvent}>OK</button>
-                <button onClick={cancelEvent}>キャンセル</button>
+                <button type="button" onClick={okEvent}>OK</button>
+                <button type="button" onClick={cancelEvent}>キャンセル</button>
             </div>
         </Popup>
     );

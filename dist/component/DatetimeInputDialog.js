@@ -91,7 +91,7 @@ const DatetimeInputDialog = forwardRef(({ showing, dispatch, message, defaultDat
             React.createElement("input", { type: "date", defaultValue: defaultDatetime ? defaultDatetime.toStringOnlyDate() : Datetime.from().toStringOnlyDate(), style: { ...dateInputInternalStyle, ...inputStyle }, ref: dateInputRef }),
             React.createElement(TimeInput, { defaultDatetime: defaultDatetime ? defaultDatetime.toString() : undefined, style: inputStyle, ref: timeInputRef })),
         React.createElement("div", { style: buttonsStyle },
-            React.createElement("button", { onClick: okEvent }, "OK"),
-            React.createElement("button", { onClick: cancelEvent }, "\u30AD\u30E3\u30F3\u30BB\u30EB"))));
+            React.createElement("button", { type: "button", onClick: okEvent }, "OK"),
+            React.createElement("button", { type: "button", onClick: cancelEvent }, "\u30AD\u30E3\u30F3\u30BB\u30EB"))));
 });
 export default DatetimeInputDialog;

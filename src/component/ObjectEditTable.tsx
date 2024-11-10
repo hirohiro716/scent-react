@@ -110,7 +110,7 @@ const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({pro
                                 }
                                 return (
                                     <td key={columnKey.clone().append(key).toString()} className={key}>
-                                        <button onClick={handler}>
+                                        <button type="button" onClick={handler}>
                                             {key}
                                         </button>
                                     </td>
@@ -141,7 +141,7 @@ const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({pro
                                 }
                                 return (
                                     <td key={columnKey.clone().append(key).toString()} className={key}>
-                                        <button onClick={handler}>
+                                        <button type="button" onClick={handler}>
                                             {key}
                                         </button>
                                     </td>

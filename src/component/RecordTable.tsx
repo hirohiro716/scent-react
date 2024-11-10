@@ -86,7 +86,7 @@ const RecordTable = forwardRef<HTMLTableElement, RecordTableProps>(({columns, id
                                 }
                                 return (
                                     <td key={columnKey.clone().append(key).toString()} className={key}>
-                                        <button onClick={handler}>
+                                        <button type="button" onClick={handler}>
                                             {key}
                                         </button>
                                     </td>
@@ -116,7 +116,7 @@ const RecordTable = forwardRef<HTMLTableElement, RecordTableProps>(({columns, id
                                 }
                                 return (
                                     <td key={columnKey.clone().append(key).toString()} className={key}>
-                                        <button onClick={handler}>
+                                        <button type="button" onClick={handler}>
                                             {key}
                                         </button>
                                     </td>
