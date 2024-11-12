@@ -1,10 +1,11 @@
-import React, { HTMLAttributes, MouseEvent, MouseEventHandler, ReactElement, ReactEventHandler, forwardRef, useImperativeHandle, useMemo, useRef } from "react";
+import React, { HTMLAttributes, MouseEvent, MouseEventHandler, ReactElement, ReactEventHandler, forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from "react";
 import { Property, StringObject } from "scent-typescript";
 
 type ObjectEditTableProps = HTMLAttributes<HTMLTableElement> & {
     properties: Property[],
-    identifierMaker?: (record: Record<string, any>) => string | null,
     objects: Record<string, any>[],
+    objectsTimestamp?: number,
+    identifierMaker?: (record: Record<string, any>) => string | null,
     elementMaker?: (className: string, changeEventHandler: ReactEventHandler<any>, object: Record<string, any>, property: Property, elementFinder: (object: Record<string, any>, property: Property) => HTMLElement | undefined) => ReactElement | undefined,
     leftFunctionButtons?: Record<string, (object: Record<string, any>) => Promise<void> | void>,
     rightFunctionButtons?: Record<string, (object: Record<string, any>) => Promise<void> | void>,
@@ -15,8 +16,9 @@ type ObjectEditTableProps = HTMLAttributes<HTMLTableElement> & {
  * オブジェクトを編集するテーブルコンポーネント。
  * 
  * @param properties 列プロパティの配列。
- * @param identifierMaker 行のオブジェクトから一意の値を作成するコールバック。未指定の場合は行番号が使用される。
  * @param objects 編集する行オブジェクトの配列。
+ * @param objectsTimestamp 行オブジェクトのタイムスタンプ。以前の値と異なる場合はすべてのフィールドが再マウントされる。
+ * @param identifierMaker 行のオブジェクトから一意の値を作成するコールバック。未指定の場合は行番号が使用される。
  * @param elementMaker フィールドに表示する要素を作成するコールバック。引数のクラス名とChangeEventHandlerを使用して要素を作成して返す必要がある。
  * @param leftFunctionButtons データ列の左側に表示するボタンを作成するコールバック。
  * @param rightFunctionButtons データ列の右側に表示するボタンを作成するコールバック。
@@ -24,7 +26,7 @@ type ObjectEditTableProps = HTMLAttributes<HTMLTableElement> & {
  * @param props 
  * @returns 
  */
-const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({properties, identifierMaker, objects, elementMaker, leftFunctionButtons, rightFunctionButtons, emptyMessage, ...props}, ref): ReactElement => {
+const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({properties, objects, objectsTimestamp = 1, identifierMaker, elementMaker, leftFunctionButtons, rightFunctionButtons, emptyMessage, ...props}, ref): ReactElement => {
     const tableRef = useRef<HTMLTableElement>(null);
     useImperativeHandle(ref, () => {
         return tableRef.current!;
@@ -40,10 +42,10 @@ const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({pro
         return id;
     }, []);
     const makeHeaderKey = (headerName: string): StringObject => {
-        return tableID.clone().append("-header-").append(headerName);
+        return tableID.clone().append("-").append(objectsTimestamp).append("-header-").append(headerName);
     }
     const makeRowKey = (object: Record<string, any>): StringObject => {
-        return tableID.clone().append("-").append(identifierMaker ? identifierMaker(object) : defaultIdentifierMaker(object));
+        return tableID.clone().append("-").append(objectsTimestamp).append("-").append(identifierMaker ? identifierMaker(object) : defaultIdentifierMaker(object));
     }
     const makeFieldKey = (object: Record<string, any>, fieldName: string): StringObject => {
         return makeRowKey(object).append("-").append(fieldName);

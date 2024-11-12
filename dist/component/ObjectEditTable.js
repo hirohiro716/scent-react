@@ -4,8 +4,9 @@ import { StringObject } from "scent-typescript";
  * オブジェクトを編集するテーブルコンポーネント。
  *
  * @param properties 列プロパティの配列。
- * @param identifierMaker 行のオブジェクトから一意の値を作成するコールバック。未指定の場合は行番号が使用される。
  * @param objects 編集する行オブジェクトの配列。
+ * @param objectsTimestamp 行オブジェクトのタイムスタンプ。以前の値と異なる場合はすべてのフィールドが再マウントされる。
+ * @param identifierMaker 行のオブジェクトから一意の値を作成するコールバック。未指定の場合は行番号が使用される。
  * @param elementMaker フィールドに表示する要素を作成するコールバック。引数のクラス名とChangeEventHandlerを使用して要素を作成して返す必要がある。
  * @param leftFunctionButtons データ列の左側に表示するボタンを作成するコールバック。
  * @param rightFunctionButtons データ列の右側に表示するボタンを作成するコールバック。
@@ -13,7 +14,7 @@ import { StringObject } from "scent-typescript";
  * @param props
  * @returns
  */
-const ObjectEditTable = forwardRef(({ properties, identifierMaker, objects, elementMaker, leftFunctionButtons, rightFunctionButtons, emptyMessage, ...props }, ref) => {
+const ObjectEditTable = forwardRef(({ properties, objects, objectsTimestamp = 1, identifierMaker, elementMaker, leftFunctionButtons, rightFunctionButtons, emptyMessage, ...props }, ref) => {
     const tableRef = useRef(null);
     useImperativeHandle(ref, () => {
         return tableRef.current;
@@ -29,10 +30,10 @@ const ObjectEditTable = forwardRef(({ properties, identifierMaker, objects, elem
         return id;
     }, []);
     const makeHeaderKey = (headerName) => {
-        return tableID.clone().append("-header-").append(headerName);
+        return tableID.clone().append("-").append(objectsTimestamp).append("-header-").append(headerName);
     };
     const makeRowKey = (object) => {
-        return tableID.clone().append("-").append(identifierMaker ? identifierMaker(object) : defaultIdentifierMaker(object));
+        return tableID.clone().append("-").append(objectsTimestamp).append("-").append(identifierMaker ? identifierMaker(object) : defaultIdentifierMaker(object));
     };
     const makeFieldKey = (object, fieldName) => {
         return makeRowKey(object).append("-").append(fieldName);
