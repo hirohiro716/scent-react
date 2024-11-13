@@ -130,7 +130,7 @@ const ObjectEditTable = forwardRef(({ properties, objects, objectsTimestamp = 1,
             }),
             objects.length === 0 &&
                 React.createElement("tr", null,
-                    React.createElement("td", { colSpan: [...Object.keys({ ...leftFunctionButtons }), ...objects, ...Object.keys({ ...rightFunctionButtons })].length },
+                    React.createElement("td", { colSpan: [...Object.keys({ ...leftFunctionButtons }), ...properties, ...Object.keys({ ...rightFunctionButtons })].length },
                         React.createElement("span", { style: { fontSize: "80%", opacity: "0.25" } }, typeof emptyMessage !== "undefined" ? emptyMessage : "情報がありません。"))))));
 });
 export default ObjectEditTable;

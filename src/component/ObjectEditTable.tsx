@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, MouseEvent, MouseEventHandler, ReactElement, ReactEventHandler, forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from "react";
+import React, { HTMLAttributes, MouseEvent, MouseEventHandler, ReactElement, ReactEventHandler, forwardRef, useImperativeHandle, useMemo, useRef } from "react";
 import { Property, StringObject } from "scent-typescript";
 
 type ObjectEditTableProps = HTMLAttributes<HTMLTableElement> & {
@@ -164,7 +164,7 @@ const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({pro
                 })}
                 {objects.length === 0 &&
                     <tr>
-                        <td colSpan={[...Object.keys({...leftFunctionButtons}), ...objects, ...Object.keys({...rightFunctionButtons})].length}>
+                        <td colSpan={[...Object.keys({...leftFunctionButtons}), ...properties, ...Object.keys({...rightFunctionButtons})].length}>
                             <span style={{fontSize:"80%", opacity:"0.25"}}>{typeof emptyMessage !== "undefined" ? emptyMessage : "情報がありません。"}</span>
                         </td>
                     </tr>
