@@ -6,10 +6,11 @@ import React, { forwardRef, useState } from "react";
  * @param baseDate 基本となる日付。未指定の場合は現在の日付になる。"data-base-date"属性値でも設定可能。
  * @param defaultDatetime 時刻の初期値。
  * @param isSelectAllOnFocus フォーカス時にテキストを全選択しない場合はfalseを指定。
+ * @param changeWithUpAndDownKeys 上下キー押下時に時刻を変更する場合に指定。
  * @param props
  * @returns
  */
-const TimeInput = forwardRef(({ baseDate, defaultDatetime, isSelectAllOnFocus = true, value, style, onFocus, onBlur, ...props }, ref) => {
+const TimeInput = forwardRef(({ baseDate, defaultDatetime, isSelectAllOnFocus = true, changeWithUpAndDownKeys = "none", value, style, onFocus, onBlur, onKeyDown, ...props }, ref) => {
     const inputInternalStyle = {};
     inputInternalStyle.width = "5em";
     inputInternalStyle.textAlign = "center";
@@ -41,6 +42,53 @@ const TimeInput = forwardRef(({ baseDate, defaultDatetime, isSelectAllOnFocus = 
             onBlur(event);
         }
     };
-    return (React.createElement("input", { type: "text", inputMode: "decimal", "data-base-date": baseDate, "data-datetime": datetime ? datetime.toString() : undefined, value: value, defaultValue: datetime ? datetime.toString(DatetimeFormat.hourAndMinute) : undefined, style: { ...style, ...inputInternalStyle }, onFocus: inputFocusEventHandler, onBlur: inputBlurEventHandler, ref: ref, ...props }));
+    const inputKeyDownEventHandler = (event) => {
+        const hoursAndMinutes = Datetime.timeStringToHoursAndMinutes(event.currentTarget.value);
+        if (hoursAndMinutes !== null && typeof changeWithUpAndDownKeys !== "undefined") {
+            const baseDate = StringObject.from(event.currentTarget.getAttribute("data-base-date")).toDatetime();
+            const inputDatetime = baseDate ? baseDate.clone() : new Datetime();
+            inputDatetime.setHour(hoursAndMinutes.hours);
+            inputDatetime.setMinute(hoursAndMinutes.minutes);
+            let changed = false;
+            switch (changeWithUpAndDownKeys) {
+                case "hours":
+                    switch (event.key) {
+                        case "ArrowUp":
+                            inputDatetime.addHour(1);
+                            changed = true;
+                            break;
+                        case "ArrowDown":
+                            inputDatetime.addHour(-1);
+                            changed = true;
+                            break;
+                    }
+                    break;
+                case "minutes":
+                    switch (event.key) {
+                        case "ArrowUp":
+                            inputDatetime.addMinute(1);
+                            changed = true;
+                            break;
+                        case "ArrowDown":
+                            inputDatetime.addMinute(-1);
+                            changed = true;
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            if (changed) {
+                setDatetime(inputDatetime);
+                event.currentTarget.value = inputDatetime.toString(DatetimeFormat.hourAndMinute);
+                event.currentTarget.select();
+                event.preventDefault();
+            }
+        }
+        if (onKeyDown) {
+            onKeyDown(event);
+        }
+    };
+    return (React.createElement("input", { type: "text", inputMode: "decimal", "data-base-date": baseDate, "data-datetime": datetime ? datetime.toString() : undefined, value: value, defaultValue: datetime ? datetime.toString(DatetimeFormat.hourAndMinute) : undefined, style: { ...style, ...inputInternalStyle }, onFocus: inputFocusEventHandler, onBlur: inputBlurEventHandler, onKeyDown: inputKeyDownEventHandler, ref: ref, ...props }));
 });
 export default TimeInput;
