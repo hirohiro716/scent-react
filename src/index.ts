@@ -2,6 +2,7 @@ import Scroller from "./class/Scroller.js";
 import FocusNavigator from "./class/FocusNavigator.js";
 import StillCamera from "./class/StillCamera.js";
 import JANCodeReader from "./class/JANCodeReader.js";
+import CanvasStringRenderer from "./class/CanvasStringRenderer.js"
 import Geolocation from "./class/Geolocation.js";
 
 import WaitingCircle from "./component/WaitingCircle.js";
@@ -29,6 +30,6 @@ import StillCameraPopup from "./component/StillCameraPopup.js";
 import JANCodeReaderPopup from "./component/JANCodeReaderPopup.js";
 
 export {
-    Scroller, FocusNavigator, StillCamera, JANCodeReader, Geolocation,
+    Scroller, FocusNavigator, StillCamera, JANCodeReader, CanvasStringRenderer, Geolocation,
     WaitingCircle, WaitingOverlay, AutocompleteInput, TimeInput, NearbyDateTouchInput, NearbyMonthTouchInput, NearbyTimeTouchInput, Button, ObjectEditTable, RecordTable, Popup, ConfirmationDialog, SelectionDialog, TextareaDialog, DatetimeInputDialog, DateInputDialog, MonthInputDialog, ObjectEditTableDialog, ErrorBanner, NoticeBanner, ImageViewer, StillCameraPopup, JANCodeReaderPopup, 
 }
