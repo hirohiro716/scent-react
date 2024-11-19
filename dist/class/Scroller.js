@@ -1,7 +1,7 @@
 /**
  * スクロール位置を記憶するクラス。
  */
-class Scroller {
+export default class Scroller {
     /**
      * コンストラクタ。スクロール可能な要素のRefObjectを指定する。
      *
@@ -47,4 +47,3 @@ class Scroller {
         }
     }
 }
-export default Scroller;

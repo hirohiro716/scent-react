@@ -1,7 +1,7 @@
 /**
  * フォーカスをナビゲートするクラス。
  */
-declare class FocusNavigator {
+export default class FocusNavigator {
     /**
      * コンストラクタ。フォーカスさせる要素のクラス名を指定する。
      *
@@ -24,4 +24,3 @@ declare class FocusNavigator {
      */
     previous(currentElement: HTMLElement): void;
 }
-export default FocusNavigator;
