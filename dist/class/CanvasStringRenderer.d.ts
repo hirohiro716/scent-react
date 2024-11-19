@@ -1,4 +1,4 @@
-import { GraphicalString } from "scent-typescript";
+import { Dimension, GraphicalString } from "scent-typescript";
 /**
  * Canvasに文字列を描画するクラス。
  */
@@ -12,10 +12,7 @@ export default class CanvasStringRenderer extends GraphicalString<CanvasRenderin
     private extractSizeAndUnit;
     protected getFontSizeFromContext(): number;
     protected setFontSizeToContext(fontSize: number): void;
-    protected measureTextSize(text: string): {
-        width: number;
-        ascent: number;
-        descent: number;
-    };
+    protected measureTextSize(text: string): Dimension;
+    fill(x: number, y: number): Dimension;
     protected fillText(text: string, x: number, y: number): void;
 }

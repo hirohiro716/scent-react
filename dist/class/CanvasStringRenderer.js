@@ -39,9 +39,16 @@ export default class CanvasStringRenderer extends GraphicalString {
     }
     measureTextSize(text) {
         const metrics = this.context.measureText(text);
-        return { width: metrics.width, ascent: metrics.actualBoundingBoxAscent, descent: metrics.fontBoundingBoxDescent };
+        return { width: metrics.width, height: metrics.actualBoundingBoxAscent + metrics.fontBoundingBoxDescent };
+    }
+    fill(x, y) {
+        this.context.textBaseline = "top";
+        this.context.textAlign = "left";
+        return super.fill(x, y);
     }
     fillText(text, x, y) {
+        this.context.textBaseline = "top";
+        this.context.textAlign = "left";
         this.context.fillText(text, x, y);
     }
 }

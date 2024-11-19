@@ -1,4 +1,4 @@
-import { GraphicalString, StringObject } from "scent-typescript";
+import { Dimension, GraphicalString, StringObject } from "scent-typescript";
 
 /**
  * Canvasに文字列を描画するクラス。
@@ -42,12 +42,20 @@ export default class CanvasStringRenderer extends GraphicalString<CanvasRenderin
         }
     }
 
-    protected measureTextSize(text: string): { width: number; ascent: number; descent: number; } {
+    protected measureTextSize(text: string): Dimension {
         const metrics = this.context.measureText(text);
-        return {width: metrics.width, ascent: metrics.actualBoundingBoxAscent, descent: metrics.fontBoundingBoxDescent};
+        return {width: metrics.width, height: metrics.actualBoundingBoxAscent + metrics.fontBoundingBoxDescent};
+    }
+
+    public fill(x: number, y: number): Dimension {
+        this.context.textBaseline = "top";
+        this.context.textAlign = "left";
+        return super.fill(x, y);
     }
 
     protected fillText(text: string, x: number, y: number): void {
+        this.context.textBaseline = "top";
+        this.context.textAlign = "left";
         this.context.fillText(text, x, y);
     }
 }
