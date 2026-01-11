@@ -4,8 +4,8 @@ import { StringObject } from "scent-typescript";
  * レコードを表示するテーブルコンポーネント。
  *
  * @param columns カラムの配列。
- * @param identifierMaker
- * @param records レコードのオブジェクトから一意の値を作成するコールバック。未指定の場合は行番号が使用される。
+ * @param records 行オブジェクトの配列。
+ * @param identifierMaker レコードのオブジェクトから一意の値を作成するコールバック。未指定の場合は行番号が使用される。
  * @param elementMaker フィールドに表示する要素を作成するコールバック。
  * @param leftFunctionButtons データ列の左側に表示するボタンを作成するコールバック。
  * @param rightFunctionButtons データ列の右側に表示するボタンを作成するコールバック。
