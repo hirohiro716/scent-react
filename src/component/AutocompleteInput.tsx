@@ -221,7 +221,7 @@ const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>((
             id.append("idless-autocomplete-input");
         }
         return id;
-    }, []);
+    }, [props.id, props.name]);
     const keyMaker = (index: number) :string => {
         return keyPrefix.clone().append("-").append(index).toString();
     }

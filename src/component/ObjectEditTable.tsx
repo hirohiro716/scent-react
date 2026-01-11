@@ -40,7 +40,7 @@ const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({pro
             id.append("idless-object-edit-table");
         }
         return id;
-    }, []);
+    }, [props.id]);
     const makeHeaderKey = (headerName: string): StringObject => {
         return tableID.clone().append("-").append(objectsTimestamp).append("-header-").append(headerName);
     }

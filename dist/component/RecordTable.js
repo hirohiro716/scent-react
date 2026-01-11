@@ -32,7 +32,7 @@ const RecordTable = forwardRef(({ columns, identifierMaker, records, elementMake
             id.append("idless-record-table");
         }
         return id;
-    }, []);
+    }, [props.id]);
     const makeHeaderKey = (headerName) => {
         return tableID.clone().append("-header-").append(headerName);
     };

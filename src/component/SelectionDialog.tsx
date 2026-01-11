@@ -131,7 +131,7 @@ const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showi
             id.append("idless-selection-dialog");
         }
         return id;
-    }, []);
+    }, [props.id]);
     return (
         <Popup showing={showing} dispatch={dispatch} width={width} isCloseOnBackgroundClick={false} closeButtonStyle={{display:"none"}} overlayBackgroundStyle={overlayBackgroundStyle} cancelFunction={cancelFunction} ref={ref} {...props}>
             <pre style={preStyle} tabIndex={0} ref={preRef}>{message}</pre>

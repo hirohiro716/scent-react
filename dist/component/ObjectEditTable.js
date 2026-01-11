@@ -28,7 +28,7 @@ const ObjectEditTable = forwardRef(({ properties, objects, objectsTimestamp = 1,
             id.append("idless-object-edit-table");
         }
         return id;
-    }, []);
+    }, [props.id]);
     const makeHeaderKey = (headerName) => {
         return tableID.clone().append("-").append(objectsTimestamp).append("-header-").append(headerName);
     };

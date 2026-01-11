@@ -121,7 +121,7 @@ const SelectionDialog = forwardRef(({ showing, dispatch, message, selectableItem
             id.append("idless-selection-dialog");
         }
         return id;
-    }, []);
+    }, [props.id]);
     return (React.createElement(Popup, { showing: showing, dispatch: dispatch, width: width, isCloseOnBackgroundClick: false, closeButtonStyle: { display: "none" }, overlayBackgroundStyle: overlayBackgroundStyle, cancelFunction: cancelFunction, ref: ref, ...props },
         React.createElement("pre", { style: preStyle, tabIndex: 0, ref: preRef }, message),
         React.createElement("form", { style: formStyle, ref: formRef, onSubmit: (e) => e.preventDefault() }, Array.from(new Set(selectableItems)).map((selectableItem) => {

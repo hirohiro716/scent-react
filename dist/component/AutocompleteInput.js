@@ -217,7 +217,7 @@ const AutocompleteInput = forwardRef(({ items, displayTextMaker, keywordMaker, c
             id.append("idless-autocomplete-input");
         }
         return id;
-    }, []);
+    }, [props.id, props.name]);
     const keyMaker = (index) => {
         return keyPrefix.clone().append("-").append(index).toString();
     };
