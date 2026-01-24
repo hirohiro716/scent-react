@@ -61,6 +61,10 @@ const SortableTable = forwardRef(({ columns, records, dispatch, identifierMaker,
         }
         for (const tr of tableRef.current.querySelectorAll("tr")) {
             tr.style.opacity = "";
+            const div = tr.querySelector("div");
+            if (div && div.getAttribute("data-id")) {
+                div.style.cursor = "grab";
+            }
         }
         if (dragElementRef.current === null || dragElementRef.current.style.display === "none") {
             return;
@@ -75,6 +79,10 @@ const SortableTable = forwardRef(({ columns, records, dispatch, identifierMaker,
         }
         const tr = maybeTableRowElement;
         tr.style.opacity = "0.2";
+        const div = tr.querySelector("div");
+        if (div && div.getAttribute("data-id")) {
+            div.style.cursor = "grabbing";
+        }
     };
     const changeSortNumber = (destinationElement) => {
         if (typeof records === "undefined" || dragElementRef.current === null) {
@@ -138,7 +146,7 @@ const SortableTable = forwardRef(({ columns, records, dispatch, identifierMaker,
         window.document.body.onmouseup = mouseUpEventHandler;
     };
     const tableRowMouseUpEventHandler = (event) => {
-        if (typeof records === "undefined" || dragElementRef.current === null) {
+        if (typeof records === "undefined" || dragElementRef.current === null || event.button !== 0) {
             return;
         }
         event.preventDefault();
@@ -227,6 +235,7 @@ const SortableTable = forwardRef(({ columns, records, dispatch, identifierMaker,
         const id = new StringObject(identifierMaker ? identifierMaker(record) : defaultIdentifierMaker(record));
         const style = {};
         style.userSelect = "none";
+        style.cursor = "grab";
         if (isSafari) {
             style.WebkitUserSelect = "none";
         }
@@ -237,7 +246,9 @@ const SortableTable = forwardRef(({ columns, records, dispatch, identifierMaker,
             return;
         }
         for (const td of tableRef.current.querySelectorAll("td")) {
-            td.style.padding = "0";
+            if (td.getAttribute("colspan") === null) {
+                td.style.padding = "0";
+            }
         }
     }, [records]);
     return (React.createElement(React.Fragment, null,
