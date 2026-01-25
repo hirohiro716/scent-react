@@ -71,12 +71,9 @@ const SortableTable = forwardRef<HTMLTableElement, SortableListProps>(({columns,
         if (tableRef.current === null) {
             return;
         }
+        tableRef.current.style.cursor = dragElementRef.current === null || dragElementRef.current.style.display === "none" ? "grab" : "grabbing";
         for (const tr of tableRef.current.querySelectorAll("tr")) {
             tr.style.opacity = "";
-            const div = tr.querySelector("div");
-            if (div && div.getAttribute("data-id")) {
-                div.style.cursor = "grab";
-            }
         }
         if (dragElementRef.current === null || dragElementRef.current.style.display === "none") {
             return;
@@ -91,10 +88,6 @@ const SortableTable = forwardRef<HTMLTableElement, SortableListProps>(({columns,
         }
         const tr = maybeTableRowElement as HTMLTableRowElement;
         tr.style.opacity = "0.2";
-        const div = tr.querySelector("div");
-        if (div && div.getAttribute("data-id")) {
-            div.style.cursor = "grabbing";
-        }
     }
     const changeSortNumber = (destinationElement: HTMLElement): void => {
         if (typeof records === "undefined" || dragElementRef.current === null) {
@@ -247,7 +240,6 @@ const SortableTable = forwardRef<HTMLTableElement, SortableListProps>(({columns,
         const id = new StringObject(identifierMaker ? identifierMaker(record) : defaultIdentifierMaker(record));
         const style: CSSProperties = {};
         style.userSelect = "none";
-        style.cursor = "grab";
         if (isSafari) {
             style.WebkitUserSelect = "none";
         }
@@ -271,7 +263,7 @@ const SortableTable = forwardRef<HTMLTableElement, SortableListProps>(({columns,
     }, [records]);
     return (
         <>
-            <RecordTable id={tableID.toString()} columns={columns ? columns : []} records={records ? records : []} identifierMaker={identifierMaker} elementMaker={fieldElementMaker} ref={tableRef} {...props} />
+            <RecordTable id={tableID.toString()} columns={columns ? columns : []} records={records ? records : []} identifierMaker={identifierMaker} elementMaker={fieldElementMaker} style={{cursor: "grab"}} ref={tableRef} {...props} />
             <table><tbody><tr style={dragStyle} ref={dragElementRef}></tr></tbody></table>
         </>
     );

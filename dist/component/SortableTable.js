@@ -59,12 +59,9 @@ const SortableTable = forwardRef(({ columns, records, dispatch, identifierMaker,
         if (tableRef.current === null) {
             return;
         }
+        tableRef.current.style.cursor = dragElementRef.current === null || dragElementRef.current.style.display === "none" ? "grab" : "grabbing";
         for (const tr of tableRef.current.querySelectorAll("tr")) {
             tr.style.opacity = "";
-            const div = tr.querySelector("div");
-            if (div && div.getAttribute("data-id")) {
-                div.style.cursor = "grab";
-            }
         }
         if (dragElementRef.current === null || dragElementRef.current.style.display === "none") {
             return;
@@ -79,10 +76,6 @@ const SortableTable = forwardRef(({ columns, records, dispatch, identifierMaker,
         }
         const tr = maybeTableRowElement;
         tr.style.opacity = "0.2";
-        const div = tr.querySelector("div");
-        if (div && div.getAttribute("data-id")) {
-            div.style.cursor = "grabbing";
-        }
     };
     const changeSortNumber = (destinationElement) => {
         if (typeof records === "undefined" || dragElementRef.current === null) {
@@ -235,7 +228,6 @@ const SortableTable = forwardRef(({ columns, records, dispatch, identifierMaker,
         const id = new StringObject(identifierMaker ? identifierMaker(record) : defaultIdentifierMaker(record));
         const style = {};
         style.userSelect = "none";
-        style.cursor = "grab";
         if (isSafari) {
             style.WebkitUserSelect = "none";
         }
@@ -252,7 +244,7 @@ const SortableTable = forwardRef(({ columns, records, dispatch, identifierMaker,
         }
     }, [records]);
     return (React.createElement(React.Fragment, null,
-        React.createElement(RecordTable, { id: tableID.toString(), columns: columns ? columns : [], records: records ? records : [], identifierMaker: identifierMaker, elementMaker: fieldElementMaker, ref: tableRef, ...props }),
+        React.createElement(RecordTable, { id: tableID.toString(), columns: columns ? columns : [], records: records ? records : [], identifierMaker: identifierMaker, elementMaker: fieldElementMaker, style: { cursor: "grab" }, ref: tableRef, ...props }),
         React.createElement("table", null,
             React.createElement("tbody", null,
                 React.createElement("tr", { style: dragStyle, ref: dragElementRef })))));
