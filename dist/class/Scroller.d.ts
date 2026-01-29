@@ -8,7 +8,7 @@ export default class Scroller {
      *
      * @param scrollable
      */
-    constructor(scrollable?: RefObject<HTMLElement>);
+    constructor(scrollable?: RefObject<HTMLElement | null>);
     private scrollable;
     private top;
     private left;

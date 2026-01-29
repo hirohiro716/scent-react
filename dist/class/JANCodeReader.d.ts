@@ -8,7 +8,7 @@ export default class JANCodeReader {
      *
      * @param refObject
      */
-    constructor(refObject: RefObject<HTMLDivElement>);
+    constructor(refObject: RefObject<HTMLDivElement | null>);
     private refObject;
     private validator;
     /**

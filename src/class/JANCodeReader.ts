@@ -12,11 +12,11 @@ export default class JANCodeReader {
      * 
      * @param refObject 
      */
-    public constructor(refObject: RefObject<HTMLDivElement>) {
+    public constructor(refObject: RefObject<HTMLDivElement | null>) {
         this.refObject = refObject;
     }
 
-    private refObject: RefObject<HTMLDivElement>;
+    private refObject: RefObject<HTMLDivElement | null>;
 
     private validator: undefined | ((rawString: string) => boolean) = undefined;
 

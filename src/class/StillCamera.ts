@@ -10,11 +10,11 @@ export default class StillCamera {
      * 
      * @param refObject 
      */
-    public constructor(refObject: RefObject<HTMLDivElement>) {
+    public constructor(refObject: RefObject<HTMLDivElement | null>) {
         this.refObject = refObject;
     }
 
-    private refObject: RefObject<HTMLDivElement>;
+    private refObject: RefObject<HTMLDivElement | null>;
 
     private divDefaultChildNodes: undefined | ChildNode[] = undefined;
 

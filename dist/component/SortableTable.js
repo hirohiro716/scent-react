@@ -147,8 +147,8 @@ const SortableTable = forwardRef(({ columns, records, dispatch, identifierMaker,
     };
     // Sort at touch
     const [touchTimeoutHandle, setTouchTimeoutHandle] = useState();
-    const touchPointX = useRef();
-    const touchPointY = useRef();
+    const touchPointX = useRef(null);
+    const touchPointY = useRef(null);
     const defaultParentOverflowStyle = useRef("");
     const tableRowPointerDownEventHandler = (event) => {
         if (navigator.maxTouchPoints === 0) {
@@ -160,7 +160,7 @@ const SortableTable = forwardRef(({ columns, records, dispatch, identifierMaker,
         touchPointX.current = x;
         touchPointY.current = y;
         const handle = setTimeout(() => {
-            if (typeof touchPointX.current === "undefined" || typeof touchPointY.current === "undefined") {
+            if (touchPointX.current === null || touchPointY.current === null) {
                 return;
             }
             const differenceX = Math.abs(x - touchPointX.current);
@@ -193,7 +193,7 @@ const SortableTable = forwardRef(({ columns, records, dispatch, identifierMaker,
         if (typeof touchTimeoutHandle !== "undefined") {
             clearTimeout(touchTimeoutHandle);
         }
-        if (typeof touchPointX.current !== "undefined" && typeof touchPointY.current !== "undefined") {
+        if (touchPointX.current !== null && touchPointY.current !== null) {
             if (dragElementRef.current !== null) {
                 if (tableRef.current !== null && tableRef.current.parentElement !== null && dragElementRef.current.style.display !== "none") {
                     tableRef.current.parentElement.style.overflow = defaultParentOverflowStyle.current;

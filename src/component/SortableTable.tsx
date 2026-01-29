@@ -159,8 +159,8 @@ const SortableTable = forwardRef<HTMLTableElement, SortableListProps>(({columns,
     }
     // Sort at touch
     const [touchTimeoutHandle, setTouchTimeoutHandle] = useState<NodeJS.Timeout>();
-    const touchPointX = useRef<number>();
-    const touchPointY = useRef<number>();
+    const touchPointX = useRef<number>(null);
+    const touchPointY = useRef<number>(null);
     const defaultParentOverflowStyle = useRef<string>("");
     const tableRowPointerDownEventHandler: PointerEventHandler = (event: React.PointerEvent) => {
         if (navigator.maxTouchPoints === 0) {
@@ -172,7 +172,7 @@ const SortableTable = forwardRef<HTMLTableElement, SortableListProps>(({columns,
         touchPointX.current = x;
         touchPointY.current = y;
         const handle = setTimeout(() => {
-            if (typeof touchPointX.current === "undefined" || typeof touchPointY.current === "undefined") {
+            if (touchPointX.current === null || touchPointY.current === null) {
                 return;
             }
             const differenceX = Math.abs(x - touchPointX.current);
@@ -205,7 +205,7 @@ const SortableTable = forwardRef<HTMLTableElement, SortableListProps>(({columns,
         if (typeof touchTimeoutHandle !== "undefined") {
             clearTimeout(touchTimeoutHandle);
         }
-        if (typeof touchPointX.current !== "undefined" && typeof touchPointY.current !== "undefined") {
+        if (touchPointX.current !== null && touchPointY.current !== null) {
             if (dragElementRef.current !== null) {
                 if (tableRef.current !== null && tableRef.current.parentElement !== null && dragElementRef.current.style.display !== "none") {
                     tableRef.current.parentElement.style.overflow = defaultParentOverflowStyle.current;

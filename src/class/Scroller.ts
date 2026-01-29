@@ -10,11 +10,11 @@ export default class Scroller {
      * 
      * @param scrollable 
      */
-    public constructor(scrollable?: RefObject<HTMLElement>) {
+    public constructor(scrollable?: RefObject<HTMLElement | null>) {
         this.scrollable = scrollable;
     }
 
-    private scrollable: RefObject<HTMLElement> | undefined;
+    private scrollable: RefObject<HTMLElement | null> | undefined;
 
     private top: number = 0;
 

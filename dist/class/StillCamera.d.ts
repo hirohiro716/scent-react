@@ -8,7 +8,7 @@ export default class StillCamera {
      *
      * @param refObject
      */
-    constructor(refObject: RefObject<HTMLDivElement>);
+    constructor(refObject: RefObject<HTMLDivElement | null>);
     private refObject;
     private divDefaultChildNodes;
     private mediaStream;
