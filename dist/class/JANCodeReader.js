@@ -1,5 +1,5 @@
 // @ts-ignore
-import Quagga from "quagga";
+import Quagga from "@ericblade/quagga2";
 /**
  * バーコードリーダーのクラス。
  */
@@ -91,10 +91,14 @@ export default class JANCodeReader {
                     type: "LiveStream",
                     target: this.refObject.current,
                     constraints: {
-                        width: { min: 800, max: 1920 },
-                        height: { min: 600, max: 1080 },
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 },
                         aspectRatio: { min: 4 / 3, max: 16 / 9 },
-                        facingMode: "environment"
+                        facingMode: "environment",
+                        advanced: [
+                            { focusMode: "continuous" },
+                            { zoom: 1.5 }
+                        ]
                     },
                     area: {
                         top: "0%",
@@ -107,6 +111,7 @@ export default class JANCodeReader {
                     patchSize: "medium"
                 },
                 numOfWorkers: numOfWorkers,
+                frequency: 20,
                 decoder: {
                     readers: [
                         "ean_reader",
