@@ -8,17 +8,17 @@
         "build": "rm -rf dist/; tsc"
     },
     "dependencies": {
-        "@ericblade/quagga2": "^1.12.1",
+        "@ericblade/quagga2": "~1.12.1",
         "scent-typescript": "git+https://github.com/hirohiro716/scent-typescript.git"
     },
     "devDependencies": {
-        "typescript": "^5",
-        "react": "^19",
-        "react-dom": "^19",
-        "@types/node": "^20",
-        "@types/react": "^19",
-        "@types/react-dom": "^19",
-        "eslint": "^9"
+        "typescript": "~5",
+        "react": "~19",
+        "react-dom": "~19",
+        "@types/node": "~20",
+        "@types/react": "~19",
+        "@types/react-dom": "~19",
+        "eslint": "~9"
     },
     "repository": {
         "type": "git",
