@@ -1,4 +1,3 @@
-// @ts-ignore
 import Quagga from "@ericblade/quagga2";
 /**
  * バーコードリーダーのクラス。

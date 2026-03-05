@@ -10,6 +10,7 @@ import { StringObject } from "scent-typescript";
  * @param selectableItems 選択可能なアイテムの配列。
  * @param displayTextMaker アイテムの表示値を作成するコールバック。
  * @param isMultipleSelectionAllowed アイテムの複数選択を許可する場合はtrueを指定する。
+ * @param isSwitchButtonEnabled 切り替えボタンを有効にする場合はtrueを指定する。
  * @param defaultSelections デフォルトで選択するアイテムの配列。
  * @param selectFunction OKボタン押下時の処理。
  * @param cancelFunction キャンセルボタン押下時の処理。
@@ -18,15 +19,15 @@ import { StringObject } from "scent-typescript";
  * @param props
  * @returns
  */
-const SelectionDialog = forwardRef(({ showing, dispatch, message, selectableItems, displayTextMaker, isMultipleSelectionAllowed = true, defaultSelections = [], selectFunction, cancelFunction, width, overlayBackgroundStyle, ...props }, ref) => {
+const SelectionDialog = forwardRef(({ showing, dispatch, message, selectableItems, displayTextMaker, isMultipleSelectionAllowed = true, isSwitchButtonEnabled = false, defaultSelections = [], selectFunction, cancelFunction, width, overlayBackgroundStyle, ...props }, ref) => {
     const preStyle = {};
     preStyle.width = "100%";
     preStyle.paddingBottom = "1em";
     preStyle.whiteSpace = "pre-wrap";
     const formStyle = {};
     formStyle.maxHeight = "calc(100vh - 20em)";
-    formStyle.marginBottom = "1em";
-    formStyle.padding = "1em 0.5em";
+    formStyle.marginBottom = "2em";
+    formStyle.padding = "0 0.5em";
     formStyle.display = "flex";
     formStyle.flexDirection = "row";
     formStyle.justifyContent = "left";
@@ -37,6 +38,10 @@ const SelectionDialog = forwardRef(({ showing, dispatch, message, selectableItem
     labelStyle.display = "flex";
     labelStyle.flexDirection = "row";
     labelStyle.gap = "0.1em";
+    const anchorStyle = {};
+    anchorStyle.width = "100%";
+    anchorStyle.marginBottom = "1em";
+    anchorStyle.textAlign = "right";
     const buttonsStyle = {};
     buttonsStyle.display = "flex";
     buttonsStyle.flexDirection = "row";
@@ -63,6 +68,15 @@ const SelectionDialog = forwardRef(({ showing, dispatch, message, selectableItem
                 setSelectedItems(items.filter((item) => item !== e.currentTarget.name));
             }
         }
+    };
+    const switchEvent = () => {
+        const switchedItems = [];
+        for (const selectableItem of selectableItems) {
+            if (selectedItems.includes(selectableItem) === false) {
+                switchedItems.push(selectableItem);
+            }
+        }
+        setSelectedItems(switchedItems);
     };
     const [alreadyPressed, setAlreadyPressed] = useState(false);
     const okEvent = async (e) => {
@@ -130,6 +144,9 @@ const SelectionDialog = forwardRef(({ showing, dispatch, message, selectableItem
                 React.createElement("input", { type: "checkbox", name: selectableItem, value: "true", checked: selectedItems.includes(selectableItem), onChange: checkChangeEventHandler }),
                 displayText ? displayText : selectableItem));
         })),
+        isMultipleSelectionAllowed && isSwitchButtonEnabled &&
+            React.createElement("div", { style: anchorStyle },
+                React.createElement("a", { onClick: switchEvent }, "\u9078\u629E\u5207\u308A\u66FF\u3048")),
         React.createElement("div", { style: buttonsStyle },
             React.createElement("button", { type: "button", onClick: okEvent }, "OK"),
             React.createElement("button", { type: "button", onClick: cancelEvent }, "\u30AD\u30E3\u30F3\u30BB\u30EB"))));

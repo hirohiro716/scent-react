@@ -9,6 +9,7 @@ type SelectionDialogProps = HTMLAttributes<HTMLDivElement> & {
     selectableItems: string[],
     displayTextMaker?: (selectableItem: string) => string | undefined,
     isMultipleSelectionAllowed?: boolean,
+    isSwitchButtonEnabled?: boolean,
     defaultSelections?: string[],
     selectFunction?: (selectedItems: string[]) => Promise<void>,
     cancelFunction?: () => Promise<void>,
@@ -25,6 +26,7 @@ type SelectionDialogProps = HTMLAttributes<HTMLDivElement> & {
  * @param selectableItems 選択可能なアイテムの配列。
  * @param displayTextMaker アイテムの表示値を作成するコールバック。
  * @param isMultipleSelectionAllowed アイテムの複数選択を許可する場合はtrueを指定する。
+ * @param isSwitchButtonEnabled 切り替えボタンを有効にする場合はtrueを指定する。
  * @param defaultSelections デフォルトで選択するアイテムの配列。
  * @param selectFunction OKボタン押下時の処理。
  * @param cancelFunction キャンセルボタン押下時の処理。
@@ -33,15 +35,15 @@ type SelectionDialogProps = HTMLAttributes<HTMLDivElement> & {
  * @param props 
  * @returns 
  */
-const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showing, dispatch, message, selectableItems, displayTextMaker, isMultipleSelectionAllowed = true, defaultSelections=[], selectFunction, cancelFunction, width, overlayBackgroundStyle, ...props}, ref): ReactElement => {
+const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showing, dispatch, message, selectableItems, displayTextMaker, isMultipleSelectionAllowed = true, isSwitchButtonEnabled = false, defaultSelections=[], selectFunction, cancelFunction, width, overlayBackgroundStyle, ...props}, ref): ReactElement => {
     const preStyle: CSSProperties = {};
     preStyle.width = "100%";
     preStyle.paddingBottom = "1em";
     preStyle.whiteSpace = "pre-wrap";
     const formStyle: CSSProperties = {};
     formStyle.maxHeight = "calc(100vh - 20em)";
-    formStyle.marginBottom = "1em";
-    formStyle.padding = "1em 0.5em";
+    formStyle.marginBottom = "2em";
+    formStyle.padding = "0 0.5em";
     formStyle.display = "flex";
     formStyle.flexDirection = "row";
     formStyle.justifyContent = "left";
@@ -52,6 +54,10 @@ const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showi
     labelStyle.display = "flex";
     labelStyle.flexDirection = "row";
     labelStyle.gap = "0.1em";
+    const anchorStyle: CSSProperties = {};
+    anchorStyle.width = "100%";
+    anchorStyle.marginBottom = "1em";
+    anchorStyle.textAlign = "right";
     const buttonsStyle: CSSProperties = {};
     buttonsStyle.display = "flex";
     buttonsStyle.flexDirection = "row";
@@ -75,6 +81,15 @@ const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showi
                 setSelectedItems(items.filter((item) => item !== e.currentTarget.name));
             }
         }
+    }
+    const switchEvent = () => {
+        const switchedItems: string[] = [];
+        for (const selectableItem of selectableItems) {
+            if (selectedItems.includes(selectableItem) === false) {
+                switchedItems.push(selectableItem);
+            }
+        }
+        setSelectedItems(switchedItems);
     }
     const [alreadyPressed, setAlreadyPressed] = useState<boolean>(false);
     const okEvent = async (e: MouseEvent) => {
@@ -146,6 +161,11 @@ const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showi
                     );
                 })}
             </form>
+            {isMultipleSelectionAllowed && isSwitchButtonEnabled &&
+                <div style={anchorStyle}>
+                    <a onClick={switchEvent}>選択切り替え</a>
+                </div>
+            }
             <div style={buttonsStyle}>
                 <button type="button" onClick={okEvent}>OK</button>
                 <button type="button" onClick={cancelEvent}>キャンセル</button>
