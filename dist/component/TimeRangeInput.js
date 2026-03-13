@@ -22,8 +22,8 @@ const TimeRangeInput = ({ value, dispatch, style, ...props }) => {
         dispatch([value1.toString(), value2.toString()]);
     };
     return (React.createElement("div", { style: { ...divInternalStyle, ...style }, ...props },
-        React.createElement("input", { type: "time", defaultValue: value && value[0], onChange: changeEventHandler, ref: inputRef1, style: { width: "5em", textAlign: "center" } }),
+        React.createElement("input", { type: "time", defaultValue: value && value[0], onChange: changeEventHandler, ref: inputRef1, style: { width: "6em", textAlign: "center" } }),
         "\u301C",
-        React.createElement("input", { type: "time", defaultValue: value && value[1], onChange: changeEventHandler, ref: inputRef2, style: { width: "5em", textAlign: "center" } })));
+        React.createElement("input", { type: "time", defaultValue: value && value[1], onChange: changeEventHandler, ref: inputRef2, style: { width: "6em", textAlign: "center" } })));
 };
 export default TimeRangeInput;

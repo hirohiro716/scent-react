@@ -29,9 +29,9 @@ const TimeRangeInput = ({value, dispatch, style, ...props}: TimeRangeInputProps)
     }
     return (
         <div style={{...divInternalStyle, ...style}} {...props}>
-            <input type="time" defaultValue={value && value[0]} onChange={changeEventHandler} ref={inputRef1} style={{width:"5em", textAlign:"center"}} />
+            <input type="time" defaultValue={value && value[0]} onChange={changeEventHandler} ref={inputRef1} style={{width:"6em", textAlign:"center"}} />
             〜
-            <input type="time" defaultValue={value && value[1]} onChange={changeEventHandler} ref={inputRef2} style={{width:"5em", textAlign:"center"}} />
+            <input type="time" defaultValue={value && value[1]} onChange={changeEventHandler} ref={inputRef2} style={{width:"6em", textAlign:"center"}} />
         </div>
     );
 }
