@@ -12,7 +12,7 @@ import React, { forwardRef, useState } from "react";
  */
 const TimeInput = forwardRef(({ baseDate, defaultDatetime, isSelectAllOnFocus = true, changeWithUpAndDownKeys = "none", value, style, onFocus, onBlur, onKeyDown, ...props }, ref) => {
     const inputInternalStyle = {};
-    inputInternalStyle.width = "5em";
+    inputInternalStyle.width = "6em";
     inputInternalStyle.textAlign = "center";
     const [datetime, setDatetime] = useState(StringObject.from(defaultDatetime).toDatetime());
     const inputFocusEventHandler = (event) => {

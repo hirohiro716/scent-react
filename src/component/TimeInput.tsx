@@ -20,7 +20,7 @@ type TimeInputProps = InputHTMLAttributes<HTMLInputElement> & {
  */
 const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(({baseDate, defaultDatetime, isSelectAllOnFocus = true, changeWithUpAndDownKeys = "none", value, style, onFocus, onBlur, onKeyDown, ...props}: TimeInputProps, ref): ReactElement => {
     const inputInternalStyle: CSSProperties = {};
-    inputInternalStyle.width = "5em";
+    inputInternalStyle.width = "6em";
     inputInternalStyle.textAlign = "center";
     const [datetime, setDatetime] = useState<Datetime | null>(StringObject.from(defaultDatetime).toDatetime());
     const inputFocusEventHandler: ReactEventHandler<HTMLInputElement> = (event: React.FocusEvent<HTMLInputElement>) => {
