@@ -48,6 +48,7 @@ const ErrorBanner = forwardRef<HTMLDivElement, ErrorBannerProps>(({message, disp
     preStyle.height = "100%";
     preStyle.color = "inherit";
     preStyle.whiteSpace = "pre-wrap";
+    preStyle.overflowWrap = "anywhere";
     const closeEventHandler = () => {
         dispatch("");
     }

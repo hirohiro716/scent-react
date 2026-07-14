@@ -40,6 +40,7 @@ const ErrorBanner = forwardRef(({ message, dispatch, top, width, style, ...props
     preStyle.height = "100%";
     preStyle.color = "inherit";
     preStyle.whiteSpace = "pre-wrap";
+    preStyle.overflowWrap = "anywhere";
     const closeEventHandler = () => {
         dispatch("");
     };

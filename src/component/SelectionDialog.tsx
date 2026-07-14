@@ -40,6 +40,7 @@ const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showi
     preStyle.width = "100%";
     preStyle.paddingBottom = "1em";
     preStyle.whiteSpace = "pre-wrap";
+    preStyle.overflowWrap = "anywhere";
     const formStyle: CSSProperties = {};
     formStyle.maxHeight = "calc(100vh - 20em)";
     formStyle.marginBottom = "2em";

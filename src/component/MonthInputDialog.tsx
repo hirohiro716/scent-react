@@ -34,6 +34,7 @@ const MonthInputDialog = forwardRef<HTMLDivElement, MonthInputDialogProps>(({sho
     preStyle.width = "100%";
     preStyle.paddingBottom = "1em";
     preStyle.whiteSpace = "pre-wrap";
+    preStyle.overflowWrap = "anywhere";
     const formStyle: CSSProperties = {};
     formStyle.padding = "1em 0.5em 2em";
     formStyle.display = "flex";

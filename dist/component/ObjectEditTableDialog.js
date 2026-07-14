@@ -24,6 +24,7 @@ const ObjectEditTableDialog = forwardRef(({ showing, dispatch, message, properti
     preStyle.width = "100%";
     preStyle.paddingBottom = "1em";
     preStyle.whiteSpace = "pre-wrap";
+    preStyle.overflowWrap = "anywhere";
     const tableStyle = {};
     tableStyle.maxHeight = "calc(100vh - 20em)";
     tableStyle.marginBottom = "1em";

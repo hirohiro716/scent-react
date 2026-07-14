@@ -24,6 +24,7 @@ const SelectionDialog = forwardRef(({ showing, dispatch, message, selectableItem
     preStyle.width = "100%";
     preStyle.paddingBottom = "1em";
     preStyle.whiteSpace = "pre-wrap";
+    preStyle.overflowWrap = "anywhere";
     const formStyle = {};
     formStyle.maxHeight = "calc(100vh - 20em)";
     formStyle.marginBottom = "2em";

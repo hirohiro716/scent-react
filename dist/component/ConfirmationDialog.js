@@ -18,6 +18,7 @@ const ConfirmationDialog = forwardRef(({ showing, dispatch, message, okFunction,
     preStyle.width = "100%";
     preStyle.paddingBottom = "2em";
     preStyle.whiteSpace = "pre-wrap";
+    preStyle.overflowWrap = "anywhere";
     const buttonsStyle = {};
     buttonsStyle.display = "flex";
     buttonsStyle.flexDirection = "row";

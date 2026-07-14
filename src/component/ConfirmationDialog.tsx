@@ -29,6 +29,7 @@ const ConfirmationDialog = forwardRef<HTMLDivElement, ConfirmationDialogProps>((
     preStyle.width = "100%";
     preStyle.paddingBottom = "2em";
     preStyle.whiteSpace = "pre-wrap";
+    preStyle.overflowWrap = "anywhere";
     const buttonsStyle: CSSProperties = {};
     buttonsStyle.display = "flex";
     buttonsStyle.flexDirection = "row";
