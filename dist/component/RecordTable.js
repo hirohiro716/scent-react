@@ -102,4 +102,5 @@ const RecordTable = forwardRef(({ columns, identifierMaker, records, elementMake
                     React.createElement("td", { colSpan: [...Object.keys({ ...leftFunctionButtons }), ...columns, ...Object.keys({ ...rightFunctionButtons })].length },
                         React.createElement("span", { style: { fontSize: "80%", opacity: "0.25" } }, typeof emptyMessage !== "undefined" ? emptyMessage : "レコードが見つかりません。"))))));
 });
+RecordTable.displayName = "RecordTable";
 export default RecordTable;

@@ -90,4 +90,5 @@ const ObjectEditTableDialog = forwardRef<HTMLDivElement, ObjectEditTableDialogPr
         </Popup>
     );
 });
+ObjectEditTableDialog.displayName = "ObjectEditTableDialog";
 export default ObjectEditTableDialog;

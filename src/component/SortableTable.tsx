@@ -158,7 +158,7 @@ const SortableTable = forwardRef<HTMLTableElement, SortableListProps>(({columns,
         changeSortNumber(event.target as HTMLDivElement);
     }
     // Sort at touch
-    const [touchTimeoutHandle, setTouchTimeoutHandle] = useState<NodeJS.Timeout>();
+    const [touchTimeoutHandle, setTouchTimeoutHandle] = useState<any>();
     const touchPointX = useRef<number>(null);
     const touchPointY = useRef<number>(null);
     const defaultParentOverflowStyle = useRef<string>("");
@@ -268,4 +268,5 @@ const SortableTable = forwardRef<HTMLTableElement, SortableListProps>(({columns,
         </>
     );
 });
+SortableTable.displayName = "SortableTable";
 export default SortableTable;

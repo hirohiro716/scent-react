@@ -38,4 +38,5 @@ const WaitingCircle = forwardRef<HTMLImageElement, HTMLAttributes<HTMLImageEleme
         <img src={src} style={{...style, ...{transform: transform}}} ref={ref} {...imageProps} />
     );
 });
+WaitingCircle.displayName = "WaitingCircle";
 export default WaitingCircle;

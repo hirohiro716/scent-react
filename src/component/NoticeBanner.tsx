@@ -38,4 +38,5 @@ const NoticeBanner = forwardRef<HTMLDivElement, NoticeBannerProps>(({message, di
         <ErrorBanner message={message} dispatch={dispatch} top={top} width={width} style={{...bannerStyle, ...style}} ref={ref} {...props} />
     );
 });
+NoticeBanner.displayName = "NoticeBanner";
 export default NoticeBanner;

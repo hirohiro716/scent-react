@@ -102,4 +102,5 @@ const DateInputDialog = forwardRef<HTMLDivElement, DateInputDialogProps>(({showi
         </Popup>
     );
 });
+DateInputDialog.displayName = "DateInputDialog";
 export default DateInputDialog;

@@ -81,4 +81,5 @@ const TextareaDialog = forwardRef(({ showing, dispatch, message, defaultValue, o
             React.createElement("button", { type: "button", onClick: okEvent }, "OK"),
             React.createElement("button", { type: "button", onClick: cancelEvent }, "\u30AD\u30E3\u30F3\u30BB\u30EB"))));
 });
+TextareaDialog.displayName = "TextareaDialog";
 export default TextareaDialog;

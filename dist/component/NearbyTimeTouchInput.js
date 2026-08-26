@@ -67,4 +67,5 @@ const NearbyTimeTouchInput = forwardRef(({ date, dispatch, incrementMinutes = 10
             React.createElement("button", { type: "button", onClick: goForwardMinute, style: { ...buttonElementInternalStyle, ...buttonStyle } }, "\u2191"),
             React.createElement("button", { type: "button", onClick: goBackMinute, style: { ...buttonElementInternalStyle, ...buttonStyle } }, "\u2193"))));
 });
+NearbyTimeTouchInput.displayName = "NearbyTimeTouchInput";
 export default NearbyTimeTouchInput;

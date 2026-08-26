@@ -133,4 +133,5 @@ const ObjectEditTable = forwardRef(({ properties, objects, objectsTimestamp = 1,
                     React.createElement("td", { colSpan: [...Object.keys({ ...leftFunctionButtons }), ...properties, ...Object.keys({ ...rightFunctionButtons })].length },
                         React.createElement("span", { style: { fontSize: "80%", opacity: "0.25" } }, typeof emptyMessage !== "undefined" ? emptyMessage : "情報がありません。"))))));
 });
+ObjectEditTable.displayName = "ObjectEditTable";
 export default ObjectEditTable;

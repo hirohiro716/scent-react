@@ -34,4 +34,5 @@ const WaitingCircle = forwardRef(({ ...props }, ref) => {
     const { style, ...imageProps } = props;
     return (React.createElement("img", { src: src, style: { ...style, ...{ transform: transform } }, ref: ref, ...imageProps }));
 });
+WaitingCircle.displayName = "WaitingCircle";
 export default WaitingCircle;

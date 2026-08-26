@@ -79,4 +79,5 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>(({showing, dispatch, width,
         </>
     );
 });
+Popup.displayName = "Popup";
 export default Popup;

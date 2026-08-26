@@ -249,4 +249,5 @@ const SortableTable = forwardRef(({ columns, records, dispatch, identifierMaker,
             React.createElement("tbody", null,
                 React.createElement("tr", { style: dragStyle, ref: dragElementRef })))));
 });
+SortableTable.displayName = "SortableTable";
 export default SortableTable;

@@ -48,4 +48,5 @@ const ErrorBanner = forwardRef(({ message, dispatch, top, width, style, ...props
         React.createElement("div", { style: { ...bannerStyle, ...style }, onClick: closeEventHandler, ref: ref, ...props },
             React.createElement("pre", { style: preStyle }, message))))));
 });
+ErrorBanner.displayName = "ErrorBanner";
 export default ErrorBanner;

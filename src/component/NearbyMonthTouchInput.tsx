@@ -51,4 +51,5 @@ const NearbyMonthTouchInput = forwardRef<HTMLDivElement, NearbyMonthTouchInputPr
         </div>
     );
 });
+NearbyMonthTouchInput.displayName = "NearbyMonthTouchInput";
 export default NearbyMonthTouchInput;

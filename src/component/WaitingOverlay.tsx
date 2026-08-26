@@ -29,4 +29,5 @@ const WaitingOverlay = forwardRef<HTMLDivElement, WaitingOverlayProps>(({showing
         </Popup>
     );
 });
+WaitingOverlay.displayName = "WaitingOverlay";
 export default WaitingOverlay;

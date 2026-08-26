@@ -174,4 +174,5 @@ const SelectionDialog = forwardRef<HTMLDivElement, SelectionDialogProps>(({showi
         </Popup>
     );
 });
+SelectionDialog.displayName = "SelectionDialog";
 export default SelectionDialog;

@@ -27,4 +27,5 @@ const NoticeBanner = forwardRef(({ message, dispatch, top, width, timeoutMillise
     }, [message, dispatch, timeoutMilliseconds]);
     return (React.createElement(ErrorBanner, { message: message, dispatch: dispatch, top: top, width: width, style: { ...bannerStyle, ...style }, ref: ref, ...props }));
 });
+NoticeBanner.displayName = "NoticeBanner";
 export default NoticeBanner;

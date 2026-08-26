@@ -69,4 +69,5 @@ const ObjectEditTableDialog = forwardRef(({ showing, dispatch, message, properti
         React.createElement("div", { style: buttonsStyle },
             React.createElement("button", { type: "button", onClick: closeEvent }, "\u9589\u3058\u308B"))));
 });
+ObjectEditTableDialog.displayName = "ObjectEditTableDialog";
 export default ObjectEditTableDialog;

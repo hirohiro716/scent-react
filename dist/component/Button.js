@@ -42,4 +42,5 @@ const Button = forwardRef(({ wait, style, children, ...props }, ref) => {
         children,
         wait && (React.createElement(WaitingCircle, { style: { height: '1em', marginLeft: '0.2em' } }))));
 });
+Button.displayName = "Button";
 export default Button;

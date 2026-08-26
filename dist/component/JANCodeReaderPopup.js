@@ -49,4 +49,5 @@ const JANCodeReaderPopup = forwardRef(({ showing, dispatch, callbackAfterReading
         React.createElement("div", { style: { ...divStyle, ...style }, ref: divRef },
             React.createElement(WaitingCircle, { style: imgStyle }))));
 });
+JANCodeReaderPopup.displayName = "JANCodeReaderPopup";
 export default JANCodeReaderPopup;

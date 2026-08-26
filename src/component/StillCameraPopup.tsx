@@ -134,4 +134,5 @@ const StillCameraPopup = forwardRef<HTMLDivElement, StillCameraPopupProps>(({sho
         </Popup>
     );
 });
+StillCameraPopup.displayName = "StillCameraPopup";
 export default StillCameraPopup;

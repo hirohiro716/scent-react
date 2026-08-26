@@ -35,4 +35,5 @@ const TimeRangeInput = ({value, dispatch, style, ...props}: TimeRangeInputProps)
         </div>
     );
 }
+TimeRangeInput.displayName = "TimeRangeInput";
 export default TimeRangeInput;

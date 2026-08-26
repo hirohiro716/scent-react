@@ -251,4 +251,5 @@ const AutocompleteInput = forwardRef<HTMLInputElement, AutocompleteInputProps>((
         </>
     );
 });
+AutocompleteInput.displayName = "AutocompleteInput";
 export default AutocompleteInput;

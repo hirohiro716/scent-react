@@ -66,4 +66,5 @@ const ErrorBanner = forwardRef<HTMLDivElement, ErrorBannerProps>(({message, disp
         </>
     );
 });
+ErrorBanner.displayName = "ErrorBanner";
 export default ErrorBanner;

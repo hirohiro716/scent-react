@@ -173,4 +173,5 @@ const ObjectEditTable = forwardRef<HTMLTableElement, ObjectEditTableProps>(({pro
         </table>
     );
 });
+ObjectEditTable.displayName = "ObjectEditTable";
 export default ObjectEditTable;

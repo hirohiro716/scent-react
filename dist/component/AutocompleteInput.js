@@ -230,4 +230,5 @@ const AutocompleteInput = forwardRef(({ items, displayTextMaker, keywordMaker, c
                 return (React.createElement("li", { "data-text": displayText, "data-keyword": keywordMaker ? keywordMaker(item) : item, style: StringObject.from(displayText).equals(hoverItem) ? hoverItemStyle : (StringObject.from(displayText).equals(selectedItemDisplayText) ? selectedItemStyle : itemStyle), onMouseEnter: itemMouseEnterEventHandler, onMouseLeave: itemMouseLeaveEventHandler, onMouseDown: itemMouseDownEventHandler, onMouseUp: itemMouseUpEventHandler, key: keyMaker(index), tabIndex: -1 }, displayText));
             })))));
 });
+AutocompleteInput.displayName = "AutocompleteInput";
 export default AutocompleteInput;

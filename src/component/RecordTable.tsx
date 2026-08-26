@@ -141,4 +141,5 @@ const RecordTable = forwardRef<HTMLTableElement, RecordTableProps>(({columns, id
         </table>
     );
 });
+RecordTable.displayName = "RecordTable";
 export default RecordTable;

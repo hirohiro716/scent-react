@@ -102,4 +102,5 @@ const ImageViewer = forwardRef<HTMLDivElement, ImageViewerProps>(({src, dispatch
         </>
     );
 });
+ImageViewer.displayName = "ImageViewer";
 export default ImageViewer;

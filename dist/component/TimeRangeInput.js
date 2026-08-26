@@ -26,4 +26,5 @@ const TimeRangeInput = ({ value, dispatch, style, ...props }) => {
         "\u301C",
         React.createElement("input", { type: "time", defaultValue: value && value[1], onChange: changeEventHandler, ref: inputRef2, style: { width: "6em", textAlign: "center" } })));
 };
+TimeRangeInput.displayName = "TimeRangeInput";
 export default TimeRangeInput;

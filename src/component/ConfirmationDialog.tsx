@@ -84,4 +84,5 @@ const ConfirmationDialog = forwardRef<HTMLDivElement, ConfirmationDialogProps>((
         </Popup>
     );
 });
+ConfirmationDialog.displayName = "ConfirmationDialog";
 export default ConfirmationDialog;

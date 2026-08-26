@@ -11,5 +11,8 @@ type TimeRangeInputProps = HTMLAttributes<HTMLDivElement> & {
  * @param props
  * @returns
  */
-declare const TimeRangeInput: ({ value, dispatch, style, ...props }: TimeRangeInputProps) => React.JSX.Element;
+declare const TimeRangeInput: {
+    ({ value, dispatch, style, ...props }: TimeRangeInputProps): React.JSX.Element;
+    displayName: string;
+};
 export default TimeRangeInput;

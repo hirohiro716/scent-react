@@ -39,4 +39,5 @@ const NearbyDateTouchInput = forwardRef(({ date, dispatch, style, inputStyle, bu
             React.createElement("button", { type: "button", onClick: goForwardDay, style: { ...buttonInternalStyle, ...buttonStyle } }, "\u2191"),
             React.createElement("button", { type: "button", onClick: goBackDay, style: { ...buttonInternalStyle, ...buttonStyle } }, "\u2193"))));
 });
+NearbyDateTouchInput.displayName = "NearbyDateTouchInput";
 export default NearbyDateTouchInput;

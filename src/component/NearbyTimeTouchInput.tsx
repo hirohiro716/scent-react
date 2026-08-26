@@ -84,4 +84,5 @@ const NearbyTimeTouchInput = forwardRef<HTMLDivElement, NearbyTimeTouchInputProp
         </div>
     );
 });
+NearbyTimeTouchInput.displayName = "NearbyTimeTouchInput";
 export default NearbyTimeTouchInput;

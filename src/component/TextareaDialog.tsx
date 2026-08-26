@@ -99,4 +99,5 @@ const TextareaDialog = forwardRef<HTMLDivElement, TextareaDialogProps>(({showing
         </Popup>
     );
 });
+TextareaDialog.displayName = "TextareaDialog";
 export default TextareaDialog;

@@ -85,4 +85,5 @@ const ImageViewer = forwardRef(({ src, dispatch, isCloseOnBackgroundClick = true
                 React.createElement("img", { onLoad: imageOnLoad, style: { maxWidth: "calc(100vw - 5em)", maxHeight: "calc(100vh - 5em)", display: "none", border: "1px solid #ccc" }, ref: imageRef }),
                 React.createElement(WaitingCircle, { style: waitingCircleStyle, ref: waitingCircleRef })))))));
 });
+ImageViewer.displayName = "ImageViewer";
 export default ImageViewer;

@@ -121,4 +121,5 @@ const MonthInputDialog = forwardRef(({ showing, dispatch, message, defaultValue,
             React.createElement("button", { type: "button", onClick: okEvent }, "OK"),
             React.createElement("button", { type: "button", onClick: cancelEvent }, "\u30AD\u30E3\u30F3\u30BB\u30EB"))));
 });
+MonthInputDialog.displayName = "MonthInputDialog";
 export default MonthInputDialog;

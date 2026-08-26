@@ -140,4 +140,5 @@ const MonthInputDialog = forwardRef<HTMLDivElement, MonthInputDialogProps>(({sho
         </Popup>
     );
 });
+MonthInputDialog.displayName = "MonthInputDialog";
 export default MonthInputDialog;

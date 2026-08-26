@@ -100,4 +100,5 @@ const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(({baseDate, defau
         <input type="text" inputMode="decimal" data-base-date={baseDate} data-datetime={datetime ? datetime.toString() : undefined} value={value} defaultValue={datetime ? datetime.toString(DatetimeFormat.hourAndMinute) : undefined} style={{...style, ...inputInternalStyle}} onFocus={inputFocusEventHandler} onBlur={inputBlurEventHandler} onKeyDown={inputKeyDownEventHandler} ref={ref} {...props} />
     );
 });
+TimeInput.displayName = "TimeInput";
 export default TimeInput;

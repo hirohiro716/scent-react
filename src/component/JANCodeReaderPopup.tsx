@@ -60,4 +60,5 @@ const JANCodeReaderPopup = forwardRef<HTMLDivElement, JANCodeReaderPopupProps>((
         </Popup>
     );
 });
+JANCodeReaderPopup.displayName = "JANCodeReaderPopup";
 export default JANCodeReaderPopup;

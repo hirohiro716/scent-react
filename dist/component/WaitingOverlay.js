@@ -18,4 +18,5 @@ const WaitingOverlay = forwardRef(({ showing, dispatch, width, overlayBackground
     return (React.createElement(Popup, { showing: showing, dispatch: dispatch, width: "200px", style: popupStyle, isCloseOnBackgroundClick: false, closeButtonStyle: { display: "none" }, overlayBackgroundStyle: { background: "rgba(255,255,255,0.98)", ...overlayBackgroundStyle }, ...props, ref: ref },
         React.createElement(WaitingCircle, { style: { width: width ? width : "4em" } })));
 });
+WaitingOverlay.displayName = "WaitingOverlay";
 export default WaitingOverlay;

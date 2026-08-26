@@ -61,4 +61,5 @@ const Popup = forwardRef(({ showing, dispatch, width, isCloseOnBackgroundClick =
             React.createElement("a", { style: { ...closeButtonInternalStyle, ...closeButtonStyle }, onClick: cancelEvent }, "\u00D7"),
             props.children)))));
 });
+Popup.displayName = "Popup";
 export default Popup;

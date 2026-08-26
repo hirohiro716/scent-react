@@ -120,4 +120,5 @@ const StillCameraPopup = forwardRef(({ showing, dispatch, mimeType = "image/png"
                     :
                         React.createElement("button", { type: "button", onClick: completeButtonEventHandler }, "\u5B8C\u4E86")))));
 });
+StillCameraPopup.displayName = "StillCameraPopup";
 export default StillCameraPopup;
