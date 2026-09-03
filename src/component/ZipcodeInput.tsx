@@ -48,7 +48,7 @@ const ZipcodeInput = forwardRef<HTMLInputElement, ZipcodeInputProps>(({addressIn
         }
     }
     return (
-        <input type="tel" inputMode="tel" autoComplete="tel-extension" maxLength={7} onBlur={blurEventHandler} ref={inputRef} {...props} />
+        <input type="tel" inputMode="tel" autoComplete="tel-extension" maxLength={8} onBlur={blurEventHandler} ref={inputRef} {...props} />
     );
 });
 ZipcodeInput.displayName = "ZipcodeInput";

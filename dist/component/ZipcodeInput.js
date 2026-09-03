@@ -43,7 +43,7 @@ const ZipcodeInput = forwardRef(({ addressInputRef, ...props }, ref) => {
             }
         }
     };
-    return (React.createElement("input", { type: "tel", inputMode: "tel", autoComplete: "tel-extension", maxLength: 7, onBlur: blurEventHandler, ref: inputRef, ...props }));
+    return (React.createElement("input", { type: "tel", inputMode: "tel", autoComplete: "tel-extension", maxLength: 8, onBlur: blurEventHandler, ref: inputRef, ...props }));
 });
 ZipcodeInput.displayName = "ZipcodeInput";
 export default ZipcodeInput;
