@@ -1,4 +1,4 @@
-import { forwardRef, InputHTMLAttributes, ReactElement, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, InputHTMLAttributes, ReactElement, useEffect, useImperativeHandle, useRef, useState } from "react";
 import React from "react";
 import { StringObject, Zipcode } from "scent-typescript";
 
@@ -47,8 +47,15 @@ const ZipcodeInput = forwardRef<HTMLInputElement, ZipcodeInputProps>(({addressIn
             }
         }
     }
+    useEffect(() => {
+        const zipcodeInput = inputRef.current;
+        if (zipcodeInput === null) {
+            return;
+        }
+        zipcodeInput.addEventListener("blur", blurEventHandler);
+    }, []);
     return (
-        <input type="tel" inputMode="tel" autoComplete="tel-extension" maxLength={8} onBlur={blurEventHandler} ref={inputRef} {...props} />
+        <input type="tel" inputMode="tel" autoComplete="tel-extension" maxLength={8} ref={inputRef} {...props} />
     );
 });
 ZipcodeInput.displayName = "ZipcodeInput";
