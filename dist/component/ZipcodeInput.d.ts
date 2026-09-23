@@ -9,5 +9,6 @@ import React from "react";
  */
 declare const ZipcodeInput: React.ForwardRefExoticComponent<InputHTMLAttributes<HTMLInputElement> & {
     addressInputRef: React.RefObject<HTMLInputElement | null>;
+    callbackAfterZipcodeToAddress?: (address: string) => Promise<void>;
 } & React.RefAttributes<HTMLInputElement>>;
 export default ZipcodeInput;

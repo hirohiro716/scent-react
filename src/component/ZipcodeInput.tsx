@@ -4,6 +4,7 @@ import { StringObject, Zipcode } from "scent-typescript";
 
 type ZipcodeInputProps = InputHTMLAttributes<HTMLInputElement> & {
     addressInputRef: React.RefObject<HTMLInputElement | null>,
+    callbackAfterZipcodeToAddress?: (address: string) => Promise<void>,
 }
 
 /**
@@ -13,7 +14,7 @@ type ZipcodeInputProps = InputHTMLAttributes<HTMLInputElement> & {
  * @param props 
  * @returns 
  */
-const ZipcodeInput = forwardRef<HTMLInputElement, ZipcodeInputProps>(({addressInputRef, ...props}: ZipcodeInputProps, ref): ReactElement => {
+const ZipcodeInput = forwardRef<HTMLInputElement, ZipcodeInputProps>(({addressInputRef, callbackAfterZipcodeToAddress, ...props}: ZipcodeInputProps, ref): ReactElement => {
     const inputRef = useRef<HTMLInputElement>(null);
     useImperativeHandle(ref, () => {
         return inputRef.current!;
@@ -38,6 +39,9 @@ const ZipcodeInput = forwardRef<HTMLInputElement, ZipcodeInputProps>(({addressIn
             const address = StringObject.join([result.prefecture, result.address]).toString();
             addressInput.value = address;
             addressInput.setSelectionRange(address.length, address.length);
+            if (callbackAfterZipcodeToAddress) {
+                await callbackAfterZipcodeToAddress(address);
+            }
             setPreviousAddress(address);
         } catch (error: any) {
             if (error.message.includes("No address matches") && zipcode.equals(invalidZipcode) === false) {

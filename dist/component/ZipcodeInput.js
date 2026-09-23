@@ -8,7 +8,7 @@ import { StringObject, Zipcode } from "scent-typescript";
  * @param props
  * @returns
  */
-const ZipcodeInput = forwardRef(({ addressInputRef, ...props }, ref) => {
+const ZipcodeInput = forwardRef(({ addressInputRef, callbackAfterZipcodeToAddress, ...props }, ref) => {
     const inputRef = useRef(null);
     useImperativeHandle(ref, () => {
         return inputRef.current;
@@ -33,6 +33,9 @@ const ZipcodeInput = forwardRef(({ addressInputRef, ...props }, ref) => {
             const address = StringObject.join([result.prefecture, result.address]).toString();
             addressInput.value = address;
             addressInput.setSelectionRange(address.length, address.length);
+            if (callbackAfterZipcodeToAddress) {
+                await callbackAfterZipcodeToAddress(address);
+            }
             setPreviousAddress(address);
         }
         catch (error) {
