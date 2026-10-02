@@ -8,6 +8,7 @@ import Geolocation from "./class/Geolocation.js";
 import WaitingCircle from "./component/WaitingCircle.js";
 import WaitingOverlay from "./component/WaitingOverlay.js";
 import AutocompleteInput from "./component/AutocompleteInput.js";
+import NumberInput from "./component/NumberInput.js";
 import TimeInput from "./component/TimeInput.js";
 import TimeRangeInput from "./component/TimeRangeInput.js";
 import NearbyDateTouchInput from "./component/NearbyDateTouchInput.js";
@@ -34,5 +35,5 @@ import JANCodeReaderPopup from "./component/JANCodeReaderPopup.js";
 
 export {
     Scroller, FocusNavigator, StillCamera, JANCodeReader, CanvasStringRenderer, Geolocation,
-    WaitingCircle, WaitingOverlay, AutocompleteInput, TimeInput, TimeRangeInput, NearbyDateTouchInput, NearbyMonthTouchInput, NearbyTimeTouchInput, ZipcodeInput, Button, ObjectEditTable, RecordTable, SortableTable, Popup, ConfirmationDialog, SelectionDialog, TextareaDialog, DatetimeInputDialog, DateInputDialog, MonthInputDialog, ObjectEditTableDialog, ErrorBanner, NoticeBanner, ImageViewer, StillCameraPopup, JANCodeReaderPopup,
+    WaitingCircle, WaitingOverlay, AutocompleteInput, NumberInput, TimeInput, TimeRangeInput, NearbyDateTouchInput, NearbyMonthTouchInput, NearbyTimeTouchInput, ZipcodeInput, Button, ObjectEditTable, RecordTable, SortableTable, Popup, ConfirmationDialog, SelectionDialog, TextareaDialog, DatetimeInputDialog, DateInputDialog, MonthInputDialog, ObjectEditTableDialog, ErrorBanner, NoticeBanner, ImageViewer, StillCameraPopup, JANCodeReaderPopup,
 }
