@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { forwardRef, useRef } from "react";
 import { StringObject } from "scent-typescript";
 /**
  * 時間範囲を入力するコンポーネント。
@@ -8,7 +8,7 @@ import { StringObject } from "scent-typescript";
  * @param props
  * @returns
  */
-const TimeRangeInput = ({ value, dispatch, style, ...props }) => {
+const TimeRangeInput = forwardRef(({ value, dispatch, style, ...props }, ref) => {
     const divInternalStyle = {};
     divInternalStyle.display = "flex";
     divInternalStyle.flexDirection = "row";
@@ -21,10 +21,10 @@ const TimeRangeInput = ({ value, dispatch, style, ...props }) => {
         const value2 = new StringObject(inputRef2.current ? inputRef2.current.value : undefined);
         dispatch([value1.toString(), value2.toString()]);
     };
-    return (React.createElement("div", { style: { ...divInternalStyle, ...style }, ...props },
+    return (React.createElement("div", { style: { ...divInternalStyle, ...style }, ref: ref, ...props },
         React.createElement("input", { type: "time", defaultValue: value && value[0], onChange: changeEventHandler, ref: inputRef1, style: { width: "6em", textAlign: "center" } }),
         "\u301C",
         React.createElement("input", { type: "time", defaultValue: value && value[1], onChange: changeEventHandler, ref: inputRef2, style: { width: "6em", textAlign: "center" } })));
-};
+});
 TimeRangeInput.displayName = "TimeRangeInput";
 export default TimeRangeInput;

@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, CSSProperties, Dispatch, HTMLAttributes, SetStateAction, useRef } from "react";
+import React, { ChangeEventHandler, CSSProperties, Dispatch, forwardRef, HTMLAttributes, SetStateAction, useRef } from "react";
 import { StringObject } from "scent-typescript";
 
 type TimeRangeInputProps = HTMLAttributes<HTMLDivElement> & {
@@ -14,7 +14,7 @@ type TimeRangeInputProps = HTMLAttributes<HTMLDivElement> & {
  * @param props 
  * @returns 
  */
-const TimeRangeInput = ({value, dispatch, style, ...props}: TimeRangeInputProps) => {
+const TimeRangeInput = forwardRef<HTMLDivElement, TimeRangeInputProps>(({value, dispatch, style, ...props}: TimeRangeInputProps, ref) => {
     const divInternalStyle: CSSProperties = {};
     divInternalStyle.display = "flex";
     divInternalStyle.flexDirection = "row";
@@ -28,12 +28,12 @@ const TimeRangeInput = ({value, dispatch, style, ...props}: TimeRangeInputProps)
         dispatch([value1.toString(), value2.toString()]);
     }
     return (
-        <div style={{...divInternalStyle, ...style}} {...props}>
+        <div style={{...divInternalStyle, ...style}} ref={ref} {...props}>
             <input type="time" defaultValue={value && value[0]} onChange={changeEventHandler} ref={inputRef1} style={{width:"6em", textAlign:"center"}} />
             〜
             <input type="time" defaultValue={value && value[1]} onChange={changeEventHandler} ref={inputRef2} style={{width:"6em", textAlign:"center"}} />
         </div>
     );
-}
+});
 TimeRangeInput.displayName = "TimeRangeInput";
 export default TimeRangeInput;

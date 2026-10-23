@@ -1,8 +1,4 @@
-import React, { Dispatch, HTMLAttributes, SetStateAction } from "react";
-type TimeRangeInputProps = HTMLAttributes<HTMLDivElement> & {
-    value: string[] | undefined;
-    dispatch: Dispatch<SetStateAction<string[] | undefined>>;
-};
+import React, { Dispatch, SetStateAction } from "react";
 /**
  * 時間範囲を入力するコンポーネント。
  *
@@ -11,8 +7,8 @@ type TimeRangeInputProps = HTMLAttributes<HTMLDivElement> & {
  * @param props
  * @returns
  */
-declare const TimeRangeInput: {
-    ({ value, dispatch, style, ...props }: TimeRangeInputProps): React.JSX.Element;
-    displayName: string;
-};
+declare const TimeRangeInput: React.ForwardRefExoticComponent<React.HTMLAttributes<HTMLDivElement> & {
+    value: string[] | undefined;
+    dispatch: Dispatch<SetStateAction<string[] | undefined>>;
+} & React.RefAttributes<HTMLDivElement>>;
 export default TimeRangeInput;
