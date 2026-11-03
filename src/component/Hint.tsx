@@ -37,6 +37,8 @@ const Hint = forwardRef<HTMLParagraphElement, HintProps>(({targetSelector, anima
         paragraphAnimation.current.finished.then(() => {
             callback();
             paragraphAnimation.current = null;
+        }).catch(() => {
+            // nop
         });
     }
     const previousActiveElement = useRef<Element>(null);

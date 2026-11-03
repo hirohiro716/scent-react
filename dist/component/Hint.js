@@ -30,6 +30,8 @@ const Hint = forwardRef(({ targetSelector, animationForShowing, animationForHidi
         paragraphAnimation.current.finished.then(() => {
             callback();
             paragraphAnimation.current = null;
+        }).catch(() => {
+            // nop
         });
     };
     const previousActiveElement = useRef(null);
