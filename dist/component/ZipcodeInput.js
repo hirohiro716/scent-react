@@ -8,14 +8,35 @@ import { StringObject, Zipcode } from "scent-typescript";
  * @param props
  * @returns
  */
-const ZipcodeInput = forwardRef(({ addressInputRef, callbackAfterZipcodeToAddress, ...props }, ref) => {
+const ZipcodeInput = forwardRef(({ addressInputRef, callbackAfterZipcodeToAddress, onChange, onBlur, ...props }, ref) => {
     const inputRef = useRef(null);
     useImperativeHandle(ref, () => {
         return inputRef.current;
     });
     const [invalidZipcode, setInvalidZipcode] = useState(null);
     const [previousAddress, setPreviousAddress] = useState(null);
-    const blurEventHandler = async () => {
+    const changeEventHandler = (event) => {
+        const input = event.target;
+        const value = new StringObject();
+        for (const one of StringObject.from(input.value)) {
+            one.narrow();
+            if (one.toString().match("[0-9\\-]")) {
+                value.append(one);
+                continue;
+            }
+        }
+        const selectionStart = (input.selectionStart ? input.selectionStart : 0) - input.value.length + value.length();
+        const selectionEnd = (input.selectionEnd ? input.selectionEnd : 0) - input.value.length + value.length();
+        input.value = value.toString();
+        if (selectionStart >= 0 && selectionEnd >= 0) {
+            input.selectionStart = selectionStart;
+            input.selectionEnd = selectionEnd;
+        }
+        if (onChange) {
+            onChange(event);
+        }
+    };
+    const blurEventHandler = async (event) => {
         const zipcodeInput = inputRef.current;
         const addressInput = addressInputRef.current;
         if (zipcodeInput === null || addressInput === null) {
@@ -45,15 +66,17 @@ const ZipcodeInput = forwardRef(({ addressInputRef, callbackAfterZipcodeToAddres
                 zipcodeInput.focus();
             }
         }
+        if (onBlur) {
+            onBlur(event);
+        }
     };
     useEffect(() => {
         const zipcodeInput = inputRef.current;
         if (zipcodeInput === null) {
             return;
         }
-        zipcodeInput.addEventListener("blur", blurEventHandler);
     }, []);
-    return (React.createElement("input", { type: "tel", inputMode: "tel", autoComplete: "tel-extension", maxLength: 8, ref: inputRef, ...props }));
+    return (React.createElement("input", { type: "tel", inputMode: "tel", autoComplete: "tel-extension", maxLength: 8, onChange: changeEventHandler, onBlur: blurEventHandler, ref: inputRef, ...props }));
 });
 ZipcodeInput.displayName = "ZipcodeInput";
 export default ZipcodeInput;

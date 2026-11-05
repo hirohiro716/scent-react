@@ -1,4 +1,4 @@
-import { forwardRef, InputHTMLAttributes, ReactElement, useEffect, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, InputHTMLAttributes, ReactElement, ReactEventHandler, useEffect, useImperativeHandle, useRef, useState } from "react";
 import React from "react";
 import { StringObject, Zipcode } from "scent-typescript";
 
@@ -14,14 +14,35 @@ type ZipcodeInputProps = InputHTMLAttributes<HTMLInputElement> & {
  * @param props 
  * @returns 
  */
-const ZipcodeInput = forwardRef<HTMLInputElement, ZipcodeInputProps>(({addressInputRef, callbackAfterZipcodeToAddress, ...props}: ZipcodeInputProps, ref): ReactElement => {
+const ZipcodeInput = forwardRef<HTMLInputElement, ZipcodeInputProps>(({addressInputRef, callbackAfterZipcodeToAddress, onChange, onBlur, ...props}: ZipcodeInputProps, ref): ReactElement => {
     const inputRef = useRef<HTMLInputElement>(null);
     useImperativeHandle(ref, () => {
         return inputRef.current!;
     });
     const [invalidZipcode, setInvalidZipcode] = useState<string | null>(null);
     const [previousAddress, setPreviousAddress] = useState<string | null>(null);
-    const blurEventHandler = async () => {
+    const changeEventHandler: ReactEventHandler<HTMLInputElement> = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const input: HTMLInputElement = event.target as HTMLInputElement;
+        const value = new StringObject();
+        for (const one of StringObject.from(input.value)) {
+            one.narrow();
+            if (one.toString().match("[0-9\\-]")) {
+                value.append(one);
+                continue;
+            }
+        }
+        const selectionStart = (input.selectionStart ? input.selectionStart : 0) - input.value.length + value.length();
+        const selectionEnd = (input.selectionEnd ? input.selectionEnd : 0) - input.value.length + value.length();
+        input.value = value.toString();
+        if (selectionStart >= 0 && selectionEnd >= 0) {
+            input.selectionStart = selectionStart;
+            input.selectionEnd = selectionEnd;
+        }
+        if (onChange) {
+            onChange(event);
+        }
+    }
+    const blurEventHandler: ReactEventHandler<HTMLInputElement> = async (event: React.FocusEvent<HTMLInputElement>) => {
         const zipcodeInput = inputRef.current;
         const addressInput = addressInputRef.current;
         if (zipcodeInput === null || addressInput === null) {
@@ -50,16 +71,18 @@ const ZipcodeInput = forwardRef<HTMLInputElement, ZipcodeInputProps>(({addressIn
                 zipcodeInput.focus();
             }
         }
+        if (onBlur) {
+            onBlur(event);
+        }
     }
     useEffect(() => {
         const zipcodeInput = inputRef.current;
         if (zipcodeInput === null) {
             return;
         }
-        zipcodeInput.addEventListener("blur", blurEventHandler);
     }, []);
     return (
-        <input type="tel" inputMode="tel" autoComplete="tel-extension" maxLength={8} ref={inputRef} {...props} />
+        <input type="tel" inputMode="tel" autoComplete="tel-extension" maxLength={8} onChange={changeEventHandler} onBlur={blurEventHandler} ref={inputRef} {...props} />
     );
 });
 ZipcodeInput.displayName = "ZipcodeInput";
